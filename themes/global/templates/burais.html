@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }}</title>
+    
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/burais/css/main.css" type="text/css" />
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Titre & Slogan de la Famille Burais -->
+        <h1 class="site-title">{{ page.title }}</h1>
+        <div class="site-subtitle">
+            {{ page.content }}
+        </div>
+        
+        <!-- Zone des 3 boutons circulaires -->
+        <div class="circles-nav">
+            <!-- Lien vers la page locale Projets (Thème Alternatif Grille) -->
+            <a href="{{ SITEURL }}/pages/projets.html" class="circle-btn circle-projets">
+                <span class="circle-label">Projets</span>
+            </a>
+
+            <!-- Lien vers la page locale Aventures (Thème FindPenguins Voyage) -->
+            <a href="{{ SITEURL }}/pages/aventures.html" class="circle-btn circle-aventures">
+                <span class="circle-label">Aventures</span>
+            </a>
+
+            <!-- Lien externe direct vers Esperens -->
+            <a href="https://www.esperens.org" target="_blank" rel="noopener" class="circle-btn circle-esperens">
+                <span class="circle-label">Esperens</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    
+    /* Image brute, affichée telle quelle */
+    background-image: url("../images/bg-home.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Conteneur principal centré verticalement */
+.main-container {
+    max-width: 1000px; /* Élargi pour accueillir le texte plus grand */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+}
+
+/* TITRE : Augmenté à 1.5x (de 3.5rem à 5.25rem) */
+.site-title {
+    font-size: 5.25rem;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
+}
+
+/* SOUS-TITRE : Augmenté à 1.5x (de 1.6rem à 2.4rem) */
+.site-subtitle {
+    font-size: 2.4rem;
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.4;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
+    margin-bottom: 2rem;
+    max-width: 850px; /* Élargi pour une meilleure répartition des grands mots */
+}
+
+/* ==========================================
+   ZONE DES CERCLES (AGRANDIS À 1.5x)
+   ========================================== */
+.circles-nav {
+    position: absolute;
+    bottom: 40px; /* Légèrement remonté pour compenser leur grand diamètre */
+    display: flex;
+    gap: 40px; /* Espace augmenté entre les grands cercles */
+    justify-content: center;
+    align-items: center;
+}
+
+/* BOUTONS CERCLES : Augmentés à 1.5x (de 120px à 180px) */
+.circle-btn {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Bordure légèrement épaissie */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Images locales spécifiques */
+.circle-projets {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("../images/projets.jpg");
+}
+
+.circle-aventures {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("../images/aventures.png");
+}
+
+.circle-esperens {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("../images/esperens.png");
+}
+
+/* TEXTE DES CERCLES : Ajusté à 1.1rem pour être proportionnel au grand cercle */
+.circle-label {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    z-index: 2;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+}
+
+/* Animations au survol */
+.circle-btn:hover {
+    transform: scale(1.1); /* Effet d'échelle légèrement adouci car le bouton est déjà très grand */
+    border-color: #ffffff;
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
+}
