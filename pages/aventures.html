@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nos Carnets de Voyage</title>
+    <style>
+        body {
+            background-color: #eef2f5;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        /* Topbar typique style FindPenguins */
+        .travel-header {
+            background-color: #1a73e8; /* Bleu FindPenguins */
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .timeline-container {
+            max-width: 650px;
+            margin: 30px auto;
+            padding: 10px;
+        }
+        /* Transformation de la liste Markdown en étapes de voyage chronologiques */
+        .timeline-container ul {
+            padding: 0;
+            list-style: none;
+            border-left: 3px solid #1a73e8;
+            margin-left: 20px;
+        }
+        .timeline-container li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        /* Bulle d'étape sur la ligne */
+        .timeline-container li::before {
+            content: '';
+            position: absolute;
+            left: -11px;
+            top: 4px;
+            background: #1a73e8;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 3px solid #eef2f5;
+        }
+        .back-home { display: block; text-align: center; margin-bottom: 40px; color: #1a73e8; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="travel-header">
+        🗺️ FindPenguins Tracker - Nos Carnets de Voyage
+    </div>
+    <div class="timeline-container">
+        <ul>
+<li><strong>Expédition Kenya (2020) :</strong> À la rencontre des peuples Masaïs et Samburus dans le bush africain.</li>
+<li><strong>Steppes de Mongolie :</strong> Traversée en autonomie à la découverte des communautés logées en yourtes.</li>
+<li><strong>Village Lapon :</strong> Exploration hivernale au nord du cercle polaire auprès du peuple des Samis.</li>
+<li><strong>Périples Berbères :</strong> Immersion et camps nomades au cœur du désert du Sahara.</li>
+</ul>
+    </div>
+    <a href="https://github.io/" class="back-home">← Quitter le carnet de voyage</a>
+</body>
+</html>

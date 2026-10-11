@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ SITENAME }} - {{ page.title }}</title>
+    
+    <!-- Appel local et propre de la feuille de style du thème Burais -->
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/burais-main.css" type="text/css" />
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- Titre de la page -->
+        <h1 class="site-title">{{ page.title }}</h1>
+        
+        <!-- Slogan ou description principale -->
+        <div class="site-subtitle">
+            {{ page.content }}
+        </div>
+        
+        <!-- Bouton de redirection vers la sous-page au thème différent -->
+        <a href="{{ SITEURL }}/pages/suite.html" class="more-button">MORE</a>
+    </div>
+
+</body>
+</html>
