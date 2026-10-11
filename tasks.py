@@ -12,7 +12,7 @@ from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
 from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
 
 # --- CHARGEMENT SÉCURISÉ DES SÉCRETS ---
-from dotenv import load_model, load_dotenv
+from dotenv import load_dotenv
 load_dotenv() # Lit le fichier .env s'il existe
 # ----------------------------------------
 
