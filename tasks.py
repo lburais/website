@@ -11,6 +11,11 @@ from pelican import main as pelican_main
 from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
 from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
 
+# --- CHARGEMENT SÉCURISÉ DES SÉCRETS ---
+from dotenv import load_model, load_dotenv
+load_dotenv() # Lit le fichier .env s'il existe
+# ----------------------------------------
+
 OPEN_BROWSER_ON_SERVE = True
 SETTINGS_FILE_BASE = "pelicanconf.py"
 SETTINGS = {}
@@ -32,10 +37,10 @@ CONFIG = {
     # ==========================================
     # CONFIGURATION FTP POUR OVH
     # ==========================================
-    "ftp_host": "ftp.cluster014.hosting.ovh.net",  
-    "ftp_user": "burais",             
-    "ftp_pass": "Burais9496",              
-    "ftp_target_dir": "www/home",                       
+    "ftp_host": os.getenv("OVH_FTP_HOST"),
+    "ftp_user": os.getenv("OVH_FTP_USER"),
+    "ftp_pass": os.getenv("OVH_FTP_PASS"),            
+    "ftp_target_dir": os.getenv("OVH_FTP_DIR"),                       
 }
 
 
