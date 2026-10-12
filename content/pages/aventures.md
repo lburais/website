@@ -8,3 +8,5 @@ Save_as: pages/aventures.html
 - **Steppes de Mongolie :** Traversée en autonomie à la découverte des communautés logées en yourtes.
 - **Village Lapon :** Exploration hivernale au nord du cercle polaire auprès du peuple des Samis.
 - **Périples Berbères :** Immersion et camps nomades au cœur du désert du Sahara.
+
+- [Carnet de voyage de Franklin II]({filename}/pages/51xfd5fd05zj2/user.md)

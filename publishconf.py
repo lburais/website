@@ -14,7 +14,7 @@ from pelicanconf import *
 
 if os.environ.get("DEPLOY_TARGET") == "github":
     # ⚠️ Remplacez par votre pseudo et le nom de votre dépôt GitHub
-    SITEURL = "https://github.io"
+    SITEURL = "https://lburais.github.io/website"
 else:
     # ⚠️ Remplacez par votre nom de domaine final chez OVH
     SITEURL = "https://burais.fr"
