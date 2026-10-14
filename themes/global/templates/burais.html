@@ -16,19 +16,20 @@
             {{ page.content }}
         </div>
         
-        <!-- Zone des 3 boutons circulaires -->
+        <!-- Navigation circulaire -->
         <div class="circles-nav">
-            <!-- Lien vers la page locale Projets (Thème Alternatif Grille) -->
+            <a href="{{ SITEURL }}/pages/about.html" class="circle-btn circle-about">
+                <span class="circle-label">About</span>
+            </a>
+
             <a href="{{ SITEURL }}/pages/projets.html" class="circle-btn circle-projets">
                 <span class="circle-label">Projets</span>
             </a>
 
-            <!-- Lien vers la page locale Aventures (Thème FindPenguins Voyage) -->
             <a href="{{ SITEURL }}/pages/aventures.html" class="circle-btn circle-aventures">
                 <span class="circle-label">Aventures</span>
             </a>
 
-            <!-- Lien externe direct vers Esperens -->
             <a href="https://www.esperens.org" target="_blank" rel="noopener" class="circle-btn circle-esperens">
                 <span class="circle-label">Esperens</span>
             </a>

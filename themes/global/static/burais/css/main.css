@@ -5,9 +5,9 @@
 }
 
 body, html {
-    height: 100%;
+    min-height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
     
     /* Image brute, affichée telle quelle */
     background-image: url("../images/bg-home.jpg");
@@ -20,58 +20,54 @@ body, html {
     color: #ffffff;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     text-align: center;
 }
 
-/* Conteneur principal centré verticalement */
 .main-container {
-    max-width: 1000px; /* Élargi pour accueillir le texte plus grand */
-    padding: 20px;
+    width: min(100%, 1000px);
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0 auto;
+    padding: clamp(20px, 4vh, 40px) clamp(16px, 4vw, 40px);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    position: relative;
 }
 
-/* TITRE : Augmenté à 1.5x (de 3.5rem à 5.25rem) */
 .site-title {
-    font-size: 5.25rem;
+    font-size: clamp(2.5rem, 8vw, 5.25rem);
     font-weight: 700;
     letter-spacing: -1.5px;
-    margin-bottom: 1.5rem;
+    line-height: 1.05;
+    margin-bottom: clamp(12px, 3vh, 24px);
     text-shadow: 0 4px 16px rgba(0, 0, 0, 0.85);
 }
 
-/* SOUS-TITRE : Augmenté à 1.5x (de 1.6rem à 2.4rem) */
 .site-subtitle {
-    font-size: 2.4rem;
+    font-size: clamp(1.25rem, 4vw, 2.4rem);
     font-weight: 300;
     color: #ffffff;
     line-height: 1.4;
     text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
-    margin-bottom: 2rem;
-    max-width: 850px; /* Élargi pour une meilleure répartition des grands mots */
+    margin-bottom: clamp(16px, 4vh, 32px);
+    max-width: 850px;
 }
 
-/* ==========================================
-   ZONE DES CERCLES (AGRANDIS À 1.5x)
-   ========================================== */
 .circles-nav {
-    position: absolute;
-    bottom: 40px; /* Légèrement remonté pour compenser leur grand diamètre */
+    width: 100%;
     display: flex;
-    gap: 40px; /* Espace augmenté entre les grands cercles */
+    flex-wrap: wrap;
+    gap: clamp(12px, 2vw, 32px);
     justify-content: center;
     align-items: center;
 }
 
-/* BOUTONS CERCLES : Augmentés à 1.5x (de 120px à 180px) */
 .circle-btn {
-    width: 180px;
-    height: 180px;
+    width: clamp(92px, min(20vw, 20vh), 180px);
+    height: clamp(92px, min(20vw, 20vh), 180px);
+    flex: 0 0 auto;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -79,7 +75,7 @@ body, html {
     text-decoration: none;
     position: relative;
     overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.5); /* Bordure légèrement épaissie */
+    border: 2px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
     background-size: cover;
     background-position: center;
@@ -87,7 +83,10 @@ body, html {
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-/* Images locales spécifiques */
+.circle-about {
+    background-image: linear-gradient(135deg, #16a085, #0f766e);
+}
+
 .circle-projets {
     background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("../images/projets.jpg");
 }
@@ -100,7 +99,6 @@ body, html {
     background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url("../images/esperens.png");
 }
 
-/* TEXTE DES CERCLES : Ajusté à 1.1rem pour être proportionnel au grand cercle */
 .circle-label {
     color: #ffffff;
     font-size: 1.1rem;
@@ -111,9 +109,8 @@ body, html {
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
-/* Animations au survol */
 .circle-btn:hover {
-    transform: scale(1.1); /* Effet d'échelle légèrement adouci car le bouton est déjà très grand */
+    transform: scale(1.06);
     border-color: #ffffff;
     box-shadow: 0 8px 25px rgba(255, 255, 255, 0.35);
 }
