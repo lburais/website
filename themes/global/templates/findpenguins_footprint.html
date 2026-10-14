@@ -1,63 +1,119 @@
+{% set months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
+{% set media_dir = page.relative_source_path.rsplit('/', 1)[0] %}
+{% set day = page.day|int if page.day else 0 %}
+{% set days = page.days|int if page.days else 0 %}
+{% set nights = page.overnights|int if page.overnights else 0 %}
+{% set end_day = day + nights if nights > 0 else day %}
+{% set photos = page.photo.split(', ') if page.photo else [] %}
+{% set videos = page.video.split(', ') if page.video else [] %}
+{% set gpx_files = page.gpx.split(', ') if page.gpx else [] %}
+{% set pdf_files = page.pdf.split(', ') if page.pdf else [] %}
+{% set trip_slug = page.slug.rsplit('-etape-', 1)[0] %}
+{% set step = page.slug.rsplit('-etape-', 1)[1]|int %}
+{% set ns = namespace(trip=none, prev=none, next=none) %}
+{% for p in pages %}
+  {% if p.slug == trip_slug %}{% set ns.trip = p %}
+  {% elif p.slug == trip_slug ~ '-etape-' ~ (step - 1) %}{% set ns.prev = p %}
+  {% elif p.slug == trip_slug ~ '-etape-' ~ (step + 1) %}{% set ns.next = p %}
+  {% endif %}
+{% endfor %}
+{% set lat = page.lat|float if page.lat else none %}
+{% set lon = page.lon|float if page.lon else none %}
 <!DOCTYPE html>
 <html lang="{{ DEFAULT_LANG }}">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
-    <style>
-        body {
-            background-color: #eef2f5;
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        }
-        /* Topbar typique style FindPenguins */
-        .travel-header {
-            background-color: #1a73e8; /* Bleu FindPenguins */
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
-        .timeline-container {
-            max-width: 650px;
-            margin: 30px auto;
-            padding: 10px;
-        }
-        /* Transformation de la liste Markdown en étapes de voyage chronologiques */
-        .timeline-container ul {
-            padding: 0;
-            list-style: none;
-            border-left: 3px solid #1a73e8;
-            margin-left: 20px;
-        }
-        .timeline-container li {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 30px;
-        }
-        /* Bulle d'étape sur la ligne */
-        .timeline-container li::before {
-            content: '';
-            position: absolute;
-            left: -11px;
-            top: 4px;
-            background: #1a73e8;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 3px solid #eef2f5;
-        }
-        .back-home { display: block; text-align: center; margin-bottom: 40px; color: #1a73e8; text-decoration: none; }
-    </style>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/css/footprint.css" type="text/css" />
 </head>
 <body>
-    <div class="travel-header">
-        🗺️ FindPenguins Tracker - {{ page.title }}
-    </div>
-    <div class="timeline-container">
-        {{ page.content }}
-    </div>
-    <a href="{{ SITEURL }}/" class="back-home">← Quitter le carnet de voyage</a>
+    <article class="footprint">
+        <header class="fp-header">
+            <div class="fp-top">
+                <div class="fp-nav">
+                {% if ns.prev %}<a class="fp-arrow" href="{{ SITEURL }}/{{ ns.prev.url }}" title="{{ ns.prev.title }}">&#9664;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9664;</span>{% endif %}
+                {% if day %}
+                {% set ratio = [end_day / days * 100, 100]|min if days else 100 %}
+                <div class="fp-progress" aria-label="Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}{% if days %} sur {{ days }}{% endif %}">
+                    <div class="fp-progress-fill" style="width: {{ ratio|round(1) }}%"></div>
+                    <span class="fp-day" style="left: {{ ratio|round(1) }}%">Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}</span>
+                </div>
+                {% else %}
+                <div class="fp-progress-empty"></div>
+                {% endif %}
+                {% if ns.next %}<a class="fp-arrow" href="{{ SITEURL }}/{{ ns.next.url }}" title="{{ ns.next.title }}">&#9654;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9654;</span>{% endif %}
+                </div>
+
+                {% if lat is not none and lon is not none %}
+                <div class="fp-map">
+                    <div class="fp-map-frame"><iframe
+                        title="Carte"
+                        loading="lazy"
+                        src="https://www.openstreetmap.org/export/embed.html?bbox={{ lon - 0.5 }}%2C{{ lat - 0.35 }}%2C{{ lon + 0.5 }}%2C{{ lat + 0.35 }}&amp;layer=mapnik&amp;marker={{ lat }}%2C{{ lon }}"></iframe></div>
+                    <a class="fp-coords" href="https://www.openstreetmap.org/?mlat={{ lat }}&amp;mlon={{ lon }}#map=12/{{ lat }}/{{ lon }}" target="_blank" rel="noopener">
+                        {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+
+            <h1 class="fp-title">{{ page.title }}</h1>
+            <p class="fp-subtitle">
+                {% if page.flag %}<span class="fp-flag">{{ page.flag }}</span>{% endif %}
+                {% if page.date %}<span>{{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }}</span>{% endif %}
+                {% if page.country %}<span>, {{ page.country }}</span>{% endif %}
+                {% if page.city %}<span>, {{ page.city }}</span>{% endif %}
+            </p>
+            {% if ns.trip %}<p class="fp-subtitle fp-trip"><a href="{{ SITEURL }}/{{ ns.trip.url }}">{{ ns.trip.title }}</a></p>{% endif %}
+
+            <div class="fp-text">{{ page.content }}</div>
+
+            {% if gpx_files or pdf_files %}
+            <ul class="fp-files">
+                {% for f in gpx_files %}<li>🗺️ <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" download>{{ f }}</a></li>{% endfor %}
+                {% for f in pdf_files %}<li>📄 <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" target="_blank" rel="noopener">{{ f }}</a></li>{% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if page.weather or page.temperature or page.ele or page.overnights %}
+            <dl class="fp-facts">
+                {% if page.weather or page.temperature %}
+                <div>
+                    <dt>Météo</dt>
+                    <dd>{{ page.weather }}{% if page.temperature %} {{ page.temperature }} °C{% endif %}</dd>
+                </div>
+                {% endif %}
+                {% if page.ele %}
+                <div>
+                    <dt>Altitude</dt>
+                    <dd>{{ page.ele }} m</dd>
+                </div>
+                {% endif %}
+                {% if page.overnights %}
+                <div>
+                    <dt>Nuits</dt>
+                    <dd>{{ page.overnights }}</dd>
+                </div>
+                {% endif %}
+            </dl>
+            {% endif %}
+        </header>
+
+        {% if photos or videos %}
+        <section class="fp-media fp-media-{{ [photos|length, 3]|min }}">
+            {% for photo in photos %}
+            <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener">
+                <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ page.title }}" loading="lazy" />
+            </a>
+            {% endfor %}
+            {% for video in videos %}
+            <video controls preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}"></video>
+            {% endfor %}
+        </section>
+        {% endif %}
+    </article>
+
+    <a href="javascript:history.back()" class="fp-back">← Retour au carnet de voyage</a>
 </body>
 </html>

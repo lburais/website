@@ -26,7 +26,8 @@ THEME_STATIC_DIR = "theme"
 # On demande à Pelican de copier fidèlement l'intégralité du contenu du dossier static du thème.
 # Cela garantit que 'theme/burais/images/bg-home.jpg' et 'theme/burais/css/main.css' 
 # seront accessibles hors-ligne et localement par vos templates HTML.
-STATIC_PATHS = ["images"]
+# "pages" is included so footprint photos and videos are copied next to their generated pages.
+STATIC_PATHS = ["images", "pages"]
 
 # ==========================================
 # CONFIGURATION DES PAGES ET DES URLS
