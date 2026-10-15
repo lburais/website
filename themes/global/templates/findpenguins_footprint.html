@@ -38,7 +38,7 @@
                 <div class="fp-nav">
                 {% if ns.prev %}<a class="fp-arrow" href="{{ SITEURL }}/{{ ns.prev.url }}" title="{{ ns.prev.title }}">&#9664;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9664;</span>{% endif %}
                 {% if day %}
-                {% set ratio = [(day -1) / (days -1) * 100, 100]|min if days else 100 %}
+                {% set ratio = [(day - 1) / (days - 1) * 100, 100]|min if days > 1 else 100 %}
                 <div class="fp-progress" aria-label="Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}{% if days %}{% endif %}">
                     <div class="fp-progress-fill" style="width: {{ ratio|round(1) }}%"></div>
                     <span class="fp-day" style="left: {{ ratio|round(1) }}%">Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}{% if days %}{% endif %}</span>
