@@ -56,7 +56,21 @@
         🗺️ FindPenguins Tracker - {{ page.title }}
     </div>
     <div class="timeline-container">
-        {{ page.content }}
+        {% set ns = namespace(trips=[]) %}
+        {% for t in pages if t.template == 'findpenguins_trip' %}
+            {% set prefix = t.slug ~ '-etape-' %}
+            {% set ds = namespace(dates=[]) %}
+            {% for f in pages if f.slug.startswith(prefix) and f.date %}
+                {% set ds.dates = ds.dates + [f.date.strftime('%Y-%m-%d')] %}
+            {% endfor %}
+            {% set start = (ds.dates | sort | first) if ds.dates else '' %}
+            {% set ns.trips = ns.trips + [{'start': start, 'title': t.title, 'url': t.url}] %}
+        {% endfor %}
+        <ul class="trip-list">
+        {% for t in ns.trips | sort(attribute='start', reverse=True) %}
+            <li><span class="trip-date">{{ t.start }}</span> <a href="{{ SITEURL }}/{{ t.url }}">{{ t.title }}</a></li>
+        {% endfor %}
+        </ul>
     </div>
     <a href="{{ SITEURL }}/" class="back-home">← Quitter le carnet de voyage</a>
 </body>

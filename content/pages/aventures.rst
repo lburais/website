@@ -3,5 +3,3 @@
 :Slug: aventures
 :Template: findpenguins
 :Save_as: pages/aventures.html
-
-- `Carnet de voyage de Franklin II <{filename}/pages/51xfd5fd05zj2/user.rst>`_

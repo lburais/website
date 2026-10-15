@@ -34,8 +34,8 @@ STATIC_PATHS = ["images", "pages"]
 # ==========================================
 # Configuration pour s'assurer que la page d'accueil (index.html) soit générée proprement 
 # à partir de votre fichier Markdown 'home.md' sans interférence avec les articles de blog.
-PAGE_URL = "pages/{slug}.html"
-PAGE_SAVE_AS = "pages/{slug}.html"
+PAGE_URL = "{slug}.html"
+PAGE_SAVE_AS = "{slug}.html"
 
 # Désactiver les flux RSS/Atom pour le développement local
 FEED_ALL_ATOM = None
