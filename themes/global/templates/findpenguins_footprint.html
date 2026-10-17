@@ -28,7 +28,9 @@
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/css/footprint.css" type="text/css" />
     {% if lat is not none and lon is not none %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/js/country-map.js"></script>
     {% endif %}
 </head>
 <body>
@@ -50,16 +52,23 @@
                 </div>
 
                 {% if lat is not none and lon is not none %}
+                <div class="fp-coords" id="status" role="status"></div>
                 <div class="fp-map">
                     <div class="fp-map-frame" id="fp-country-map"
-                        data-lat="{{ lat }}"
-                        data-lon="{{ lon }}"
-                        data-country="{{ page.country|e }}"
-                        data-city="{{ page.city|e }}"
                         role="img"
                         aria-label="Carte de {{ page.city|default(page.country, true) }}"></div>
+
+                    <script>
+                        render_country("fp-country-map", [{
+                            name: {{ (page.city or page.country or "Point")|tojson }},
+                            lat: {{ lat }},
+                            lon: {{ lon }}
+                        }]);
+                    </script>
+
+
                     <a class="fp-coords" href="https://www.openstreetmap.org/?mlat={{ lat }}&amp;mlon={{ lon }}#map=12/{{ lat }}/{{ lon }}" target="_blank" rel="noopener">
-                        {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
+                        {{ (page.city or page.country or "Point")|tojson }}: {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
                     </a>
                 </div>
                 {% endif %}
@@ -97,12 +106,6 @@
                     <dd>{{ page.ele }} m</dd>
                 </div>
                 {% endif %}
-                {% if page.overnights %}
-                <div>
-                    <dt>Nuits</dt>
-                    <dd>{{ page.overnights }}</dd>
-                </div>
-                {% endif %}
             </dl>
             {% endif %}
         </header>
@@ -122,74 +125,6 @@
     </article>
 
     <a href="javascript:history.back()" class="fp-back">← Retour au carnet de voyage</a>
-    {% if lat is not none and lon is not none %}
-    <script>
-        (() => {
-            const container = document.getElementById("fp-country-map");
-            const lat = Number(container.dataset.lat);
-            const lon = Number(container.dataset.lon);
-            const map = L.map(container, {
-                zoomControl: false,
-                scrollWheelZoom: false,
-                attributionControl: true
-            }).setView([lat, lon], 5);
-            map.attributionControl.setPrefix(false);
-            map.attributionControl.addAttribution(
-                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
-            );
-            L.tileLayer("https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png", {
-                attribution: "",
-                subdomains: "abcd",
-                maxZoom: 20
-            }).addTo(map);
 
-            const country = container.dataset.country;
-            const addCityMarker = () => {
-                const cityMarker = L.marker([lat, lon]).addTo(map);
-                if (container.dataset.city) {
-                    const popup = document.createElement("strong");
-                    popup.textContent = container.dataset.city;
-                    cityMarker.bindPopup(popup);
-                }
-            };
-
-            if (!country) {
-                addCityMarker();
-                return;
-            }
-
-            const boundaryUrl = new URL("https://nominatim.openstreetmap.org/search");
-            boundaryUrl.search = new URLSearchParams({
-                q: country,
-                featuretype: "country",
-                format: "geojson",
-                polygon_geojson: "1",
-                limit: "1"
-            });
-
-            fetch(boundaryUrl)
-                .then(response => {
-                    if (!response.ok) throw new Error(`Country boundary request failed: ${response.status}`);
-                    return response.json();
-                })
-                .then(result => {
-                    const feature = result.features?.[0];
-                    if (!feature?.geometry) throw new Error(`No country boundary found for ${country}`);
-                    const boundary = L.geoJSON(feature, {
-                        style: {
-                            color: "#2c3e50",
-                            weight: 2,
-                            opacity: 1,
-                            fillColor: "#ffffff",
-                            fillOpacity: 1
-                        }
-                    }).addTo(map);
-                    map.fitBounds(boundary.getBounds(), { padding: [16, 16] });
-                })
-                .catch(error => console.warn("Unable to load FindPenguins country boundary:", error))
-                .finally(addCityMarker);
-        })();
-    </script>
-    {% endif %}
 </body>
 </html>

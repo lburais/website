@@ -105,6 +105,11 @@ body {
     background: #fff;
 }
 
+.leaflet-popup-content { line-height: 1.5; }
+.fp-map-marker { width: 52px; height: 52px; position: relative; }
+.fp-map-marker::before { content: ''; position: absolute; inset: 0; border: 3px solid #0098d8; border-radius: 50%; background: rgba(255,255,255,0.12); }
+.fp-map-marker::after { content: ''; position: absolute; width: 33px; height: 33px; left: 9.5px; top: 9.5px; border-radius: 50%; background: #0098d8; }
+
 .fp-coords {
     display: block;
     margin-top: 4px;
