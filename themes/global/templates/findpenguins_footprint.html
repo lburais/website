@@ -52,25 +52,24 @@
                 </div>
 
                 {% if lat is not none and lon is not none %}
-                <div class="fp-coords" id="status" role="status"></div>
+                <!-- <div class="fp-coords" id="status" role="status"></div> -->
                 <div class="fp-map">
                     <div class="fp-map-frame" id="fp-country-map"
                         role="img"
                         aria-label="Carte de {{ page.city|default(page.country, true) }}"></div>
-
-                    <script>
-                        render_country("fp-country-map", [{
-                            name: {{ (page.city or page.country or "Point")|tojson }},
-                            lat: {{ lat }},
-                            lon: {{ lon }}
-                        }]);
-                    </script>
-
-
                     <a class="fp-coords" href="https://www.openstreetmap.org/?mlat={{ lat }}&amp;mlon={{ lon }}#map=12/{{ lat }}/{{ lon }}" target="_blank" rel="noopener">
-                        {{ (page.city or page.country or "Point")|tojson }}: {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
+                        <!-- {{ (page.city or page.country or "Point")|tojson }}: {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }} -->
+                        {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
                     </a>
                 </div>
+                <script>
+                    render_country("fp-country-map", [{
+                        name: {{ (page.city or page.country or "Point")|tojson }},
+                        lat: {{ lat }},
+                        lon: {{ lon }}
+                    }]);
+                </script>
+
                 {% endif %}
             </div>
 

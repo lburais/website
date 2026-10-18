@@ -93,6 +93,7 @@ body {
 }
 
 .fp-map-frame {
+    min-height: 200px;
     height: 190px;
     overflow: hidden;
     border-radius: 6px;
