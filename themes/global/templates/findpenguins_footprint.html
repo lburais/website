@@ -1,14 +1,15 @@
 {% set months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
 {% set media_dir = page.relative_source_path.rsplit('/', 1)[0] %}
-{% set day = page.day|int if page.day else 0 %}
+{% set step = page.slug.rsplit('-etape-', 1)[1]|int %}
+{% set day = page.day|int if page.day else step %}
 {% set nights = page.overnights|int if page.overnights else 0 %}
 {% set end_day = day + nights if nights > 0 else day %}
+{% set last_date = page.date.fromordinal(page.date.toordinal() + nights) if page.date and nights > 0 else none %}
 {% set photos = page.photo.split(', ') if page.photo else [] %}
 {% set videos = page.video.split(', ') if page.video else [] %}
 {% set gpx_files = page.gpx.split(', ') if page.gpx else [] %}
 {% set pdf_files = page.pdf.split(', ') if page.pdf else [] %}
 {% set trip_slug = page.slug.rsplit('-etape-', 1)[0] %}
-{% set step = page.slug.rsplit('-etape-', 1)[1]|int %}
 {% set ns = namespace(trip=none, prev=none, next=none) %}
 {% for p in pages %}
   {% if p.slug == trip_slug %}{% set ns.trip = p %}
@@ -26,12 +27,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/css/footprint.css" type="text/css" />
-    {% if lat is not none and lon is not none %}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/js/country-map.js"></script>
-    {% endif %}
 </head>
 <body>
     <article class="footprint">
@@ -52,31 +47,37 @@
                 </div>
 
                 {% if lat is not none and lon is not none %}
-                <!-- <div class="fp-coords" id="status" role="status"></div> -->
                 <div class="fp-map">
                     <div class="fp-map-frame" id="fp-country-map"
                         role="img"
-                        aria-label="Carte de {{ page.city|default(page.country, true) }}"></div>
+                        aria-label="Carte de {{ page.city|default(page.country, true) }}">
+                        <img src="{{ SITEURL }}/{{ media_dir }}/map_country.png"
+                            alt="Carte de {{ page.city|default(page.country, true) }}"
+                            loading="lazy" />
+                    </div>
                     <a class="fp-coords" href="https://www.openstreetmap.org/?mlat={{ lat }}&amp;mlon={{ lon }}#map=12/{{ lat }}/{{ lon }}" target="_blank" rel="noopener">
-                        <!-- {{ (page.city or page.country or "Point")|tojson }}: {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }} -->
                         {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
                     </a>
                 </div>
-                <script>
-                    render_country("fp-country-map", [{
-                        name: {{ (page.city or page.country or "Point")|tojson }},
-                        lat: {{ lat }},
-                        lon: {{ lon }}
-                    }]);
-                </script>
-
                 {% endif %}
             </div>
 
             <h1 class="fp-title">{{ page.title }}</h1>
             <p class="fp-subtitle">
                 {% if page.flag %}<span class="fp-flag">{{ page.flag }}</span>{% endif %}
-                {% if page.date %}<span>{{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }}</span>{% endif %}
+                {% if page.date %}
+                <span>{% if last_date %}
+                    {% if page.date.year == last_date.year and page.date.month == last_date.month %}
+                    {{ page.date.day }}–{{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                    {% elif page.date.year == last_date.year %}
+                    {{ page.date.day }} {{ months[page.date.month - 1] }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                    {% else %}
+                    {{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                    {% endif %}
+                {% else %}
+                    {{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }}
+                {% endif %}</span>
+                {% endif %}
                 {% if page.country %}<span>, {{ page.country }}</span>{% endif %}
                 {% if page.city %}<span>, {{ page.city }}</span>{% endif %}
             </p>
