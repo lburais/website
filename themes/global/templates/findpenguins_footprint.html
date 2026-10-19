@@ -31,14 +31,14 @@
 <body>
     <article class="footprint">
         <header class="fp-header">
-            <div class="fp-top">
+            <div class="fp-hero{% if lat is not none and lon is not none %} fp-hero-map{% endif %}">
                 <div class="fp-nav">
                 {% if ns.prev %}<a class="fp-arrow" href="{{ SITEURL }}/{{ ns.prev.url }}" title="{{ ns.prev.title }}">&#9664;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9664;</span>{% endif %}
                 {% if day %}
                 {% set ratio = [(day - 1) / (days - 1) * 100, 100]|min if days > 1 else 100 %}
-                <div class="fp-progress" aria-label="Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}{% if days %}{% endif %}">
+                <div class="fp-progress" aria-label="Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}">
                     <div class="fp-progress-fill" style="width: {{ ratio|round(1) }}%"></div>
-                    <span class="fp-day" style="left: {{ ratio|round(1) }}%">Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}{% if days %}{% endif %}</span>
+                    <span class="fp-day" style="left: {{ ratio|round(1) }}%">Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}</span>
                 </div>
                 {% else %}
                 <div class="fp-progress-empty"></div>
@@ -60,28 +60,28 @@
                     </a>
                 </div>
                 {% endif %}
+                <div class="fp-heading">
+                    <h1 class="fp-title">{{ page.title }}</h1>
+                    <p class="fp-subtitle">
+                        {% if page.flag %}<span class="fp-flag">{{ page.flag }}</span>{% endif %}
+                        {% if page.date %}
+                        <span>{% if last_date %}
+                            {% if page.date.year == last_date.year and page.date.month == last_date.month %}
+                            {{ page.date.day }}–{{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                            {% elif page.date.year == last_date.year %}
+                            {{ page.date.day }} {{ months[page.date.month - 1] }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                            {% else %}
+                            {{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                            {% endif %}
+                        {% else %}
+                            {{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }}
+                        {% endif %}</span>
+                        {% endif %}
+                        {% if page.country %} , {{ page.country }}{% endif %}{% if page.city %}, {{ page.city }}{% endif %}
+                    </p>
+                    {% if ns.trip %}<p class="fp-subtitle fp-trip">{% if page.flag %}<span class="fp-flag">{{ page.flag }}</span>{% endif %}<a href="{{ SITEURL }}/{{ ns.trip.url }}">{{ ns.trip.title }}</a></p>{% endif %}
+                </div>
             </div>
-
-            <h1 class="fp-title">{{ page.title }}</h1>
-            <p class="fp-subtitle">
-                {% if page.flag %}<span class="fp-flag">{{ page.flag }}</span>{% endif %}
-                {% if page.date %}
-                <span>{% if last_date %}
-                    {% if page.date.year == last_date.year and page.date.month == last_date.month %}
-                    {{ page.date.day }}–{{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
-                    {% elif page.date.year == last_date.year %}
-                    {{ page.date.day }} {{ months[page.date.month - 1] }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
-                    {% else %}
-                    {{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
-                    {% endif %}
-                {% else %}
-                    {{ page.date.day }} {{ months[page.date.month - 1] }} {{ page.date.year }}
-                {% endif %}</span>
-                {% endif %}
-                {% if page.country %}<span>, {{ page.country }}</span>{% endif %}
-                {% if page.city %}<span>, {{ page.city }}</span>{% endif %}
-            </p>
-            {% if ns.trip %}<p class="fp-subtitle fp-trip"><a href="{{ SITEURL }}/{{ ns.trip.url }}">{{ ns.trip.title }}</a></p>{% endif %}
 
             <div class="fp-text">{{ page.content }}</div>
 

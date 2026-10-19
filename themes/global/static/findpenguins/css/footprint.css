@@ -24,21 +24,34 @@ body {
 
 .fp-header { padding: 28px clamp(16px, 7%, 64px) 24px; }
 
-.fp-top {
+.fp-hero {
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px 24px;
-    margin-bottom: 20px;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 18px;
+}
+
+.fp-hero-map {
+    position: relative;
+    display: block;
+    height: 230px;
+    margin-bottom: 10px;
 }
 
 .fp-nav {
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1 1 260px;
+    width: 100%;
     margin-top: 6px;
+}
+
+.fp-hero-map .fp-nav {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: calc(100% - 230px);
+    margin: 0;
 }
 
 .fp-arrow {
@@ -87,14 +100,18 @@ body {
 }
 
 .fp-map {
-    flex: 0 0 auto;
-    width: min(100%, 200px);
+    width: min(100%, 180px);
     text-align: center;
 }
 
+.fp-hero-map .fp-map {
+    position: absolute;
+    top: 8px;
+    right: 0;
+}
+
 .fp-map-frame {
-    min-height: 200px;
-    height: 190px;
+    height: 195px;
     overflow: hidden;
     border-radius: 6px;
     background: transparent;
@@ -122,12 +139,19 @@ body {
 }
 
 .fp-subtitle {
-    margin: 4px 0 16px;
+    margin: 5px 0 0;
     font-size: 0.75rem;
     font-weight: 700;
 }
 
 .fp-flag { margin-right: 6px; font-size: 0.95rem; }
+
+.fp-hero-map .fp-heading {
+    position: absolute;
+    top: 119px;
+    left: 0;
+    max-width: calc(100% - 220px);
+}
 
 .fp-text {
     color: #333;
@@ -222,7 +246,21 @@ body {
 @media (max-width: 600px) {
     body { padding: 0; }
     .footprint { box-shadow: none; }
+    .fp-header { padding: 24px 16px; }
+    .fp-hero-map {
+        display: flex;
+        height: auto;
+        margin-bottom: 18px;
+    }
+    .fp-hero-map .fp-nav,
+    .fp-hero-map .fp-map,
+    .fp-hero-map .fp-heading {
+        position: static;
+        width: 100%;
+        max-width: none;
+    }
     .fp-map { width: 100%; }
+    .fp-map-frame { height: 190px; }
     .fp-media { grid-template-columns: 1fr; }
     .fp-media a,
     .fp-media a:first-child { grid-column: 1 / -1 !important; }
@@ -232,6 +270,6 @@ body {
 .fp-files li { margin-bottom: 6px; overflow-wrap: anywhere; }
 .fp-files a { color: var(--fp-blue); text-decoration: none; }
 
-.fp-trip { margin-top: -10px; }
+.fp-trip { margin-top: 6px; }
 .fp-trip a { color: inherit; text-decoration: none; }
 .fp-trip a:hover { text-decoration: underline; }
