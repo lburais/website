@@ -2,7 +2,7 @@
 :Date: 2026-10-11
 :Slug: projets
 :Template: projets
-:Save_as: pages/projets.html
+:Save_as: projets.html
 
 - **Travaux :** Salle de bain, escalier, menuiseries, ...
 - **Bike :** Transitionner vers des vélos à assistance électrique.
