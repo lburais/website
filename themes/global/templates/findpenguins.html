@@ -124,6 +124,12 @@
             font-size: 0.75rem;
             line-height: 1.15;
         }
+        .trip-owner {
+            margin: 8px 0 0;
+            font-size: 0.75rem;
+            font-weight: 650;
+            text-shadow: 0 1px 3px rgb(0 0 0 / 60%);
+        }
         .trip-description {
             display: -webkit-box;
             overflow: hidden;
@@ -159,6 +165,7 @@
             .trip-summary { gap: 8px; }
             .trip-stat strong { font-size: 0.82rem; }
             .trip-stat span { font-size: 0.68rem; }
+            .trip-owner { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -168,7 +175,7 @@
         <a class="home-button" href="{{ SITEURL }}/">⌂ Accueil</a>
     </header>
     {% set ns = namespace(trips=[]) %}
-    {% for t in pages if t.template == 'findpenguins_trip' %}
+    {% for t in pages | selectattr('template', 'equalto', 'findpenguins_trip') | list %}
         {% set prefix = t.slug ~ '-etape-' %}
         {% set ds = namespace(dates=[]) %}
         {% for f in pages if f.slug.startswith(prefix) and f.date %}
@@ -195,7 +202,8 @@
             'period': t.period,
             'days': t.days,
             'distance': t.distance,
-            'slug': t.slug
+            'slug': t.slug,
+            'owner': t.owner
         }] %}
     {% endfor %}
     <main class="trip-grid" aria-label="FindPenguins trips">
@@ -240,6 +248,7 @@
                     </div>
                     {% endif %}
                 </div>
+                {% if t.owner %}<p class="trip-owner">{{ t.owner }}</p>{% endif %}
                 {% if t.description %}<p class="trip-description">{{ t.description }}</p>{% endif %}
             </div>
         </a>
