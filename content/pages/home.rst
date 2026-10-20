@@ -4,4 +4,4 @@
 :Template: burais
 :Save_as: index.html
 
-un espoir ensemble ici et là-bas
+~ hodophiles & cosmopolites ~

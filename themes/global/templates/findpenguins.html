@@ -4,184 +4,22 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
-    <style>
-        :root {
-            color-scheme: light;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: #fff;
-            background: #f1f1f1;
-        }
-        * { box-sizing: border-box; }
-        body { margin: 0; min-height: 100vh; }
-        .site-banner {
-            display: flex;
-            min-height: 64px;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            padding: 12px 24px;
-            background: #168ac7;
-            box-shadow: 0 2px 6px rgb(0 0 0 / 16%);
-        }
-        .site-banner h1 {
-            margin: 0;
-            font-size: clamp(1.2rem, 3vw, 1.65rem);
-            font-weight: 750;
-        }
-        .home-button {
-            flex: 0 0 auto;
-            padding: 9px 15px;
-            border: 1px solid rgb(255 255 255 / 75%);
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.9rem;
-            font-weight: 650;
-            text-decoration: none;
-        }
-        .home-button:hover { background: rgb(255 255 255 / 14%); }
-        .trip-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
-            gap: 12px;
-            width: 100%;
-            padding: 16px;
-        }
-        .trip-card {
-            position: relative;
-            display: flex;
-            min-height: 235px;
-            overflow: hidden;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 16px;
-            border-radius: 22px;
-            background: linear-gradient(145deg, #0797d0, #75c9e5 58%, #dbc6a5);
-            box-shadow: 0 2px 8px rgb(0 0 0 / 12%);
-            color: #fff;
-            text-decoration: none;
-            isolation: isolate;
-        }
-        .trip-card::before {
-            position: absolute;
-            z-index: -2;
-            inset: 0;
-            background-image: var(--trip-cover);
-            background-position: center;
-            background-size: cover;
-            content: "";
-        }
-        .trip-card::after {
-            position: absolute;
-            z-index: -1;
-            inset: 0;
-            background: linear-gradient(180deg, rgb(0 0 0 / 0%) 34%, rgb(0 0 0 / 64%) 100%);
-            content: "";
-        }
-        .trip-card:hover { box-shadow: 0 4px 14px rgb(0 0 0 / 22%); }
-        .trip-companions {
-            position: absolute;
-            top: 24px;
-            left: 20px;
-            display: flex;
-            padding-left: 0;
-        }
-        .trip-companions img {
-            width: 34px;
-            height: 34px;
-            margin-left: -8px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            background: #ddd;
-            object-fit: cover;
-        }
-        .trip-companions img:first-child { margin-left: 0; }
-        .trip-info { min-width: 0; }
-        .trip-info h2 {
-            margin: 0 0 10px;
-            overflow-wrap: anywhere;
-            font-size: 1.28rem;
-            font-weight: 800;
-            line-height: 1.1;
-            text-shadow: 0 1px 3px rgb(0 0 0 / 45%);
-        }
-        .trip-summary {
-            display: flex;
-            align-items: flex-end;
-            gap: 12px;
-            min-height: 32px;
-        }
-        .trip-stat { min-width: 0; }
-        .trip-stat strong,
-        .trip-stat span {
-            display: block;
-        }
-        .trip-stat strong {
-            font-size: 0.95rem;
-            line-height: 1.1;
-        }
-        .trip-stat span {
-            margin-top: 2px;
-            font-size: 0.75rem;
-            line-height: 1.15;
-        }
-        .trip-owner {
-            margin: 8px 0 0;
-            font-size: 0.75rem;
-            font-weight: 650;
-            text-shadow: 0 1px 3px rgb(0 0 0 / 60%);
-        }
-        .trip-description {
-            display: -webkit-box;
-            overflow: hidden;
-            margin: 8px 0 0;
-            font-size: 0.76rem;
-            line-height: 1.3;
-            text-shadow: 0 1px 3px rgb(0 0 0 / 60%);
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-        }
-        .trip-empty {
-            grid-column: 1 / -1;
-            padding: 24px;
-            color: #555;
-            text-align: center;
-        }
-        @media (max-width: 640px) {
-            .site-banner { min-height: 56px; padding: 10px 14px; }
-            .home-button { padding: 8px 11px; font-size: 0.82rem; }
-            .trip-grid {
-                grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
-                gap: 8px;
-                padding: 10px;
-            }
-            .trip-card {
-                min-height: clamp(170px, 58vw, 235px);
-                padding: 12px;
-                border-radius: 18px;
-            }
-            .trip-companions { top: 16px; left: 14px; }
-            .trip-companions img { width: 30px; height: 30px; }
-            .trip-info h2 { font-size: clamp(0.95rem, 4vw, 1.2rem); }
-            .trip-summary { gap: 8px; }
-            .trip-stat strong { font-size: 0.82rem; }
-            .trip-stat span { font-size: 0.68rem; }
-            .trip-owner { font-size: 0.7rem; }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/findpenguins.css" type="text/css" />
 </head>
 <body>
-    <header class="site-banner">
-        <h1>Nos carnets de Voyage</h1>
-        <a class="home-button" href="{{ SITEURL }}/">⌂ Accueil</a>
-    </header>
+    {% set french_months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
     {% set ns = namespace(trips=[]) %}
-    {% for t in pages | selectattr('template', 'equalto', 'findpenguins_trip') | list %}
+    {% for t in pages if 'findpenguins' in t.tags and t.category == 'Trips' %}
         {% set prefix = t.slug ~ '-etape-' %}
         {% set ds = namespace(dates=[]) %}
         {% for f in pages if f.slug.startswith(prefix) and f.date %}
             {% set ds.dates = ds.dates + [f.date] %}
         {% endfor %}
         {% set start = (ds.dates | sort | first) if ds.dates else '' %}
+        {% set first_step = namespace(url='') %}
+        {% for f in pages if f.slug == prefix ~ '1' %}
+            {% set first_step.url = f.url %}
+        {% endfor %}
         {% set relative_dir = t.relative_source_path.rsplit('/', 1)[0] %}
         {% set cover = '' %}
         {% if t.tripimage %}
@@ -203,57 +41,64 @@
             'days': t.days,
             'distance': t.distance,
             'slug': t.slug,
-            'owner': t.owner
+            'owner': t.owner,
+            'first_step_url': first_step.url
         }] %}
     {% endfor %}
+
+    <header class="site-banner">
+        <h1>Nos carnets de Voyage</h1>
+        <a class="home-button" href="{{ SITEURL }}/">⌂ Accueil</a>
+    </header>
+
     <main class="trip-grid" aria-label="FindPenguins trips">
         {% for t in ns.trips | sort(attribute='sort_date', reverse=True) %}
-        <a class="trip-card" href="{{ SITEURL }}/{{ t.url }}"{% if t.cover %} style="--trip-cover: url('{{ t.cover }}')"{% endif %}>
-            {% if t.companions %}
-            <span class="trip-companions" aria-label="Trip companions">
-                {% for companion in t.companions %}
-                    {% set companion_parts = companion.split('|', 1) %}
-                    {% if companion_parts|length == 2 and companion_parts[1] %}
-                    {% set companion_src = companion_parts[1] if companion_parts[1].startswith(('http://', 'https://')) else SITEURL ~ '/' ~ t.relative_dir ~ '/' ~ companion_parts[1] %}
-                    <img src="{{ companion_src }}"
-                        alt="{{ companion_parts[0] }}" title="{{ companion_parts[0] }}" loading="lazy" />
-                    {% endif %}
-                {% endfor %}
-            </span>
-            {% endif %}
-            <div class="trip-info">
-                <h2>{% if t.country_flags %}{{ t.country_flags.split(',')[0] }} {% endif %}{{ t.title }}</h2>
-                <div class="trip-summary">
-                    {% if t.start %}
-                    <div class="trip-stat">
-                        <strong>{{ t.start.strftime('%Y') }}</strong>
-                        <span>{{ t.start.strftime('%B') }}</span>
+            <a class="trip-card" href="{{ SITEURL }}/{{ t.first_step_url or t.url }}"{% if t.cover %} style="--trip-cover: url('{{ t.cover }}')"{% endif %}>
+                {% if t.companions %}
+                    <span class="trip-companions" aria-label="Trip companions">
+                        {% for companion in t.companions %}
+                            {% set companion_parts = companion.split('|', 1) %}
+                            {% if companion_parts|length == 2 and companion_parts[1] %}
+                                {% set companion_src = companion_parts[1] if companion_parts[1].startswith(('http://', 'https://')) else SITEURL ~ '/' ~ t.relative_dir ~ '/' ~ companion_parts[1] %}
+                                <img src="{{ companion_src }}"
+                                    alt="{{ companion_parts[0] }}" title="{{ companion_parts[0] }}"
+                                    {% if companion_parts[0] == t.owner %}class="owner"{% endif %} loading="lazy" />
+                            {% endif %}
+                        {% endfor %}
+                    </span>
+                {% endif %}
+                <div class="trip-info">
+                    <h2>{{ t.title }}</h2>
+                    <div class="trip-summary">
+                        {% if t.start %}
+                            <div class="trip-stat">
+                                <strong>{{ t.start.strftime('%Y') }}</strong>
+                                <span>{{ french_months[t.start.month - 1] }}</span>
+                            </div>
+                        {% elif t.period %}
+                            <div class="trip-stat">
+                                <strong>{{ t.period }}</strong>
+                                <span>période</span>
+                            </div>
+                        {% endif %}
+                        {% if t.days %}
+                            <div class="trip-stat">
+                                <strong>{{ t.days }}</strong>
+                                <span>jours</span>
+                            </div>
+                        {% endif %}
+                        {% if t.distance %}
+                            <div class="trip-stat">
+                                <strong>{{ t.distance }}</strong>
+                                <span>kilomètres</span>
+                            </div>
+                        {% endif %}
                     </div>
-                    {% elif t.period %}
-                    <div class="trip-stat">
-                        <strong>{{ t.period }}</strong>
-                        <span>période</span>
-                    </div>
-                    {% endif %}
-                    {% if t.days %}
-                    <div class="trip-stat">
-                        <strong>{{ t.days }}</strong>
-                        <span>jours</span>
-                    </div>
-                    {% endif %}
-                    {% if t.distance %}
-                    <div class="trip-stat">
-                        <strong>{{ t.distance }}</strong>
-                        <span>kilomètres</span>
-                    </div>
-                    {% endif %}
+                    {% if t.description %}<p class="trip-description">{{ t.description }}</p>{% endif %}
                 </div>
-                {% if t.owner %}<p class="trip-owner">{{ t.owner }}</p>{% endif %}
-                {% if t.description %}<p class="trip-description">{{ t.description }}</p>{% endif %}
-            </div>
-        </a>
-        {% else %}
-        <p class="trip-empty">Aucun voyage FindPenguins disponible.</p>
+            </a>
+            {% else %}
+                <p class="trip-empty">Aucun voyage FindPenguins disponible.</p>
         {% endfor %}
     </main>
 </body>
