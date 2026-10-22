@@ -31,6 +31,9 @@
     {% set lon = page.lon|float if page.lon else none %}
 
     <article class="footprint">
+        <a class="fp-adventures-link" href="{{ SITEURL }}/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
         <header class="fp-header">
             <div class="fp-hero{% if lat is not none and lon is not none %} fp-hero-map{% endif %}">
                 <div class="fp-nav">
@@ -64,7 +67,6 @@
                 <div class="fp-heading">
                     <h1 class="fp-title">{{ page.title }}</h1>
                     <p class="fp-subtitle">
-                        <!-- {% if page.flag %}<span class="fp-flag">{{ page.flag }}</span>{% endif %} -->
                         {% if page.date %}
                             <span>
                                 {% if last_date %}
@@ -82,52 +84,161 @@
                         {% endif %}
                         {% if page.country %} , {{ page.country }}{% endif %}{% if page.city %}, {{ page.city }}{% endif %}
                     </p>
-                    {% if ns.trip %}<p class="fp-subtitle fp-trip"><!-- {% if page.flag %}<span class="fp-flag">{{ page.flag }}</span>{% endif %} --> <a href="{{ SITEURL }}/{{ ns.trip.url }}">{{ ns.trip.title }}</a></p>{% endif %}
+                    {% if ns.trip %}<p class="fp-subtitle fp-trip">{{ ns.trip.title }}</p>{% endif %}
+                    {% if page.weather or page.temperature or page.ele or page.overnights %}
+                        <dl class="fp-facts">
+                            {% if page.weather or page.temperature %}
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>{{ page.weather }}{% if page.temperature %} {{ page.temperature }} °C{% endif %}</dd>
+                                </div>
+                            {% endif %}
+                            {% if page.ele %}
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>{{ page.ele }} m</dd>
+                                </div>
+                            {% endif %}
+                        </dl>
+                    {% endif %}
                 </div>
             </div>
 
             <div class="fp-text">{{ page.content }}</div>
 
-            {% if gpx_files or pdf_files %}
-                <ul class="fp-files">
-                    {% for f in gpx_files %}<li>🗺️ <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" download>{{ f }}</a></li>{% endfor %}
-                    {% for f in pdf_files %}<li>📄 <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" target="_blank" rel="noopener">{{ f }}</a></li>{% endfor %}
-                </ul>
-            {% endif %}
-
-            {% if page.weather or page.temperature or page.ele or page.overnights %}
-                <dl class="fp-facts">
-                    {% if page.weather or page.temperature %}
-                        <div>
-                            <dt>Météo</dt>
-                            <dd>{{ page.weather }}{% if page.temperature %} {{ page.temperature }} °C{% endif %}</dd>
-                        </div>
-                    {% endif %}
-                    {% if page.ele %}
-                        <div>
-                            <dt>Altitude</dt>
-                            <dd>{{ page.ele }} m</dd>
-                        </div>
-                    {% endif %}
-                </dl>
-            {% endif %}
         </header>
 
         {% if photos or videos %}
-            <section class="fp-media fp-media-{{ [photos|length, 3]|min }}">
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
                 {% for photo in photos %}
-                    <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener">
-                        <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ page.title }}" loading="lazy" />
+                    <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" data-slide-index="{{ loop.index0 }}" aria-label="Afficher la photo {{ loop.index }}">
+                        <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ page.title }} — photo {{ loop.index }}" loading="lazy" />
                     </a>
                 {% endfor %}
                 {% for video in videos %}
-                    <video controls preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}"></video>
+                    <a class="fp-video-thumb" href="{{ SITEURL }}/{{ media_dir }}/{{ video }}" data-slide-index="{{ photos|length + loop.index0 }}" aria-label="Afficher la vidéo {{ loop.index }}">
+                        <video muted playsinline preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}" aria-hidden="true"></video>
+                        <span aria-hidden="true">▶</span>
+                    </a>
                 {% endfor %}
             </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                        {% for photo in photos %}
+                            <div class="carousel-slide{% if loop.first %} active{% endif %}">
+                                <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ page.title }} — photo {{ loop.index }}">
+                            </div>
+                        {% endfor %}
+                        {% for video in videos %}
+                            <div class="carousel-slide">
+                                <video controls playsinline preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}"></video>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
         {% endif %}
+
+        {% if gpx_files or pdf_files %}
+            <ul class="fp-files">
+                {% for f in gpx_files %}<li>🗺️ <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" download>{{ f }}</a></li>{% endfor %}
+                {% for f in pdf_files %}<li>📄 <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" target="_blank" rel="noopener">{{ f }}</a></li>{% endfor %}
+            </ul>
+        {% endif %}
+
     </article>
 
-    <a href="javascript:history.back()" class="fp-back">← Retour au carnet de voyage</a>
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
 
 </body>
 </html>

@@ -20,6 +20,8 @@ def relocate(obj):
     if isinstance(obj, Page):
         if "save_as" in obj.metadata:
             return
+        if str(obj.category) == "Trips":
+            obj.template = "trip"
         rel = os.path.splitext(rel)[0] + ".html"
     obj.override_save_as = rel
     obj.override_url = rel
