@@ -63,12 +63,29 @@ body { margin: 0; min-height: 100vh; }
     background-size: cover;
     content: "";
 }
-.trip-card::after {
+.trip-map-overlay {
     position: absolute;
     z-index: -1;
+    top: 12px;
+    right: 12px;
+    width: 25%;
+    height: 25%;
+    background-image: var(--trip-map);
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    pointer-events: none;
+}
+.trip-card::after {
+    position: absolute;
+    z-index: 0;
     inset: 0;
     background: linear-gradient(180deg, rgb(0 0 0 / 0%) 34%, rgb(0 0 0 / 64%) 100%);
     content: "";
+}
+.trip-companions,
+.trip-info {
+    z-index: 1;
 }
 .trip-card:hover { box-shadow: 0 4px 14px rgb(0 0 0 / 22%); }
 .trip-companions {

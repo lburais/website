@@ -8,7 +8,7 @@
 </head>
 <body>
     {% set months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
-    {% set media_dir = page.relative_source_path.rsplit('/', 1)[0] %}
+    {% set media_dir = page.relative_source_path.rsplit('/', 1)[0]|replace('pages/', '', 1) %}
     {% set step = page.slug.rsplit('-etape-', 1)[1]|int %}
     {% set day = page.day|int if page.day else step %}
     {% set nights = page.overnights|int if page.overnights else 0 %}

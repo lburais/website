@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/findpenguins.css" type="text/css" />
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/findpenguins/css/findpenguins.css" type="text/css" />
 </head>
 <body>
     {% set french_months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
     {% set ns = namespace(trips=[]) %}
-    {% for t in pages if 'findpenguins' in t.tags and t.category == 'Trips' %}
+    {% for t in pages if t.category == 'Trips' %}
         {% set prefix = t.slug ~ '-etape-' %}
         {% set ds = namespace(dates=[]) %}
         {% for f in pages if f.slug.startswith(prefix) and f.date %}
@@ -20,10 +20,14 @@
         {% for f in pages if f.slug == prefix ~ '1' %}
             {% set first_step.url = f.url %}
         {% endfor %}
-        {% set relative_dir = t.relative_source_path.rsplit('/', 1)[0] %}
+        {% set relative_dir = t.relative_source_path.rsplit('/', 1)[0]|replace('pages/', '', 1) %}
         {% set cover = '' %}
         {% if t.tripimage %}
             {% set cover = t.tripimage if t.tripimage.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ t.tripimage %}
+        {% endif %}
+        {% set trip_map = '' %}
+        {% if t.tripmap %}
+            {% set trip_map = t.tripmap if t.tripmap.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ t.tripmap %}
         {% endif %}
         {% set companions = t.companions.split(';') if t.companions else [] %}
         {% set ns.trips = ns.trips + [{
@@ -33,6 +37,7 @@
             'url': t.url,
             'relative_dir': relative_dir,
             'cover': cover,
+            'trip_map': trip_map,
             'companions': companions,
             'description': t.description,
             'countries': t.countries,
@@ -54,6 +59,7 @@
     <main class="trip-grid" aria-label="FindPenguins trips">
         {% for t in ns.trips | sort(attribute='sort_date', reverse=True) %}
             <a class="trip-card" href="{{ SITEURL }}/{{ t.first_step_url or t.url }}"{% if t.cover %} style="--trip-cover: url('{{ t.cover }}')"{% endif %}>
+                {% if t.trip_map %}<span class="trip-map-overlay" style="--trip-map: url('{{ t.trip_map }}')" aria-hidden="true"></span>{% endif %}
                 {% if t.companions %}
                     <span class="trip-companions" aria-label="Trip companions">
                         {% for companion in t.companions %}

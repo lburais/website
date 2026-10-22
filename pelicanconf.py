@@ -34,6 +34,9 @@ STATIC_PATHS = ["images", "pages"]
 # ==========================================
 # Configuration pour s'assurer que la page d'accueil (index.html) soit générée proprement 
 # à partir de votre fichier Markdown 'home.md' sans interférence avec les articles de blog.
+PLUGIN_PATHS = ["plugins"]
+PLUGINS = ["flat_pages"]
+# Output mirrors content/pages (see plugins/flat_pages.py); explicit Save_as still wins.
 PAGE_URL = "{slug}.html"
 PAGE_SAVE_AS = "{slug}.html"
 
@@ -52,5 +55,7 @@ SOCIAL = ()
 DEFAULT_PAGINATION = 10
 
 # Conserver la structure des dossiers lors de la génération
-DELETE_OUTPUT_DIRECTORY = True
+# Kept False: rmtree of output/ races with autoreload (-r) while the scraper writes files.
+# Use `make clean` to wipe stale output.
+DELETE_OUTPUT_DIRECTORY = False
 
