@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ruthven barracks</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_24/footprint.html" title="Loch Ness">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 14">
+                        <div class="fp-progress-fill" style="width: 54.2%"></div>
+                        <span class="fp-day" style="left: 54.2%">Jour 14</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_26/footprint.html" title="Loch Morlich">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Highland">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/map_country.png"
+                                alt="Carte de Highland"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=57.165242929751&amp;mlon=-3.7242638796121#map=12/57.165242929751/-3.7242638796121" target="_blank" rel="noopener">
+                            57.1652° N, 3.7243° W
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Ruthven barracks</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                    14 juin 2025
+                            </span>
+ , Scotland, Highland                    </p>
+<p class="fp-subtitle fp-trip">Découverte de l’Ecosse</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>⛅ 15 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>303 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Aujourd’hui journée très pluvieuse, nous annulons la rando prévue pour faire juste quelques visites locales dans la région des Cairngorms</p>
+<p>La caserne de Ruthven Barracks , a été construite en 1719 après le soulèvement des Jacobites ( qui voulaient mettre les Stuart sur le trône d’Angleterre )</p>
+<p>Les ruines de la caserne — détruite par les Jacobites dans leur retraite après la bataille de Culloden en 1746 —, constituent un monument classé en Écosse.</p>
+<p>Puis visite de la ville de Kingussie, ville traditionnelle et animée située dans le parc national des Cairngorms C’est ici qu’est né le sport national de l’Écosse: le shinty qui est un sport collectif mystique qui trouve ses racines dans les traditions de l’Écosse</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__brnk3g2o1gcbb_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__brnk3g2o1gcbb_l.jpg" alt="Ruthven barracks — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ax3uelbny8nq6_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ax3uelbny8nq6_l.jpg" alt="Ruthven barracks — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__syxlwystllfiy_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__syxlwystllfiy_l.jpg" alt="Ruthven barracks — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__dpujwws408ed8_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__dpujwws408ed8_l.jpg" alt="Ruthven barracks — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__mrjll23s5wqmn_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__mrjll23s5wqmn_l.jpg" alt="Ruthven barracks — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__e1xdlvkvxkpjg_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__e1xdlvkvxkpjg_l.jpg" alt="Ruthven barracks — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__7jf1gkvh015i2_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__7jf1gkvh015i2_l.jpg" alt="Ruthven barracks — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__escetlz6r48u2_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__escetlz6r48u2_l.jpg" alt="Ruthven barracks — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__o2shcgfhnz74o_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__o2shcgfhnz74o_l.jpg" alt="Ruthven barracks — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__vhtafv6kgfyil_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__vhtafv6kgfyil_l.jpg" alt="Ruthven barracks — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ioewcwly896at_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ioewcwly896at_l.jpg" alt="Ruthven barracks — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__6hodm55ip0t3q_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__6hodm55ip0t3q_l.jpg" alt="Ruthven barracks — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__sfk10qv88jjgg_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__sfk10qv88jjgg_l.jpg" alt="Ruthven barracks — photo 13" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__jgtpwupaq4ukw_l.jpg" data-slide-index="13" aria-label="Afficher la photo 14">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__jgtpwupaq4ukw_l.jpg" alt="Ruthven barracks — photo 14" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__brnk3g2o1gcbb_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__brnk3g2o1gcbb_l.jpg" alt="Ruthven barracks — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ax3uelbny8nq6_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ax3uelbny8nq6_l.jpg" alt="Ruthven barracks — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__syxlwystllfiy_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__syxlwystllfiy_l.jpg" alt="Ruthven barracks — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__dpujwws408ed8_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__dpujwws408ed8_l.jpg" alt="Ruthven barracks — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__mrjll23s5wqmn_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__mrjll23s5wqmn_l.jpg" alt="Ruthven barracks — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__e1xdlvkvxkpjg_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__e1xdlvkvxkpjg_l.jpg" alt="Ruthven barracks — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__7jf1gkvh015i2_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__7jf1gkvh015i2_l.jpg" alt="Ruthven barracks — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__escetlz6r48u2_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__escetlz6r48u2_l.jpg" alt="Ruthven barracks — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__o2shcgfhnz74o_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__o2shcgfhnz74o_l.jpg" alt="Ruthven barracks — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__vhtafv6kgfyil_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__vhtafv6kgfyil_l.jpg" alt="Ruthven barracks — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ioewcwly896at_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__ioewcwly896at_l.jpg" alt="Ruthven barracks — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__6hodm55ip0t3q_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__6hodm55ip0t3q_l.jpg" alt="Ruthven barracks — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__sfk10qv88jjgg_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__sfk10qv88jjgg_l.jpg" alt="Ruthven barracks — photo 13">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__jgtpwupaq4ukw_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 14 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_25/691c7ce54c53e9-64987663__jgtpwupaq4ukw_l.jpg" alt="Ruthven barracks — photo 14">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

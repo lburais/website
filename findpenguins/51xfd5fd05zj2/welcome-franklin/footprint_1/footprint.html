@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<span class="fp-arrow fp-arrow-off">&#9664;</span>                    <div class="fp-progress" aria-label="Jour 1-3">
+                        <div class="fp-progress-fill" style="width: 0.0%"></div>
+                        <span class="fp-day" style="left: 0.0%">Jour 1-3</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_2/footprint.html" title="Nantes">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Saint-Laurent-du-Var">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/map_country.png"
+                                alt="Carte de Saint-Laurent-du-Var"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=43.66901&amp;mlon=7.190697#map=12/43.66901/7.190697" target="_blank" rel="noopener">
+                            43.6690° N, 7.1907° E
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Home</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                        17–19 janvier 2024
+                            </span>
+ , France, Saint-Laurent-du-Var                    </p>
+<p class="fp-subtitle fp-trip">Welcome Franklin</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>🌧 10 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>22 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Départ de la maison en avion pour aller récupérer Franklin notre <a class="reference external" href="https://stylevan.fr/van-complet/">Styleval Austral IV</a> sur base Renault/</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__0ah3khj0nsapb_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__0ah3khj0nsapb_l.jpg" alt="Home — photo 1" loading="lazy" />
+                    </a>
+                    <a class="fp-video-thumb" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__9hldo5q1ayh4k.mp4" data-slide-index="1" aria-label="Afficher la vidéo 1">
+                        <video muted playsinline preload="metadata" src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__9hldo5q1ayh4k.mp4" aria-hidden="true"></video>
+                        <span aria-hidden="true">▶</span>
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__0ah3khj0nsapb_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__0ah3khj0nsapb_l.jpg" alt="Home — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <video controls playsinline preload="metadata" src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__9hldo5q1ayh4k.mp4"></video>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+            <ul class="fp-files">
+<li>🗺️ <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__1ihsuvqdivv56.gpx" download>6acce50da97b90-23550470__1ihsuvqdivv56.gpx</a></li><li>📄 <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/welcome-franklin/footprint_1/6acce50da97b90-23550470__5fvgisnxhoaqd.pdf" target="_blank" rel="noopener">6acce50da97b90-23550470__5fvgisnxhoaqd.pdf</a></li>            </ul>
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

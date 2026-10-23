@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lagos</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_5/footprint.html" title="Cap Saint Vincent">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 3-4">
+                        <div class="fp-progress-fill" style="width: 28.6%"></div>
+                        <span class="fp-day" style="left: 28.6%">Jour 3-4</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_7/footprint.html" title="Ponta da Piedade">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Sagres">
+                            <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/map_country.png"
+                                alt="Carte de Sagres"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=37.024075&amp;mlon=-8.993938#map=12/37.024075/-8.993938" target="_blank" rel="noopener">
+                            37.0241° N, 8.9939° W
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Lagos</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                        22–23 octobre 2025
+                            </span>
+ , Portugal, Sagres                    </p>
+<p class="fp-subtitle fp-trip">🇵🇹 Algarve 2025</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>☁️ 21 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>58 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Arrivée à Lagos l’une des l’une des plus belles villes de l’Algarve, riche en histoire maritime. Ses remparts, son fort et ses églises témoignent de son passé de port d’explorateurs.</p>
+<p>Nous visitons le musée des esclaves car Lagos est un lieu qui témoigne d’un chapitre sombre de l’histoire de l’humanité avec la mise en place du premier marché aux esclaves a été créé vers 1444 sur ordre du prince Henri le Navigateur, après qu’il eut lancé les premiers raids d’esclaves africains en Europe. C’est là que les esclaves africains étaient amenés d’Afrique de l’Ouest avant d’être vendus dans différentes régions d’Europe.😢</p>
+<p>Le Mercado de Escravos est à présent un musée qui offre aux visiteurs un aperçu de cette période.</p>
+<p>Mais Lagos est egalement réputée pour ses paysages et pour ses plages entourées et abritées par de superbes falaises dorées qui non seulement offrent une protection contre les vents, mais ajoutent également au paysage dramatique et à la disposition de la plage.</p>
+<p>Même sans le soleil cela vaut le détour !</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2enubgcx9m6ti_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2enubgcx9m6ti_l.jpg" alt="Lagos — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1uwgon0zexsul_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1uwgon0zexsul_l.jpg" alt="Lagos — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7gos2ofgbd0mv_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7gos2ofgbd0mv_l.jpg" alt="Lagos — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__98w6f7qjuqceh_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__98w6f7qjuqceh_l.jpg" alt="Lagos — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4lo6bdffxk0f2_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4lo6bdffxk0f2_l.jpg" alt="Lagos — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9bp5qc2jovpys_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9bp5qc2jovpys_l.jpg" alt="Lagos — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__52ajvdmdidphn_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__52ajvdmdidphn_l.jpg" alt="Lagos — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__79gvkkdz7zm0a_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__79gvkkdz7zm0a_l.jpg" alt="Lagos — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6fnguduny0baf_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6fnguduny0baf_l.jpg" alt="Lagos — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7wspjlof8ch68_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7wspjlof8ch68_l.jpg" alt="Lagos — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__833jrtdmqo1p5_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__833jrtdmqo1p5_l.jpg" alt="Lagos — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9heoxhonisplw_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9heoxhonisplw_l.jpg" alt="Lagos — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1b78magvwgfxr_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1b78magvwgfxr_l.jpg" alt="Lagos — photo 13" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__30vsxxfxcjc0a_l.jpg" data-slide-index="13" aria-label="Afficher la photo 14">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__30vsxxfxcjc0a_l.jpg" alt="Lagos — photo 14" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6lz4gxo8aparn_l.jpg" data-slide-index="14" aria-label="Afficher la photo 15">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6lz4gxo8aparn_l.jpg" alt="Lagos — photo 15" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7y2sgfi98lnhg_l.jpg" data-slide-index="15" aria-label="Afficher la photo 16">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7y2sgfi98lnhg_l.jpg" alt="Lagos — photo 16" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6r1kxyow38jol_l.jpg" data-slide-index="16" aria-label="Afficher la photo 17">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6r1kxyow38jol_l.jpg" alt="Lagos — photo 17" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__3gah5pbxenk9f_l.jpg" data-slide-index="17" aria-label="Afficher la photo 18">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__3gah5pbxenk9f_l.jpg" alt="Lagos — photo 18" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4vektdwlwxn9l_l.jpg" data-slide-index="18" aria-label="Afficher la photo 19">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4vektdwlwxn9l_l.jpg" alt="Lagos — photo 19" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__07sty7fuqwqzl_l.jpg" data-slide-index="19" aria-label="Afficher la photo 20">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__07sty7fuqwqzl_l.jpg" alt="Lagos — photo 20" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__8b0sznwzx19us_l.jpg" data-slide-index="20" aria-label="Afficher la photo 21">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__8b0sznwzx19us_l.jpg" alt="Lagos — photo 21" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__0ybnmxzynfifc_l.jpg" data-slide-index="21" aria-label="Afficher la photo 22">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__0ybnmxzynfifc_l.jpg" alt="Lagos — photo 22" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2z8qhmli8sgzt_l.jpg" data-slide-index="22" aria-label="Afficher la photo 23">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2z8qhmli8sgzt_l.jpg" alt="Lagos — photo 23" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9o6mnurhfw0c1_l.jpg" data-slide-index="23" aria-label="Afficher la photo 24">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9o6mnurhfw0c1_l.jpg" alt="Lagos — photo 24" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2enubgcx9m6ti_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2enubgcx9m6ti_l.jpg" alt="Lagos — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1uwgon0zexsul_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1uwgon0zexsul_l.jpg" alt="Lagos — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7gos2ofgbd0mv_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7gos2ofgbd0mv_l.jpg" alt="Lagos — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__98w6f7qjuqceh_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__98w6f7qjuqceh_l.jpg" alt="Lagos — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4lo6bdffxk0f2_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4lo6bdffxk0f2_l.jpg" alt="Lagos — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9bp5qc2jovpys_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9bp5qc2jovpys_l.jpg" alt="Lagos — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__52ajvdmdidphn_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__52ajvdmdidphn_l.jpg" alt="Lagos — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__79gvkkdz7zm0a_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__79gvkkdz7zm0a_l.jpg" alt="Lagos — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6fnguduny0baf_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6fnguduny0baf_l.jpg" alt="Lagos — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7wspjlof8ch68_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7wspjlof8ch68_l.jpg" alt="Lagos — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__833jrtdmqo1p5_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__833jrtdmqo1p5_l.jpg" alt="Lagos — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9heoxhonisplw_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9heoxhonisplw_l.jpg" alt="Lagos — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1b78magvwgfxr_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__1b78magvwgfxr_l.jpg" alt="Lagos — photo 13">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__30vsxxfxcjc0a_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 14 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__30vsxxfxcjc0a_l.jpg" alt="Lagos — photo 14">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6lz4gxo8aparn_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 15 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6lz4gxo8aparn_l.jpg" alt="Lagos — photo 15">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7y2sgfi98lnhg_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 16 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__7y2sgfi98lnhg_l.jpg" alt="Lagos — photo 16">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6r1kxyow38jol_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 17 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__6r1kxyow38jol_l.jpg" alt="Lagos — photo 17">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__3gah5pbxenk9f_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 18 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__3gah5pbxenk9f_l.jpg" alt="Lagos — photo 18">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4vektdwlwxn9l_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 19 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__4vektdwlwxn9l_l.jpg" alt="Lagos — photo 19">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__07sty7fuqwqzl_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 20 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__07sty7fuqwqzl_l.jpg" alt="Lagos — photo 20">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__8b0sznwzx19us_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 21 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__8b0sznwzx19us_l.jpg" alt="Lagos — photo 21">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__0ybnmxzynfifc_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 22 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__0ybnmxzynfifc_l.jpg" alt="Lagos — photo 22">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2z8qhmli8sgzt_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 23 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__2z8qhmli8sgzt_l.jpg" alt="Lagos — photo 23">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9o6mnurhfw0c1_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 24 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/algarve-2025/footprint_6/69091a034d74a5-74925314__9o6mnurhfw0c1_l.jpg" alt="Lagos — photo 24">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

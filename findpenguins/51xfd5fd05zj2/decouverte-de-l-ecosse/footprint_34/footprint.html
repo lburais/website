@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edinburgh</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/footprint.html" title="Dean Village et Circus Lane">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 18">
+                        <div class="fp-progress-fill" style="width: 70.8%"></div>
+                        <span class="fp-day" style="left: 70.8%">Jour 18</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_35/footprint.html" title="Edinburgh">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Canongate">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/map_country.png"
+                                alt="Carte de Canongate"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=55.856664919296&amp;mlon=-3.1573466285138#map=12/55.856664919296/-3.1573466285138" target="_blank" rel="noopener">
+                            55.8567° N, 3.1573° W
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Edinburgh</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                    18 juin 2025
+                            </span>
+ , Scotland, Canongate                    </p>
+<p class="fp-subtitle fp-trip">Découverte de l’Ecosse</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>⛅ 18 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>157 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Edinburgh est une ville magique ! riche d’histoire et de culture qui lui a valu d’être classée au Patrimoine mondial de l’UNESCO.</p>
+<p>Il y a tant à faire et à voir dans cette ville que je ne peux mettre qu’un bref résumé de ce que nous avons vu : le château sur la colline, le Royal mile, l’artère principale , Victoria Street avec ses maisons colorées et les boutiques de sorcellerie, The Real Mary King’s Close qui nous a fait visiter une partie des rues et maisons souterraines de la ville, où vivaient autrefois une partie de la population,</p>
+<p>Princes Street, qui est située juste en-dessous du château. C’est une rue commerçante avec plein de boutiques et grands magasins et c’est aussi l’axe principal de la ville contemporaine.</p>
+<p>Le Palais de Holyrood</p>
+<p>Situé à l’opposé du château d’Édimbourg, tout en bas du Royal Mile, le Palais de Holyrood a appartenu à Marie Stuart et est aujourd’hui l’une des résidences secondaires de la Reine.</p>
+<p>sans oublier de manger un Haggis, spécialité locale !</p>
+<p>Une journée bien remplie !</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__aev7c88mu7ew1_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__aev7c88mu7ew1_l.jpg" alt="Edinburgh — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__a0fhr97o81dfg_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__a0fhr97o81dfg_l.jpg" alt="Edinburgh — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__nmf0oyw76ykbp_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__nmf0oyw76ykbp_l.jpg" alt="Edinburgh — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__d7tulyma7sjv1_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__d7tulyma7sjv1_l.jpg" alt="Edinburgh — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0j9tpejtnr4au_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0j9tpejtnr4au_l.jpg" alt="Edinburgh — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__7whwrwf2dxy60_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__7whwrwf2dxy60_l.jpg" alt="Edinburgh — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__okcd40se6q8bs_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__okcd40se6q8bs_l.jpg" alt="Edinburgh — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__udyem08xk2pyh_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__udyem08xk2pyh_l.jpg" alt="Edinburgh — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__1fnum0ihxffdl_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__1fnum0ihxffdl_l.jpg" alt="Edinburgh — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0c9hsj5xttlo7_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0c9hsj5xttlo7_l.jpg" alt="Edinburgh — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__ydo3bibrdw718_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__ydo3bibrdw718_l.jpg" alt="Edinburgh — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__mjywv401h78hj_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__mjywv401h78hj_l.jpg" alt="Edinburgh — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__69eohafn8pna1_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__69eohafn8pna1_l.jpg" alt="Edinburgh — photo 13" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__xt9p63higqiuf_l.jpg" data-slide-index="13" aria-label="Afficher la photo 14">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__xt9p63higqiuf_l.jpg" alt="Edinburgh — photo 14" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0am1y5r9f54g6_l.jpg" data-slide-index="14" aria-label="Afficher la photo 15">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0am1y5r9f54g6_l.jpg" alt="Edinburgh — photo 15" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__drs72xeyn53ey_l.jpg" data-slide-index="15" aria-label="Afficher la photo 16">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__drs72xeyn53ey_l.jpg" alt="Edinburgh — photo 16" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__hex5wnsvydl26_l.jpg" data-slide-index="16" aria-label="Afficher la photo 17">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__hex5wnsvydl26_l.jpg" alt="Edinburgh — photo 17" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__jp6kshd5ha1hk_l.jpg" data-slide-index="17" aria-label="Afficher la photo 18">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__jp6kshd5ha1hk_l.jpg" alt="Edinburgh — photo 18" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__aev7c88mu7ew1_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__aev7c88mu7ew1_l.jpg" alt="Edinburgh — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__a0fhr97o81dfg_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__a0fhr97o81dfg_l.jpg" alt="Edinburgh — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__nmf0oyw76ykbp_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__nmf0oyw76ykbp_l.jpg" alt="Edinburgh — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__d7tulyma7sjv1_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__d7tulyma7sjv1_l.jpg" alt="Edinburgh — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0j9tpejtnr4au_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0j9tpejtnr4au_l.jpg" alt="Edinburgh — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__7whwrwf2dxy60_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__7whwrwf2dxy60_l.jpg" alt="Edinburgh — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__okcd40se6q8bs_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__okcd40se6q8bs_l.jpg" alt="Edinburgh — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__udyem08xk2pyh_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__udyem08xk2pyh_l.jpg" alt="Edinburgh — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__1fnum0ihxffdl_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__1fnum0ihxffdl_l.jpg" alt="Edinburgh — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0c9hsj5xttlo7_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0c9hsj5xttlo7_l.jpg" alt="Edinburgh — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__ydo3bibrdw718_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__ydo3bibrdw718_l.jpg" alt="Edinburgh — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__mjywv401h78hj_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__mjywv401h78hj_l.jpg" alt="Edinburgh — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__69eohafn8pna1_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__69eohafn8pna1_l.jpg" alt="Edinburgh — photo 13">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__xt9p63higqiuf_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 14 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__xt9p63higqiuf_l.jpg" alt="Edinburgh — photo 14">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0am1y5r9f54g6_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 15 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__0am1y5r9f54g6_l.jpg" alt="Edinburgh — photo 15">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__drs72xeyn53ey_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 16 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__drs72xeyn53ey_l.jpg" alt="Edinburgh — photo 16">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__hex5wnsvydl26_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 17 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__hex5wnsvydl26_l.jpg" alt="Edinburgh — photo 17">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__jp6kshd5ha1hk_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 18 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/691c7d16a31366-77452567__jp6kshd5ha1hk_l.jpg" alt="Edinburgh — photo 18">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nos Projets</title>
+    <style>
+        body {
+            background-color: #f4f7f6; /* Fond clair alternatif */
+            color: #2c3e50;
+            font-family: Arial, sans-serif;
+            padding: 40px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        h1 { border-bottom: 2px solid #a0169e; padding-bottom: 10px; color: #a0169e; }
+        ul { list-style-type: none; padding: 0; margin-top: 20px; }
+        li { padding: 15px; border-bottom: 1px solid #eee; line-height: 1.6; }
+        .projects { display: flex; flex-wrap: wrap; gap: 30px; justify-content: center; }
+        .project { border: 0; padding: 0; width: 200px; text-align: center; }
+        .bubble { position: relative; display: flex; align-items: center; justify-content: center; width: 200px; height: 200px; border-radius: 50%; overflow: hidden; background: #a0169e center/cover no-repeat; color: #fff; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,.25); transition: transform .2s; }
+        .bubble:hover { transform: scale(1.05); }
+        .bubble::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,.35); }
+        .bubble span { position: relative; max-width: 85%; font-weight: bold; font-size: clamp(12px, 5cqw, 22px); line-height: 1.2; overflow-wrap: anywhere; text-shadow: 0 1px 3px #000; }
+        .project p { margin: 10px 0 0; font-size: .9em; }
+        .back-home { display: inline-block; margin-top: 25px; color: #a0169e; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nos Projets</h1>
+        <!-- Injection automatique de la liste Markdown -->
+        <ul class="projects">
+            <li class="project">
+                <a class="bubble" href="projets/bike.html" style="background-image:url('https://lburais.github.io/website/images/projets/bike.jpg')"><span>Bike</span></a>
+                <p>Transitionner vers des vélos à assistance électrique.</p>
+            </li>
+            <li class="project">
+                <a class="bubble" href="projets/findpenguinsscrapper.html" style="background-image:url('https://lburais.github.io/website/images/projets/findpenguins.jpg')"><span>FindPenguinsScrapper</span></a>
+                <p>Extraire les données FindPenguins pour les intégrer à notre site web.</p>
+            </li>
+            <li class="project">
+                <a class="bubble" href="projets/smartfranklin.html" style="background-image:url('https://lburais.github.io/website/images/projets/smartfranklin.jpg')"><span>SmartFranklin</span></a>
+                <p>Développements autour du matériel M5Stack pour gérer Franklin.</p>
+            </li>
+            <li class="project">
+                <a class="bubble" href="projets/travaux.html" style="background-image:url('https://lburais.github.io/website/images/projets/travaux.jpg')"><span>Travaux</span></a>
+                <p>Parc de Montaleigne</p>
+            </li>
+        </ul>
+        <a href="https://lburais.github.io/website/" class="back-home">← Retour à l'accueil</a>
+    </div>
+</body>
+</html>

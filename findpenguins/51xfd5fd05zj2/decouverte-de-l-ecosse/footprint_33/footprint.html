@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dean Village et Circus Lane</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_32/footprint.html" title="Abbaye de Rosslyn">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 18">
+                        <div class="fp-progress-fill" style="width: 70.8%"></div>
+                        <span class="fp-day" style="left: 70.8%">Jour 18</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_34/footprint.html" title="Edinburgh">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Canongate">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/map_country.png"
+                                alt="Carte de Canongate"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=55.856704319959&amp;mlon=-3.1572438183151#map=12/55.856704319959/-3.1572438183151" target="_blank" rel="noopener">
+                            55.8567° N, 3.1572° W
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Dean Village et Circus Lane</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                    18 juin 2025
+                            </span>
+ , Scotland, Canongate                    </p>
+<p class="fp-subtitle fp-trip">Découverte de l’Ecosse</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>⛅ 18 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>157 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Aujourd’hui visite d’Edinburgh . C’est un retour brutal à la civilisation après 15 jours dans les highlands !</p>
+<p>Gros coup de cœur pour Dean Village à l’entrée d’Edinburgh qui est un ancien quartier de meuniers . Dean Village est un oasis de verdure en plein cœur de la capitale</p>
+<p>l’histoire de Dean Village remonte au 11ème siècle où de nombreux moulins à eau s’étaient implantés le long des rives de la Water of Leith et profitaient de ses puissants courants qui permettaient de moudre les grains pour ainsi nourrir la population grandissante d'Édimbourg qui se limitait à l’époque à la Old Town.</p>
+<p>Au fil des siècles, Dean Village est devenu un quartier industriel prospère qui accueillait les tanneurs et les forgerons.</p>
+<p>On termine cette visite par Circus Lane juste à côté , une des plus belles rues d'Édimbourg. Avec sa voie pavée bordée de charmantes petites maisons collées les unes aux autres, il se dégage de cette ruelle une atmosphère paisible qui contraste avec l’agitation de la capitale!</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__y0jhv68dnbky4_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__y0jhv68dnbky4_l.jpg" alt="Dean Village et Circus Lane — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__02k86in0fnrer_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__02k86in0fnrer_l.jpg" alt="Dean Village et Circus Lane — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__30z7l238x0akb_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__30z7l238x0akb_l.jpg" alt="Dean Village et Circus Lane — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__hpe1hg6scr276_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__hpe1hg6scr276_l.jpg" alt="Dean Village et Circus Lane — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4pxvehriu5d1h_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4pxvehriu5d1h_l.jpg" alt="Dean Village et Circus Lane — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4wem68ms5l66o_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4wem68ms5l66o_l.jpg" alt="Dean Village et Circus Lane — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__a6tfzf48eekch_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__a6tfzf48eekch_l.jpg" alt="Dean Village et Circus Lane — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__0hambbr5amlun_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__0hambbr5amlun_l.jpg" alt="Dean Village et Circus Lane — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__gysm2nfsupxgf_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__gysm2nfsupxgf_l.jpg" alt="Dean Village et Circus Lane — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__2aoy5cvgwlwvw_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__2aoy5cvgwlwvw_l.jpg" alt="Dean Village et Circus Lane — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__sfc1kxd2eh1mu_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__sfc1kxd2eh1mu_l.jpg" alt="Dean Village et Circus Lane — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__8xf8kudap71eu_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__8xf8kudap71eu_l.jpg" alt="Dean Village et Circus Lane — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__zaeepydh3yxzh_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__zaeepydh3yxzh_l.jpg" alt="Dean Village et Circus Lane — photo 13" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__y0jhv68dnbky4_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__y0jhv68dnbky4_l.jpg" alt="Dean Village et Circus Lane — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__02k86in0fnrer_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__02k86in0fnrer_l.jpg" alt="Dean Village et Circus Lane — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__30z7l238x0akb_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__30z7l238x0akb_l.jpg" alt="Dean Village et Circus Lane — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__hpe1hg6scr276_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__hpe1hg6scr276_l.jpg" alt="Dean Village et Circus Lane — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4pxvehriu5d1h_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4pxvehriu5d1h_l.jpg" alt="Dean Village et Circus Lane — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4wem68ms5l66o_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__4wem68ms5l66o_l.jpg" alt="Dean Village et Circus Lane — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__a6tfzf48eekch_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__a6tfzf48eekch_l.jpg" alt="Dean Village et Circus Lane — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__0hambbr5amlun_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__0hambbr5amlun_l.jpg" alt="Dean Village et Circus Lane — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__gysm2nfsupxgf_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__gysm2nfsupxgf_l.jpg" alt="Dean Village et Circus Lane — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__2aoy5cvgwlwvw_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__2aoy5cvgwlwvw_l.jpg" alt="Dean Village et Circus Lane — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__sfc1kxd2eh1mu_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__sfc1kxd2eh1mu_l.jpg" alt="Dean Village et Circus Lane — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__8xf8kudap71eu_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__8xf8kudap71eu_l.jpg" alt="Dean Village et Circus Lane — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__zaeepydh3yxzh_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_33/691c7d10984b16-96047611__zaeepydh3yxzh_l.jpg" alt="Dean Village et Circus Lane — photo 13">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

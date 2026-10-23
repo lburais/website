@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Théoule-sur-Mer</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_29/footprint.html" title="Gruissan">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 100-101">
+                        <div class="fp-progress-fill" style="width: 19.5%"></div>
+                        <span class="fp-day" style="left: 19.5%">Jour 100-101</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_31/footprint.html" title="Calanque Saint Barthélemy">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Théoule-sur-Mer">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/map_country.png"
+                                alt="Carte de Théoule-sur-Mer"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=43.502068&amp;mlon=6.941188#map=12/43.502068/6.941188" target="_blank" rel="noopener">
+                            43.5021° N, 6.9412° E
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Théoule-sur-Mer</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                        22–23 novembre 2025
+                            </span>
+ , France, Théoule-sur-Mer                    </p>
+<p class="fp-subtitle fp-trip">Journal de Franklin II</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>☀️ 12 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>150 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Direction Théoule sur Mer pour une nuit dans l’Esterel avec une petite balade (5.4km 177D+) pre digestive à Notre Dame d’Afrique est une réplique de celle d’Alger érigée en 1990 en hommage aux rapatriés d’Afrique du Nord après la guerre d’Algérie.</p>
+<p>Spot P4N: <a class="reference external" href="https://park4night.com/fr/place/74457">https://park4night.com/fr/place/74457</a></p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7r2gxwhscemu6_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7r2gxwhscemu6_l.jpg" alt="Théoule-sur-Mer — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__4otazdtwcyoek_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__4otazdtwcyoek_l.jpg" alt="Théoule-sur-Mer — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__3zsjzrli0vccn_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__3zsjzrli0vccn_l.jpg" alt="Théoule-sur-Mer — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7psptjw2zbm0q_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7psptjw2zbm0q_l.jpg" alt="Théoule-sur-Mer — photo 4" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7r2gxwhscemu6_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7r2gxwhscemu6_l.jpg" alt="Théoule-sur-Mer — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__4otazdtwcyoek_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__4otazdtwcyoek_l.jpg" alt="Théoule-sur-Mer — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__3zsjzrli0vccn_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__3zsjzrli0vccn_l.jpg" alt="Théoule-sur-Mer — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7psptjw2zbm0q_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/journal-de-franklin-ii/footprint_30/6921dd09481953-84294948__7psptjw2zbm0q_l.jpg" alt="Théoule-sur-Mer — photo 4">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

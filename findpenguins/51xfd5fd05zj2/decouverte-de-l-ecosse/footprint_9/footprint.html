@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glencoe</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_8/footprint.html" title="Loch Lomond">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 6">
+                        <div class="fp-progress-fill" style="width: 20.8%"></div>
+                        <span class="fp-day" style="left: 20.8%">Jour 6</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_10/footprint.html" title="Three sisters Glencoe">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Highland">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/map_country.png"
+                                alt="Carte de Highland"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=56.664651765805&amp;mlon=-5.0384748077026#map=12/56.664651765805/-5.0384748077026" target="_blank" rel="noopener">
+                            56.6647° N, 5.0385° W
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Glencoe</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                    6 juin 2025
+                            </span>
+ , Scotland, Highland                    </p>
+<p class="fp-subtitle fp-trip">Découverte de l’Ecosse</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>⛅ 13 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>92 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Puis direction les Highlands ( enfin, on y est !) avec un arrêt dans la vallée de Glencoe. Vallée encaissée, encerclée de sommets de quelque 1 000 mètres, Glencoe est l’une des régions les plus sauvages d’ Écosse et l’une des plus célèbres. Plusieurs scènes des films Skyfall et Harry Potter et le Prisonnier d'Azkaban y ont été tournées.</p>
+<p>Nous avons emprunté la fameuse route de Skyfall et les paysages sont magnifiques 🤩</p>
+<p>Le temps ici change à une allure folle! Il</p>
+<p>Passe du soleil à la pluie en moins de 2 mn et il vaut mieux toujours avoir son Kway avec soi !</p>
+<p>Arrêt pour ce soir à côté du loch achtriochtan avec une très belle vue sur les montagnes ! Et ballade pour aller voir les cascades</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__19f6jvj6a8j5p_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__19f6jvj6a8j5p_l.jpg" alt="Glencoe — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__bdolm8mjm7kmq_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__bdolm8mjm7kmq_l.jpg" alt="Glencoe — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__qmilge3qvsh2e_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__qmilge3qvsh2e_l.jpg" alt="Glencoe — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wiyaqxdme7eq0_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wiyaqxdme7eq0_l.jpg" alt="Glencoe — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__eksbqqj6l5yno_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__eksbqqj6l5yno_l.jpg" alt="Glencoe — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__33zoepnqe5xt7_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__33zoepnqe5xt7_l.jpg" alt="Glencoe — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__t8na7174ouac9_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__t8na7174ouac9_l.jpg" alt="Glencoe — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__0o2s1n9suc67v_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__0o2s1n9suc67v_l.jpg" alt="Glencoe — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hpwjkjms34j83_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hpwjkjms34j83_l.jpg" alt="Glencoe — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__se1p8sdmqqqj0_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__se1p8sdmqqqj0_l.jpg" alt="Glencoe — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hqwo1dh8foou3_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hqwo1dh8foou3_l.jpg" alt="Glencoe — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__mifh1jbjgwp23_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__mifh1jbjgwp23_l.jpg" alt="Glencoe — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__kcfd0bjkdfhya_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__kcfd0bjkdfhya_l.jpg" alt="Glencoe — photo 13" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wl87476eiouum_l.jpg" data-slide-index="13" aria-label="Afficher la photo 14">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wl87476eiouum_l.jpg" alt="Glencoe — photo 14" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__sta95y6xpj8d7_l.jpg" data-slide-index="14" aria-label="Afficher la photo 15">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__sta95y6xpj8d7_l.jpg" alt="Glencoe — photo 15" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__e6z79f9kxnwxo_l.jpg" data-slide-index="15" aria-label="Afficher la photo 16">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__e6z79f9kxnwxo_l.jpg" alt="Glencoe — photo 16" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__70ui85y0oh5cc_l.jpg" data-slide-index="16" aria-label="Afficher la photo 17">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__70ui85y0oh5cc_l.jpg" alt="Glencoe — photo 17" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__19f6jvj6a8j5p_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__19f6jvj6a8j5p_l.jpg" alt="Glencoe — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__bdolm8mjm7kmq_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__bdolm8mjm7kmq_l.jpg" alt="Glencoe — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__qmilge3qvsh2e_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__qmilge3qvsh2e_l.jpg" alt="Glencoe — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wiyaqxdme7eq0_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wiyaqxdme7eq0_l.jpg" alt="Glencoe — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__eksbqqj6l5yno_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__eksbqqj6l5yno_l.jpg" alt="Glencoe — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__33zoepnqe5xt7_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__33zoepnqe5xt7_l.jpg" alt="Glencoe — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__t8na7174ouac9_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__t8na7174ouac9_l.jpg" alt="Glencoe — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__0o2s1n9suc67v_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__0o2s1n9suc67v_l.jpg" alt="Glencoe — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hpwjkjms34j83_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hpwjkjms34j83_l.jpg" alt="Glencoe — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__se1p8sdmqqqj0_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__se1p8sdmqqqj0_l.jpg" alt="Glencoe — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hqwo1dh8foou3_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__hqwo1dh8foou3_l.jpg" alt="Glencoe — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__mifh1jbjgwp23_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__mifh1jbjgwp23_l.jpg" alt="Glencoe — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__kcfd0bjkdfhya_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__kcfd0bjkdfhya_l.jpg" alt="Glencoe — photo 13">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wl87476eiouum_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 14 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__wl87476eiouum_l.jpg" alt="Glencoe — photo 14">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__sta95y6xpj8d7_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 15 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__sta95y6xpj8d7_l.jpg" alt="Glencoe — photo 15">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__e6z79f9kxnwxo_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 16 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__e6z79f9kxnwxo_l.jpg" alt="Glencoe — photo 16">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__70ui85y0oh5cc_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 17 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_9/691c7c905192c1-55605951__70ui85y0oh5cc_l.jpg" alt="Glencoe — photo 17">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

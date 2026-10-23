@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sterling</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_30/footprint.html" title="Dunnotar Castle">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 17">
+                        <div class="fp-progress-fill" style="width: 66.7%"></div>
+                        <span class="fp-day" style="left: 66.7%">Jour 17</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_32/footprint.html" title="Abbaye de Rosslyn">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Canongate">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/map_country.png"
+                                alt="Carte de Canongate"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=55.85670527934&amp;mlon=-3.157328763486#map=12/55.85670527934/-3.157328763486" target="_blank" rel="noopener">
+                            55.8567° N, 3.1573° W
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Sterling</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                    17 juin 2025
+                            </span>
+ , Scotland, Canongate                    </p>
+<p class="fp-subtitle fp-trip">Découverte de l’Ecosse</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>⛅ 21 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>157 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Nous quittons les Highlands pour retourner dans les lowlands à côté d’Edinburgh</p>
+<p>Visite du village et du château de Stirling, ainsi que du monument érigé en l’honneur de William Wallace</p>
+<p>Le château de Stirling est l'un des plus grands et des plus importants châteaux d'Écosse, il est entouré sur trois côtés par des falaises à pic, ce qui le rend facile à défendre. Cette caractéristique, ainsi que sa position stratégique, ont fait de lui une importante place forte dès l'origine, objet de lutte entre Écossais et Anglais. Plusieurs rois et reines d'Ecosse y sont nés, morts ou y ont été sacrés.</p>
+<p>Il a été rendu célèbre également grâce William Wallace, ( Braveheart) un noble, qui mena une révolte contre l’occupation anglaise.</p>
+<p>En 1297, il conduisit les Écossais à une victoire retentissante lors de la bataille du pont de Stirling. Plus tard cette année-là, il reprit également le château de Stirling aux Anglais.</p>
+<p>Ce fut dans ce château également que séjourna la reine Marie Stuart au XVIeme siècle</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__te9pu4rosxmed_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__te9pu4rosxmed_l.jpg" alt="Sterling — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__vj081vmang2np_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__vj081vmang2np_l.jpg" alt="Sterling — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__yil0sudx9omzy_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__yil0sudx9omzy_l.jpg" alt="Sterling — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__he7jzthscg819_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__he7jzthscg819_l.jpg" alt="Sterling — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__cbqeg5brmzpws_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__cbqeg5brmzpws_l.jpg" alt="Sterling — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__iop1ptkawg8hy_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__iop1ptkawg8hy_l.jpg" alt="Sterling — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__i94nexzpgjxhy_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__i94nexzpgjxhy_l.jpg" alt="Sterling — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__fv9ypfn3g5eyu_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__fv9ypfn3g5eyu_l.jpg" alt="Sterling — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__j1jz75ij2lpo9_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__j1jz75ij2lpo9_l.jpg" alt="Sterling — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__l66n1v4t6r7ck_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__l66n1v4t6r7ck_l.jpg" alt="Sterling — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__9rftmcnb7sfqp_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__9rftmcnb7sfqp_l.jpg" alt="Sterling — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__s5ujx9v7pfi5d_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__s5ujx9v7pfi5d_l.jpg" alt="Sterling — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__bpnksxppkd8pl_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__bpnksxppkd8pl_l.jpg" alt="Sterling — photo 13" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__hk8cah2o4x4kl_l.jpg" data-slide-index="13" aria-label="Afficher la photo 14">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__hk8cah2o4x4kl_l.jpg" alt="Sterling — photo 14" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__xsecxfbtakv8p_l.jpg" data-slide-index="14" aria-label="Afficher la photo 15">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__xsecxfbtakv8p_l.jpg" alt="Sterling — photo 15" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__te9pu4rosxmed_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__te9pu4rosxmed_l.jpg" alt="Sterling — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__vj081vmang2np_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__vj081vmang2np_l.jpg" alt="Sterling — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__yil0sudx9omzy_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__yil0sudx9omzy_l.jpg" alt="Sterling — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__he7jzthscg819_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__he7jzthscg819_l.jpg" alt="Sterling — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__cbqeg5brmzpws_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__cbqeg5brmzpws_l.jpg" alt="Sterling — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__iop1ptkawg8hy_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__iop1ptkawg8hy_l.jpg" alt="Sterling — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__i94nexzpgjxhy_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__i94nexzpgjxhy_l.jpg" alt="Sterling — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__fv9ypfn3g5eyu_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__fv9ypfn3g5eyu_l.jpg" alt="Sterling — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__j1jz75ij2lpo9_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__j1jz75ij2lpo9_l.jpg" alt="Sterling — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__l66n1v4t6r7ck_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__l66n1v4t6r7ck_l.jpg" alt="Sterling — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__9rftmcnb7sfqp_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__9rftmcnb7sfqp_l.jpg" alt="Sterling — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__s5ujx9v7pfi5d_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__s5ujx9v7pfi5d_l.jpg" alt="Sterling — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__bpnksxppkd8pl_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__bpnksxppkd8pl_l.jpg" alt="Sterling — photo 13">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__hk8cah2o4x4kl_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 14 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__hk8cah2o4x4kl_l.jpg" alt="Sterling — photo 14">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__xsecxfbtakv8p_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 15 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/decouverte-de-l-ecosse/footprint_31/691c7d05b27579-50939091__xsecxfbtakv8p_l.jpg" alt="Sterling — photo 15">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

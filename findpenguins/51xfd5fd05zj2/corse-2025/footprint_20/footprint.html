@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calvi</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_19/footprint.html" title="Plage de Saleccia - Désert des Agriates">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 10">
+                        <div class="fp-progress-fill" style="width: 81.8%"></div>
+                        <span class="fp-day" style="left: 81.8%">Jour 10</span>
+                    </div>
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_21/footprint.html" title="Monticello">&#9654;</a>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Calvi">
+                            <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/map_country.png"
+                                alt="Carte de Calvi"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=42.556155&amp;mlon=8.764463#map=12/42.556155/8.764463" target="_blank" rel="noopener">
+                            42.5562° N, 8.7645° E
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Calvi</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                    14 septembre 2025
+                            </span>
+ , France, Calvi                    </p>
+<p class="fp-subtitle fp-trip">🇫🇷 Corse 2025</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>🌬 26 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>6 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>Journée à Calvi pour aller voir la citadelle avec un retour par la plage</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__760cwi64qirj1_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__760cwi64qirj1_l.jpg" alt="Calvi — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wqpj3l1s3bf4r_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wqpj3l1s3bf4r_l.jpg" alt="Calvi — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__jkjkhayofkqhm_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__jkjkhayofkqhm_l.jpg" alt="Calvi — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__uiqnecx4cv05l_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__uiqnecx4cv05l_l.jpg" alt="Calvi — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__udewr5gzevgnc_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__udewr5gzevgnc_l.jpg" alt="Calvi — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__tjbmmj34k072y_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__tjbmmj34k072y_l.jpg" alt="Calvi — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__ao398txhiqvst_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__ao398txhiqvst_l.jpg" alt="Calvi — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rk0dlfxrcji5d_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rk0dlfxrcji5d_l.jpg" alt="Calvi — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__gd4skwbw74wen_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__gd4skwbw74wen_l.jpg" alt="Calvi — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wujk8hsqassqo_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wujk8hsqassqo_l.jpg" alt="Calvi — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__u070q5cg26g76_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__u070q5cg26g76_l.jpg" alt="Calvi — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__pumls9w8pu2nc_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__pumls9w8pu2nc_l.jpg" alt="Calvi — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rfairvywie99w_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rfairvywie99w_l.jpg" alt="Calvi — photo 13" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__4j5j1gbh7qkud_l.jpg" data-slide-index="13" aria-label="Afficher la photo 14">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__4j5j1gbh7qkud_l.jpg" alt="Calvi — photo 14" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__vj2inte0hbmo8_l.jpg" data-slide-index="14" aria-label="Afficher la photo 15">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__vj2inte0hbmo8_l.jpg" alt="Calvi — photo 15" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__cb4cupfucz6tq_l.jpg" data-slide-index="15" aria-label="Afficher la photo 16">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__cb4cupfucz6tq_l.jpg" alt="Calvi — photo 16" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__81lt47szegsiu_l.jpg" data-slide-index="16" aria-label="Afficher la photo 17">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__81lt47szegsiu_l.jpg" alt="Calvi — photo 17" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__1kcrctjwivbbr_l.jpg" data-slide-index="17" aria-label="Afficher la photo 18">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__1kcrctjwivbbr_l.jpg" alt="Calvi — photo 18" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wbgplgz4e2tg2_l.jpg" data-slide-index="18" aria-label="Afficher la photo 19">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wbgplgz4e2tg2_l.jpg" alt="Calvi — photo 19" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__qtj572k898q0g_l.jpg" data-slide-index="19" aria-label="Afficher la photo 20">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__qtj572k898q0g_l.jpg" alt="Calvi — photo 20" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__bhd4eocp1jupc_l.jpg" data-slide-index="20" aria-label="Afficher la photo 21">
+                        <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__bhd4eocp1jupc_l.jpg" alt="Calvi — photo 21" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__760cwi64qirj1_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__760cwi64qirj1_l.jpg" alt="Calvi — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wqpj3l1s3bf4r_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wqpj3l1s3bf4r_l.jpg" alt="Calvi — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__jkjkhayofkqhm_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__jkjkhayofkqhm_l.jpg" alt="Calvi — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__uiqnecx4cv05l_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__uiqnecx4cv05l_l.jpg" alt="Calvi — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__udewr5gzevgnc_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__udewr5gzevgnc_l.jpg" alt="Calvi — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__tjbmmj34k072y_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__tjbmmj34k072y_l.jpg" alt="Calvi — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__ao398txhiqvst_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__ao398txhiqvst_l.jpg" alt="Calvi — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rk0dlfxrcji5d_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rk0dlfxrcji5d_l.jpg" alt="Calvi — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__gd4skwbw74wen_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__gd4skwbw74wen_l.jpg" alt="Calvi — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wujk8hsqassqo_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wujk8hsqassqo_l.jpg" alt="Calvi — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__u070q5cg26g76_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__u070q5cg26g76_l.jpg" alt="Calvi — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__pumls9w8pu2nc_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__pumls9w8pu2nc_l.jpg" alt="Calvi — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rfairvywie99w_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__rfairvywie99w_l.jpg" alt="Calvi — photo 13">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__4j5j1gbh7qkud_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 14 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__4j5j1gbh7qkud_l.jpg" alt="Calvi — photo 14">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__vj2inte0hbmo8_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 15 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__vj2inte0hbmo8_l.jpg" alt="Calvi — photo 15">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__cb4cupfucz6tq_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 16 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__cb4cupfucz6tq_l.jpg" alt="Calvi — photo 16">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__81lt47szegsiu_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 17 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__81lt47szegsiu_l.jpg" alt="Calvi — photo 17">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__1kcrctjwivbbr_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 18 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__1kcrctjwivbbr_l.jpg" alt="Calvi — photo 18">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wbgplgz4e2tg2_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 19 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__wbgplgz4e2tg2_l.jpg" alt="Calvi — photo 19">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__qtj572k898q0g_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 20 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__qtj572k898q0g_l.jpg" alt="Calvi — photo 20">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__bhd4eocp1jupc_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 21 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/51xfd5fd05zj2/corse-2025/footprint_20/691c7d9a23f1d6-56316620__bhd4eocp1jupc_l.jpg" alt="Calvi — photo 21">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>

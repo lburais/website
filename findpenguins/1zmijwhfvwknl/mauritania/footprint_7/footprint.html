@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chinguetti 2 eme jour</title>
+    <link rel="stylesheet" href="https://lburais.github.io/website/theme/findpenguins/css/footprint.css" type="text/css" />
+</head>
+<body>
+
+    <article class="footprint">
+        <a class="fp-adventures-link" href="https://lburais.github.io/website/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+        <header class="fp-header">
+            <div class="fp-hero fp-hero-map">
+                <div class="fp-nav">
+<a class="fp-arrow" href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_6/footprint.html" title="Chinguetti">&#9664;</a>                    <div class="fp-progress" aria-label="Jour 8">
+                        <div class="fp-progress-fill" style="width: 100.0%"></div>
+                        <span class="fp-day" style="left: 100.0%">Jour 8</span>
+                    </div>
+<span class="fp-arrow fp-arrow-off">&#9654;</span>                </div>
+
+                    <div class="fp-map">
+                        <div class="fp-map-frame" id="fp-country-map"
+                            role="img"
+                            aria-label="Carte de Chinguetti">
+                            <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/map_country.png"
+                                alt="Carte de Chinguetti"
+                                loading="lazy" />
+                        </div>
+                        <a class="fp-coords" href="https://www.openstreetmap.org/?mlat=20.4634827&amp;mlon=-12.3658552#map=12/20.4634827/-12.3658552" target="_blank" rel="noopener">
+                            20.4635° N, 12.3659° W
+                        </a>
+                    </div>
+                <div class="fp-heading">
+                    <h1 class="fp-title">Chinguetti 2 eme jour</h1>
+                    <p class="fp-subtitle">
+                            <span>
+                                    6 janvier 2024
+                            </span>
+ , Mauritania, Chinguetti                    </p>
+<p class="fp-subtitle fp-trip">Mauritania</p>                        <dl class="fp-facts">
+                                <div>
+                                    <dt>Météo</dt>
+                                    <dd>☀️ 31 °C</dd>
+                                </div>
+                                <div>
+                                    <dt>Altitude</dt>
+                                    <dd>495 m</dd>
+                                </div>
+                        </dl>
+                </div>
+            </div>
+
+            <div class="fp-text"><p>7 eme jour visite de Chinguitti , 7 eme ville sainte</p>
+<p>Nous quittons notre hôtel pour une visite de la ville</p>
+<p>Cette ville était une cité prospère et un grand foyer de culture et de rayonnement islamique.</p>
+<p>Chinguitti était également un centre économique</p>
+<p>Nous visitons tout d’abord la 4 eme ville , la plus récente</p>
+<p>Puis visite d’une des 12 bibliothèques de Chinguitti qui renferment des manuscrits dont les plus anciens remontent au XI eme siècle .</p>
+<p>la bibliothèque familiale d'Ehel Habot est connue depuis 1262 , c’est la plus ancienne et la plus grande</p>
+<p>Les manuscrits appartiennent à cette famille depuis l’an 1200 et sont transmis de générations en générations</p>
+<p>A ce jour la bibliothèque réunit environ 2000 volumes dont 1400 sont manuscrits et répertoriés comme suit:</p>
+<p>Les sciences du coran, de la langue, la littérature arabe, l'arithmétique et la médecine,l’astronomie, l’histoire</p>
+<p>Nous continuons notre ballade dans le vieux Chinguitti datant de 1260</p>
+<p>En chemin nous visitons le jardin de Ginette , française qui vit à Chinguitti depuis 20 ans et qui a fait un jardin et un potager magnifique. Elle nous donne 2 salades pour notre déjeuner. Assez improbable !</p>
+<p>Puis visite de la vieille ville , abandonnée en 1260 car trop souvent ensablée et construite avec des rues trop étroites</p>
+<p>Puis ballade dans les dunes avant de rejoindre une oasis pour le pique nique</p>
+<p>Sur le chemin nous voyons la 1 ère mosquée de Chinguitti datant de 750 apres JC , abandonnée avec la première ville suite à son ensablement et au déplacement des dunes de sable. Chinguitti est la ville aux portes du désert</p>
+<p>Puis arrêt dans une oasis pour déjeuner , et préparation des salades de Ginette!</p>
+<p>Il est temps de dire au revoir à notre guide , mais nous garderons un magnifique souvenir de ce voyage très diversifié. La Mauritanie est un pays qui gagne à être connu . C’est un pays accueillant, les mauritaniens sont un peuple chaleureux et bienveillant où l’on se sent en sécurité et qui regorge de trésors!</p>
+</div>
+
+        </header>
+
+            <script>
+                const carouselTimers = {};
+
+                function setSlide(index, carouselId, pauseAutoPlay = false) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    if (!slides.length) return;
+
+                    const activeIndex = ((index % slides.length) + slides.length) % slides.length;
+                    slides.forEach((slide, slideIndex) => {
+                        const active = slideIndex === activeIndex;
+                        slide.classList.toggle('active', active);
+                        const video = slide.querySelector('video');
+                        if (video && !active) video.pause();
+                    });
+
+                    document.querySelectorAll('.fp-media [data-slide-index]').forEach((thumbnail) => {
+                        const active = Number(thumbnail.dataset.slideIndex) === activeIndex;
+                        thumbnail.classList.toggle('active', active);
+                        thumbnail.setAttribute('aria-current', active ? 'true' : 'false');
+                    });
+
+                    if (pauseAutoPlay && carouselTimers[carouselId]) {
+                        clearInterval(carouselTimers[carouselId]);
+                        delete carouselTimers[carouselId];
+                    }
+                }
+
+                function moveSlide(direction, carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const slides = carousel.querySelectorAll('.carousel-slide');
+                    let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+                    setSlide(activeIndex + direction, carouselId);
+                }
+
+                function userMoveSlide(direction, carouselId) {
+                    moveSlide(direction, carouselId);
+                    startAutoPlay(carouselId);
+                }
+
+                function startAutoPlay(carouselId) {
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    const interval = parseInt(carousel.getAttribute('data-interval')) || 5000;
+
+                    if (carouselTimers[carouselId]) {
+                    clearInterval(carouselTimers[carouselId]);
+                    }
+
+                    carouselTimers[carouselId] = setInterval(() => {
+                    moveSlide(1, carouselId);
+                    }, interval);
+                }
+
+                document.addEventListener("DOMContentLoaded", () => {
+                    const carouselId = 'manual-carousel';
+                    const carousel = document.getElementById(carouselId);
+                    if (!carousel) return;
+                    setSlide(0, carouselId);
+                    startAutoPlay(carouselId);
+
+                    const mediaStrip = document.querySelector('.fp-media');
+                    mediaStrip?.addEventListener('pointerenter', () => {
+                        if (carouselTimers[carouselId]) {
+                            clearInterval(carouselTimers[carouselId]);
+                            delete carouselTimers[carouselId];
+                        }
+                    });
+
+                    mediaStrip?.querySelectorAll('[data-slide-index]').forEach((thumbnail) => {
+                        thumbnail.addEventListener('click', (event) => {
+                            event.preventDefault();
+                            setSlide(Number(thumbnail.dataset.slideIndex), carouselId, true);
+                        });
+                    });
+                });
+            </script>
+
+            <section class="fp-media" aria-label="Photos et vidéos">
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__wthtptw7y0yzw_l.jpg" data-slide-index="0" aria-label="Afficher la photo 1">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__wthtptw7y0yzw_l.jpg" alt="Chinguetti 2 eme jour — photo 1" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__a5qr0msdm7261_l.jpg" data-slide-index="1" aria-label="Afficher la photo 2">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__a5qr0msdm7261_l.jpg" alt="Chinguetti 2 eme jour — photo 2" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__npi1ecd804rkb_l.jpg" data-slide-index="2" aria-label="Afficher la photo 3">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__npi1ecd804rkb_l.jpg" alt="Chinguetti 2 eme jour — photo 3" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__kky4g4jntssqa_l.jpg" data-slide-index="3" aria-label="Afficher la photo 4">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__kky4g4jntssqa_l.jpg" alt="Chinguetti 2 eme jour — photo 4" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tinuq4zou26d3_l.jpg" data-slide-index="4" aria-label="Afficher la photo 5">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tinuq4zou26d3_l.jpg" alt="Chinguetti 2 eme jour — photo 5" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__zdqagubct8kix_l.jpg" data-slide-index="5" aria-label="Afficher la photo 6">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__zdqagubct8kix_l.jpg" alt="Chinguetti 2 eme jour — photo 6" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__s0zvufhwxty87_l.jpg" data-slide-index="6" aria-label="Afficher la photo 7">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__s0zvufhwxty87_l.jpg" alt="Chinguetti 2 eme jour — photo 7" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dyyaqq2b4mn9a_l.jpg" data-slide-index="7" aria-label="Afficher la photo 8">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dyyaqq2b4mn9a_l.jpg" alt="Chinguetti 2 eme jour — photo 8" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__k6tloey0llqyb_l.jpg" data-slide-index="8" aria-label="Afficher la photo 9">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__k6tloey0llqyb_l.jpg" alt="Chinguetti 2 eme jour — photo 9" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ap1jr51y44bta_l.jpg" data-slide-index="9" aria-label="Afficher la photo 10">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ap1jr51y44bta_l.jpg" alt="Chinguetti 2 eme jour — photo 10" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uqg7og95rowqi_l.jpg" data-slide-index="10" aria-label="Afficher la photo 11">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uqg7og95rowqi_l.jpg" alt="Chinguetti 2 eme jour — photo 11" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tlra005vol5t5_l.jpg" data-slide-index="11" aria-label="Afficher la photo 12">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tlra005vol5t5_l.jpg" alt="Chinguetti 2 eme jour — photo 12" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__nkj181mo2b32b_l.jpg" data-slide-index="12" aria-label="Afficher la photo 13">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__nkj181mo2b32b_l.jpg" alt="Chinguetti 2 eme jour — photo 13" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ticx4qrll9rz0_l.jpg" data-slide-index="13" aria-label="Afficher la photo 14">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ticx4qrll9rz0_l.jpg" alt="Chinguetti 2 eme jour — photo 14" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__h2g19yt2cted4_l.jpg" data-slide-index="14" aria-label="Afficher la photo 15">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__h2g19yt2cted4_l.jpg" alt="Chinguetti 2 eme jour — photo 15" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dhbkbyxptunjw_l.jpg" data-slide-index="15" aria-label="Afficher la photo 16">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dhbkbyxptunjw_l.jpg" alt="Chinguetti 2 eme jour — photo 16" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__0xh2m13vicazu_l.jpg" data-slide-index="16" aria-label="Afficher la photo 17">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__0xh2m13vicazu_l.jpg" alt="Chinguetti 2 eme jour — photo 17" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__gubv6hk6k1wgb_l.jpg" data-slide-index="17" aria-label="Afficher la photo 18">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__gubv6hk6k1wgb_l.jpg" alt="Chinguetti 2 eme jour — photo 18" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__q3xnhqpu6hq69_l.jpg" data-slide-index="18" aria-label="Afficher la photo 19">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__q3xnhqpu6hq69_l.jpg" alt="Chinguetti 2 eme jour — photo 19" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__5rzgizkiqs29a_l.jpg" data-slide-index="19" aria-label="Afficher la photo 20">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__5rzgizkiqs29a_l.jpg" alt="Chinguetti 2 eme jour — photo 20" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__xrnejifiic8g9_l.jpg" data-slide-index="20" aria-label="Afficher la photo 21">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__xrnejifiic8g9_l.jpg" alt="Chinguetti 2 eme jour — photo 21" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__psg8ttcdwbmnl_l.jpg" data-slide-index="21" aria-label="Afficher la photo 22">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__psg8ttcdwbmnl_l.jpg" alt="Chinguetti 2 eme jour — photo 22" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uha5gclpm5skh_l.jpg" data-slide-index="22" aria-label="Afficher la photo 23">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uha5gclpm5skh_l.jpg" alt="Chinguetti 2 eme jour — photo 23" loading="lazy" />
+                    </a>
+                    <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__hqi9l7p4yztqr_l.jpg" data-slide-index="23" aria-label="Afficher la photo 24">
+                        <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__hqi9l7p4yztqr_l.jpg" alt="Chinguetti 2 eme jour — photo 24" loading="lazy" />
+                    </a>
+            </section>
+
+            <div class="vanilla-carousel-container">
+                <div class="vanilla-carousel" id="manual-carousel" data-interval="4000">
+                    <div class="carousel-stage">
+                            <div class="carousel-slide active">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__wthtptw7y0yzw_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 1 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__wthtptw7y0yzw_l.jpg" alt="Chinguetti 2 eme jour — photo 1">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__a5qr0msdm7261_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 2 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__a5qr0msdm7261_l.jpg" alt="Chinguetti 2 eme jour — photo 2">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__npi1ecd804rkb_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 3 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__npi1ecd804rkb_l.jpg" alt="Chinguetti 2 eme jour — photo 3">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__kky4g4jntssqa_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 4 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__kky4g4jntssqa_l.jpg" alt="Chinguetti 2 eme jour — photo 4">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tinuq4zou26d3_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 5 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tinuq4zou26d3_l.jpg" alt="Chinguetti 2 eme jour — photo 5">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__zdqagubct8kix_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 6 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__zdqagubct8kix_l.jpg" alt="Chinguetti 2 eme jour — photo 6">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__s0zvufhwxty87_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 7 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__s0zvufhwxty87_l.jpg" alt="Chinguetti 2 eme jour — photo 7">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dyyaqq2b4mn9a_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 8 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dyyaqq2b4mn9a_l.jpg" alt="Chinguetti 2 eme jour — photo 8">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__k6tloey0llqyb_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 9 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__k6tloey0llqyb_l.jpg" alt="Chinguetti 2 eme jour — photo 9">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ap1jr51y44bta_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 10 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ap1jr51y44bta_l.jpg" alt="Chinguetti 2 eme jour — photo 10">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uqg7og95rowqi_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 11 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uqg7og95rowqi_l.jpg" alt="Chinguetti 2 eme jour — photo 11">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tlra005vol5t5_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 12 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__tlra005vol5t5_l.jpg" alt="Chinguetti 2 eme jour — photo 12">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__nkj181mo2b32b_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 13 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__nkj181mo2b32b_l.jpg" alt="Chinguetti 2 eme jour — photo 13">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ticx4qrll9rz0_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 14 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__ticx4qrll9rz0_l.jpg" alt="Chinguetti 2 eme jour — photo 14">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__h2g19yt2cted4_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 15 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__h2g19yt2cted4_l.jpg" alt="Chinguetti 2 eme jour — photo 15">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dhbkbyxptunjw_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 16 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__dhbkbyxptunjw_l.jpg" alt="Chinguetti 2 eme jour — photo 16">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__0xh2m13vicazu_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 17 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__0xh2m13vicazu_l.jpg" alt="Chinguetti 2 eme jour — photo 17">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__gubv6hk6k1wgb_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 18 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__gubv6hk6k1wgb_l.jpg" alt="Chinguetti 2 eme jour — photo 18">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__q3xnhqpu6hq69_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 19 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__q3xnhqpu6hq69_l.jpg" alt="Chinguetti 2 eme jour — photo 19">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__5rzgizkiqs29a_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 20 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__5rzgizkiqs29a_l.jpg" alt="Chinguetti 2 eme jour — photo 20">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__xrnejifiic8g9_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 21 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__xrnejifiic8g9_l.jpg" alt="Chinguetti 2 eme jour — photo 21">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__psg8ttcdwbmnl_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 22 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__psg8ttcdwbmnl_l.jpg" alt="Chinguetti 2 eme jour — photo 22">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uha5gclpm5skh_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 23 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__uha5gclpm5skh_l.jpg" alt="Chinguetti 2 eme jour — photo 23">
+                                </a>
+                            </div>
+                            <div class="carousel-slide">
+                                <a href="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__hqi9l7p4yztqr_l.jpg" target="_blank" rel="noopener" aria-label="Ouvrir la photo 24 dans un nouvel onglet">
+                                    <img src="https://lburais.github.io/website/findpenguins/1zmijwhfvwknl/mauritania/footprint_7/691c53e7b86a92-25422064__hqi9l7p4yztqr_l.jpg" alt="Chinguetti 2 eme jour — photo 24">
+                                </a>
+                            </div>
+                    </div>
+                    <button class="carousel-btn prev-btn" onclick="userMoveSlide(-1, 'manual-carousel')" aria-label="Média précédent">&#10094;</button>
+                    <button class="carousel-btn next-btn" onclick="userMoveSlide(1, 'manual-carousel')" aria-label="Média suivant">&#10095;</button>
+                </div>
+            </div>
+
+
+
+    </article>
+
+    <script>
+        document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+            link.target = '_blank';
+            link.rel = 'noopener';
+        });
+    </script>
+
+</body>
+</html>
