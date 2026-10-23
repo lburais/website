@@ -208,7 +208,9 @@
                     <div class="carousel-stage">
                         {% for photo in photos %}
                             <div class="carousel-slide{% if loop.first %} active{% endif %}">
-                                <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ page.title }} — photo {{ loop.index }}">
+                                <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener" aria-label="Ouvrir la photo {{ loop.index }} dans un nouvel onglet">
+                                    <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ page.title }} — photo {{ loop.index }}">
+                                </a>
                             </div>
                         {% endfor %}
                         {% for video in videos %}

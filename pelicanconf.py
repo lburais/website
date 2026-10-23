@@ -57,5 +57,5 @@ DEFAULT_PAGINATION = 10
 # Conserver la structure des dossiers lors de la génération
 # Kept False: rmtree of output/ races with autoreload (-r) while the scraper writes files.
 # Use `make clean` to wipe stale output.
-DELETE_OUTPUT_DIRECTORY = False
+DELETE_OUTPUT_DIRECTORY = True
 
