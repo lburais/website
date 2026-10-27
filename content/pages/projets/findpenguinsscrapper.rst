@@ -1,4 +1,4 @@
-:Title: FindPenguinsScrapper
+:Title: FindPenguins Scrapper
 :Slug: projet-findpenguinsscrapper
 :Template: default
 :Description: Extraire les données FindPenguins pour les intégrer à notre site web.

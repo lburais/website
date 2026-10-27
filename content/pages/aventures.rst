@@ -3,3 +3,4 @@
 :Slug: aventures
 :Template: findpenguins
 :Save_as: aventures.html
+:Image: aventures.png

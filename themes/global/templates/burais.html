@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ DEFAULT_LANG }}">
+<html lang="{{ DEFAULT_LANG }}"  class="burais">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
     
     <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/burais/css/main.css" type="text/css" />
-</head>
-<body>
 
-    <div class="main-container">
+</head>
+<body class="burais">
+
+    <div class="burais-container">
         <!-- Titre & Slogan de la Famille Burais -->
         <h1 class="site-title">{{ page.title }}</h1>
         <div class="site-subtitle">
@@ -18,7 +19,27 @@
         <div class="site-subtitle">
         </div>
         
-        <!-- Navigation circulaire -->
+        <!-- Injection automatique de la liste Markdown -->
+        <ul class="items">
+        {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 %}
+            {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
+            <li class="item">
+                <a  class="bubble" 
+                    href="{{ link }}"
+                    {% if p.image %} 
+                        style="background-image:url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/burais/images/{{ p.image }}')"
+                    {% endif %}
+                    {% if p.redirect_url %} 
+                        target="_blank" 
+                    {% endif %}
+                >
+                <span>{{ p.title }}</span>
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+
+        <!-- Navigation circulaire
         <div class="circles-nav">
             <a href="{{ SITEURL }}/about.html" class="circle-btn circle-about">
                 <span class="circle-label">About</span>
@@ -30,7 +51,7 @@
 
             <a href="{{ SITEURL }}/projets.html" class="circle-btn circle-projets">
                 <span class="circle-label">Projets</span>
-            </a>
+            </a> 
 
             <a href="{{ SITEURL }}/aventures.html" class="circle-btn circle-aventures">
                 <span class="circle-label">Aventures</span>
@@ -40,6 +61,7 @@
                 <span class="circle-label">Esperens</span>
             </a>
         </div>
+        -->
     </div>
 
 </body>

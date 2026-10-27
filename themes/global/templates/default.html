@@ -2,6 +2,14 @@
 <html lang="{{ DEFAULT_LANG }}">
 <head>
     <meta charset="utf-8" />
+
+    {% if page.redirect_url is defined and page.redirect_url %}
+        <title>Redirecting...</title>
+        <!-- The critical part: immediately forward to the page's redirect target -->
+        <meta http-equiv="refresh" content="0; url={{ page.redirect_url }}">
+        <link rel="canonical" href="{{ page.redirect_url }}">
+    {% endif %}
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
     <style>
@@ -22,6 +30,7 @@
         h1 { border-bottom: 2px solid #166ba0; padding-bottom: 10px; color: #166ba0; }
         .back-home { display: inline-block; margin-top: 25px; color: #166ba0; text-decoration: none; }
     </style>
+
 </head>
 <body>
     <div class="container">
