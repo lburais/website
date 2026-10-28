@@ -58,8 +58,3 @@ DEFAULT_PAGINATION = 10
 # Kept False: rmtree of output/ races with autoreload (-r) while the scraper writes files.
 # Use `make clean` to wipe stale output.
 DELETE_OUTPUT_DIRECTORY = True
-
-# Associe le tag 'todo' au template 'tag' (sans l'extension .html)
-# TAG_TEMPLATES = {
-#     'todo': 'tag',
-# }

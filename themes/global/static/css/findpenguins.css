@@ -345,12 +345,14 @@ body.footprint {
     font-size: clamp(1.4rem, 4vw, 1.7rem);
     font-weight: 800;
     line-height: 1.2;
+    color: #000;
 }
 
 .fp-subtitle {
     margin: 5px 0 0;
     font-size: 0.75rem;
     font-weight: 700;
+    color: #000;
 }
 
 .fp-flag { margin-right: 6px; font-size: 0.95rem; }
@@ -402,6 +404,7 @@ body.footprint {
     flex-wrap: wrap;
     gap: 12px 32px;
     margin-top: 18px;
+    color: #000;
 }
 
 .fp-facts dt {
