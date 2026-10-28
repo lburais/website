@@ -4,18 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
-
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/burais/css/main.css" type="text/css" />
-
-    <style>
-        .back-home { display: inline-block; margin-top: 25px; color: #a0169e; text-decoration: none; }
-    </style>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css" type="text/css" />
 </head>
 <body class="projets">
-    <div class="projet-container">
-        <h1 class="projets">{{ page.title }}</h1>
+    <div class="page-container">
+        <header class="banner" style="background: #a0169e">
+            <h1>{{ page.title }}</h1>
+            <a class="home-button" href="{{ SITEURL }}/" aria-label="Accueil" title="Famille Burais">
+                <span aria-hidden="true">⌂&#xFE0E;</span>
+            </a>
+        </header>
 
-        <!-- Injection automatique de la liste Markdown -->
+        <!-- Injection automatique de la liste des projets -->
         <ul class="items">
         {% for p in pages if p.relative_source_path.startswith('pages/projets/') and p.relative_source_path.count('/') == 2 %}
             {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
@@ -25,7 +25,6 @@
             </li>
         {% endfor %}
         </ul>
-        <a href="{{ SITEURL }}/" class="projects-back-home">← Retour à l'accueil</a>
     </div>
 </body>
 </html>

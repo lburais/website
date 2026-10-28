@@ -4,9 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ page.title }}</title>
-    
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/burais/css/main.css" type="text/css" />
-
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css" type="text/css" />
 </head>
 <body class="burais">
 
@@ -21,13 +19,13 @@
         
         <!-- Injection automatique de la liste Markdown -->
         <ul class="items">
-        {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 %}
+        {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
             {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
             <li class="item">
                 <a  class="bubble" 
                     href="{{ link }}"
                     {% if p.image %} 
-                        style="background-image:url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/burais/images/{{ p.image }}')"
+                        style="background-image:url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/{{ p.image }}')"
                     {% endif %}
                     {% if p.redirect_url %} 
                         target="_blank" 

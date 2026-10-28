@@ -1,3 +1,9 @@
+:root {
+    color-scheme: light;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #fff;
+    background: #f1f1f1;
+}
 * {
     margin: 0;
     padding: 0;
@@ -43,7 +49,7 @@ body.projets {
     justify-content: center;
 }
 
-.projet-container {
+.page-container {
     max-width: 90%;
     margin: 0 auto;
     background: #ffffff;
@@ -76,12 +82,37 @@ h1.projets {
     padding-bottom: 10px; color: #a0169e; 
 }
 
-.projects-back-home { 
-    display: inline-block; 
-    margin-top: 25px; 
-    color: #a0169e; 
-    text-decoration: none; 
+.banner {
+    display: flex;
+    min-height: 64px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px 24px;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 16%);
 }
+.banner h1 {
+    margin: 0;
+    font-size: clamp(1.2rem, 3vw, 1.65rem);
+    font-weight: 750;
+    color: #ffffff;
+}
+.banner span {
+    color: #ffffff;
+    font-size: 24px;
+}
+
+.home-button {
+    flex: 0 0 auto;
+    padding: 9px 15px;
+    border: 1px solid rgb(255 255 255 / 75%);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 650;
+    text-decoration: none;
+}
+.home-button:hover { background: rgb(255 255 255 / 14%); }
 
 ul { 
     list-style-type: none; 
