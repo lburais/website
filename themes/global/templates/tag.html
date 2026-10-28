@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ tag }}</title>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css" type="text/css" />
+</head>
+<body>
+    <div class="page-container">
+        <header class="banner" style="background: #000000">
+            <h1>{{ tag }}</h1>
+            <a class="home-button" href="{{ SITEURL }}/" aria-label="Accueil" title="Famille Burais">
+                <span aria-hidden="true">⌂&#xFE0E;</span>
+            </a>
+        </header>
+
+        <ul id="post-list">
+            {% for article in articles %}
+                <li>
+                    <article>
+                        <h2><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></h2>
+                        <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                        <p>{{ article.summary }}</p>
+                    </article>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -2,4 +2,5 @@
 :Date: 2026-10-28
 :Slug: projet-smartfranklin-todo
 :Template: article
+:Tags: smartfranklin, todo
 :Description: A faire ...

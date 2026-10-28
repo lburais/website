@@ -56,6 +56,7 @@ body.projets {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: #000000;
 }
 
 .site-title {
@@ -95,6 +96,12 @@ h1.projets {
     margin: 0;
     font-size: clamp(1.2rem, 3vw, 1.65rem);
     font-weight: 750;
+    color: #ffffff;
+}
+.banner h2 {
+    margin: 0;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
+    font-weight: 500;
     color: #ffffff;
 }
 .banner span {

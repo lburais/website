@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }}</title>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css" type="text/css" />
+</head>
+<body>
+    <div class="page-container">
+        <header class="banner" style="background: #000000">
+            <div>
+                <h1>{{ page.title }}</h1>
+                <h2>{{ page.description }}</h2>
+            </div>
+            <a class="home-button" href="{{ SITEURL }}/" aria-label="Accueil" title="Famille Burais">
+                <span aria-hidden="true">⌂&#xFE0E;</span>
+            </a>
+        </header>
+
+        {% if page.tags %}
+
+            {% set page_tag = page.tags|first %}
+
+            <ul>
+                {% for article in articles if page_tag.name in article.tags|map(attribute='slug') %}
+                <li>
+                    <a href="{{ SITEURL }}/{{ article.url }}">
+                        {{ article.title }} : {% for tag in article.tags %}{{ tag.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+                    </a>
+                </li>
+                {% endfor %}
+                <li>completed</li>
+            </ul>
+
+        {% endif %}
+
+    </div>
+</body>
+</html>            

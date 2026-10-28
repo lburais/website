@@ -1,8 +1,9 @@
 :Title: SmartFranklin
 :Slug: projet-smartfranklin
-:Template: default
+:Template: articles
+:Tags: smartfranklin
 :Description: Développements autour du matériel M5Stack pour gérer Franklin.
 :Image: images/projets/smartfranklin.jpg
 :Url: https://github.com/lburais/SmartFranklin
 
-Développements autour du matériel M5Stack pour gérer Franklin.
+Les articles relatifs au projet SmartFranklin

@@ -59,3 +59,7 @@ DEFAULT_PAGINATION = 10
 # Use `make clean` to wipe stale output.
 DELETE_OUTPUT_DIRECTORY = True
 
+# Associe le tag 'todo' au template 'tag' (sans l'extension .html)
+# TAG_TEMPLATES = {
+#     'todo': 'tag',
+# }
