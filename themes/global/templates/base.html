@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}">
+<head>
+  <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+  {% block meta %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=1">
+  <meta name="description" content="Base html for the theme.">
+  {% endblock %}
+  {% if FAVICON %}
+  <link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON }}">
+  {% endif %}
+
+  <!-- PURE -->
+
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pure/3.1.0/css/pure-min.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pure/3.1.0/css/grids-responsive-min.css">
+
+  <!-- FONTAWESOME -->
+
+  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/all.min.css"> -->
+  
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/fontawesome.min.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/solid.min.css">
+  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/brands.min.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/regular.min.css">  -->
+
+  <!-- COMMON -->
+
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css">
+
+  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/ext-pure.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/pygments/{{ PYGMENTS_STYLE | default('github') }}.css"> -->
+
+  <style>
+    .home-menu {
+      background: black;
+    }
+
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="header">
+      <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+          <a class="pure-menu-heading" href="">Famille Burais</a>
+
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+              <a id="menuLink1" class="pure-menu-link" href="#"><i class="fa-solid fa-bars"></i></a>
+              <ul class="pure-menu-children">
+                <li class="pure-menu-item">
+                  <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"></i></a>
+                </li>
+                <li class="pure-menu-item">
+                  <a href="#" class="pure-menu-link">Email</a>
+                </li>
+              </ul> 
+            </li>
+          </ul>
+      </div>
+  </div>
+</header>
+
+<!-- #layout -->
+<div class="content-wrapper">
+  <div class="content">
+    <div id="layout" class="pure-g">
+      <div class="pure-u-1">
+
+        <main id="main">
+        {% block content %}
+        {% endblock %}
+        </main>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <footer id="footer">
+</footer> -->
+<footer id="footer" class="footer l-box is-center">
+  {% set year = '' %}
+  {% if articles %}
+  {%     set year = articles[0].date.strftime('%Y') %}
+  {% elif pages %}
+  {%     set year = pages[0].date.strftime('%Y') %}
+  {% endif %}
+    &copy; {{ year }} {{ AUTHOR }}
+    &nbsp; | &nbsp;
+    Powered by <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>
+</footer>
+
+</body>
+</html>

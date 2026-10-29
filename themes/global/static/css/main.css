@@ -10,7 +10,17 @@
     box-sizing: border-box;
 }
 
-body.burais, html.burais {
+body {
+    line-height: 1.7em;
+    color: #f4f7f6;
+    font-size: 13px;
+}
+
+/*
+ * -- BURAIS STYLES --
+ */
+
+ body.burais, html.burais {
     min-height: 100%;
     width: 100%;
     overflow-x: hidden;
@@ -30,13 +40,6 @@ body.burais, html.burais {
     text-align: center;
 }
 
-body.projets {
-    background-color: #f4f7f6; /* Fond clair alternatif */
-    color: #2c3e50;
-    font-family: Arial, sans-serif;
-    padding: 40px;
-}
-
 .burais-container {
     width: min(100%, 2000px);
     min-height: 100vh;
@@ -47,16 +50,6 @@ body.projets {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.page-container {
-    max-width: 90%;
-    margin: 0 auto;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    color: #000000;
 }
 
 .site-title {
@@ -78,9 +71,129 @@ body.projets {
     max-width: 850px;
 }
 
+/*
+ * -- PROJETS STYLES --
+ */
+
+ body.projets {
+    background-color: #f4f7f6; /* Fond clair alternatif */
+    color: #2c3e50;
+    font-family: Arial, sans-serif;
+    padding: 40px;
+}
+
 h1.projets { 
     border-bottom: 2px solid #a0169e; 
     padding-bottom: 10px; color: #a0169e; 
+}
+
+/*
+ * -- MENU STYLES --
+ */
+
+.home-menu {
+    padding: 0.5em;
+    box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
+    text-align: left;
+    background: #2d3e50;
+}
+
+.home-menu a {
+    color: white;
+}
+
+.home-menu ul {
+    float: right;
+}
+
+.pure-menu.pure-menu-fixed {
+    /* Fixed menus normally have a border at the bottom. */
+    border-bottom: none;
+    /* I need a higher z-index here because of the scroll-over effect. */
+    z-index: 4;
+}
+
+.home-menu .pure-menu-heading {
+    font-size: clamp(1.2rem, 3vw, 1.65rem);
+    font-weight: 750;
+}
+
+.home-menu .pure-menu-list li {
+    border-top: none;
+    border-bottom: none;
+}
+
+.home-menu .pure-menu-children {
+    background: #2d3e50;
+}
+
+.home-menu .pure-menu-children li {
+    border-top: none;
+    border-bottom: none;
+}
+
+.home-menu .pure-menu-children li a:hover,
+.home-menu .pure-menu-children li a:focus {
+    background: none;
+    color: lightgray;
+}
+
+/*
+ * -- LAYOUT STYLES --
+ */
+.l-box {
+    padding: 1em;
+}
+
+.l-box-lrg {
+    padding: 2em;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.is-center {
+    text-align: center;
+}
+
+/*
+ * -- CONTENT STYLES --
+ */
+.content-wrapper {
+    position: relative;
+    width: 100%;
+    /* background: white; */
+    /* offset for the fixed .home-menu (padding 0.5em*2 + ~2.4em content) */
+    padding-top: 3.4em;
+}
+
+/* We want to give the content area some more padding */
+.content {
+    padding: 1em 1em 1em;
+    color: #2c3e50;
+}
+
+/*
+ * -- FOOTER STYLES --
+ */
+
+.footer {
+    background: #2d3e50;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/*
+ * -- OTHER STYLES --
+ */
+
+.page-container {
+    max-width: 90%;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: #000000;
 }
 
 .banner {
