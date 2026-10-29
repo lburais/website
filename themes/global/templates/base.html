@@ -32,15 +32,9 @@
   <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/ext-pure.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/pygments/{{ PYGMENTS_STYLE | default('github') }}.css"> -->
 
-  <style>
-    .home-menu {
-      background: black;
-    }
-
-  </style>
 </head>
 
-<body>
+<body style="--home-menu-bgcolor: black;">
 <header>
   <div class="header">
       <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
@@ -53,8 +47,26 @@
                 <li class="pure-menu-item">
                   <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"></i></a>
                 </li>
+
+                {% if pages %}
+                  {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
+                      {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
+                      <li class="pure-menu-item">
+                        <a href="{{ link }}" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
+                        <span>{{ p.title }}</span>                        
+                        </a>
+                      </li> 
+                  {% endfor %}
+                  <hr>
+                {% endif %}
                 <li class="pure-menu-item">
-                  <a href="#" class="pure-menu-link">Email</a>
+                  <a href="{{ SITEURL }}/tags.html" class="pure-menu-link">Tags</a>
+                </li>
+                <li class="pure-menu-item">
+                  <a href="{{ SITEURL }}/categories.html" class="pure-menu-link">Catégories</a>
+                </li>
+                <li class="pure-menu-item">
+                  <a href="{{ SITEURL }}/archives.html" class="pure-menu-link">Archives</a>
                 </li>
               </ul> 
             </li>

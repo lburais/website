@@ -3,6 +3,7 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     color: #fff;
     background: #f1f1f1;
+    --home-menu-bgcolor: #2d3e50;
 }
 * {
     margin: 0;
@@ -95,7 +96,7 @@ h1.projets {
     padding: 0.5em;
     box-shadow: 0 1px 1px rgba(0,0,0, 0.10);
     text-align: left;
-    background: #2d3e50;
+    background: var(--home-menu-bgcolor);
 }
 
 .home-menu a {
@@ -124,7 +125,13 @@ h1.projets {
 }
 
 .home-menu .pure-menu-children {
-    background: #2d3e50;
+    background: var(--home-menu-bgcolor);
+}
+
+.home-menu .pure-menu-has-children:hover .pure-menu-children,
+.home-menu .pure-menu-allow-hover:hover .pure-menu-children {
+    left: auto;
+    right: 0;
 }
 
 .home-menu .pure-menu-children li {
@@ -176,7 +183,7 @@ h1.projets {
  */
 
 .footer {
-    background: #2d3e50;
+    background: var(--home-menu-bgcolor);
     position: fixed;
     bottom: 0;
     width: 100%;
