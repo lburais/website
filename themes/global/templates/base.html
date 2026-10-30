@@ -37,41 +37,41 @@
 <body style="--home-menu-bgcolor: black;">
 <header>
   <div class="header">
-      <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-          <a class="pure-menu-heading" href="">Famille Burais</a>
+    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <a class="pure-menu-heading" href="">Famille Burais</a>
 
-          <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-              <a id="menuLink1" class="pure-menu-link" href="#"><i class="fa-solid fa-bars"></i></a>
-              <ul class="pure-menu-children">
-                <li class="pure-menu-item">
-                  <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"></i></a>
-                </li>
+        <ul class="pure-menu-list">
+          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            <a id="menuLink1" class="pure-menu-link" href="#"><i class="fa-solid fa-bars"></i></a>
+            <ul class="pure-menu-children">
+              <li class="pure-menu-item">
+                <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"></i></a>
+              </li>
 
-                {% if pages %}
-                  {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
-                      {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
-                      <li class="pure-menu-item">
-                        <a href="{{ link }}" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
-                        <span>{{ p.title }}</span>                        
-                        </a>
-                      </li> 
-                  {% endfor %}
-                  <hr>
-                {% endif %}
-                <li class="pure-menu-item">
-                  <a href="{{ SITEURL }}/tags.html" class="pure-menu-link">Tags</a>
-                </li>
-                <li class="pure-menu-item">
-                  <a href="{{ SITEURL }}/categories.html" class="pure-menu-link">Catégories</a>
-                </li>
-                <li class="pure-menu-item">
-                  <a href="{{ SITEURL }}/archives.html" class="pure-menu-link">Archives</a>
-                </li>
-              </ul> 
-            </li>
-          </ul>
-      </div>
+              {% if pages %}
+                {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
+                    {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
+                    <li class="pure-menu-item">
+                      <a href="{{ link }}" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
+                      <span>{{ p.title }}</span>                        
+                      </a>
+                    </li> 
+                {% endfor %}
+                <hr>
+              {% endif %}
+              <li class="pure-menu-item">
+                <a href="{{ SITEURL }}/tags.html" class="pure-menu-link">Tags</a>
+              </li>
+              <li class="pure-menu-item">
+                <a href="{{ SITEURL }}/categories.html" class="pure-menu-link">Catégories</a>
+              </li>
+              <li class="pure-menu-item">
+                <a href="{{ SITEURL }}/archives.html" class="pure-menu-link">Archives</a>
+              </li>
+            </ul> 
+          </li>
+        </ul>
+    </div>
   </div>
 </header>
 
@@ -79,6 +79,28 @@
 <div class="content-wrapper">
   <div class="content">
     <div id="layout" class="pure-g">
+      {% if banner_title is defined %}
+        <div class="pure-u-1">
+          <div class="banner" style="--title-bgcolor: lightgrey; --title-color: black;">
+              <h1>{{ banner_title }}</h1>
+          </div>
+        </div>
+      {% elif page is defined %}
+        <div class="pure-u-1">
+          <div class="banner">
+              <h1>{{ page.title }}</h1>
+              {% if page.description is defined %}<h2>{{ page.description }}</h2>{% endif %}
+          </div>
+        </div>
+      {% elif article is defined %}
+        <div class="pure-u-1">
+          <div class="banner">
+              <h1>{{ article.title }}</h1>
+              {% if article.description is defined %}<h2>{{ article.description }}</h2>{% endif %}
+          </div>
+        </div>
+      {% endif %}
+
       <div class="pure-u-1">
 
         <main id="main">

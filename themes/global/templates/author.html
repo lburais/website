@@ -1,9 +1,4 @@
-{% extends "index.html" %}
+{% extends "list.html" %}
 
-{% block title %}{{ SITENAME }} - Articles by {{ author }}{% endblock %}
-{% block content_title %}
-<header>
-  <h1>Articles by {{ author }}</h1>
-</header>
-{% endblock %}
-
+{% block title %}{{ SITENAME }} - {{ author }}{% endblock %}
+{% set banner_title = "Articles écrits par " ~ author %}

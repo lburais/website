@@ -1,6 +1,6 @@
 :Title: Bike
 :Slug: projet-bike
-:Template: default
+:Template: projet
 :Description: Transitionner vers des vélos à assistance électrique.
 :Image: images/projets/bike.jpg
 

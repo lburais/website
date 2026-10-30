@@ -1,2 +1,4 @@
-{% extends "archives.html" %}
-{% block content_title %}<h1>Archives for {{ period | reverse | join(' ') }}</h1>{% endblock %}
+{% extends "list.html" %}
+
+{% block title %}{{ SITENAME }} - {{ period | reverse | join(' ') }}{% endblock %}
+{% set banner_title = "Archives pour " ~ period | reverse | join(' ') %}

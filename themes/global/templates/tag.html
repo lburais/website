@@ -1,5 +1,7 @@
-{% extends "archives.html" %}
-{% block title %}{{ tag }} - {{ SITENAME }}{% endblock %}
+{% extends "list.html" %}
+
+{% block title %}{{ SITENAME }} - {{ tag }}{% endblock %}
+{% set banner_title = "Articles avec le tag [" ~ tag ~ "]" %}
+
 {% block meta %}{{ super() }}  <meta name="keywords" content="{{ tag }}">
 {% endblock %}
-{% block content_title %}<h1>Articles in the {{ tag }} tag</h1>{% endblock %}

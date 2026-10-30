@@ -3,4 +3,5 @@
 :Slug: projets
 :Template: projets
 :Save_as: projets.html
-:Image: circle-prots.png
+:Description: Les projets que nous avons en cours
+:Image: projets.png
