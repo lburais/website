@@ -1,7 +1,7 @@
 {% extends "base.html" %}
-{% block html_lang %}{{ page.lang }}{% endblock %}
+{% block html_lang %}{{ article.lang }}{% endblock %}
 
-{% block title %}{{ SITENAME|striptags }} - {{ page.title|striptags }}{% endblock %}
+{% block title %}{{ SITENAME|striptags }} - {{ article.title|striptags }}{% endblock %}
 
 {% block body %}
     {{ super() }}
@@ -11,9 +11,9 @@
     <article class="trip-page">
         <a class="trip-aventures-link" href="{{ SITEURL }}/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">✈</a>
         <header>
-            <h2>{{ page.title }}</h2>
+            <h2>{{ article.title }}</h2>
         </header>
-        {{ page.content }}
+        {{ article.content }}
     </article>
 {% endblock %}
 

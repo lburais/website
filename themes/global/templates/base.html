@@ -28,6 +28,7 @@
   <!-- COMMON -->
 
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/findpenguins.css">
 
   <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/ext-pure.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/pygments/{{ PYGMENTS_STYLE | default('github') }}.css"> -->
@@ -38,21 +39,20 @@
 <header>
   <div class="header">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="">Famille Burais</a>
+        <a class="pure-menu-heading" href="{{ SITEURL }}/">Famille Burais</a>
 
         <ul class="pure-menu-list">
           <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
             <a id="menuLink1" class="pure-menu-link" href="#"><i class="fa-solid fa-bars"></i></a>
             <ul class="pure-menu-children">
               <li class="pure-menu-item">
-                <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"></i></a>
+                <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"> Famille Burais</i></a>
               </li>
 
               {% if pages %}
                 {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
-                    {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
                     <li class="pure-menu-item">
-                      <a href="{{ link }}" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
+                      <a href="{{ SITEURL }}/{{ p.slug }}.html" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
                       <span>{{ p.title }}</span>                        
                       </a>
                     </li> 
@@ -60,13 +60,13 @@
                 <hr>
               {% endif %}
               <li class="pure-menu-item">
-                <a href="{{ SITEURL }}/tags.html" class="pure-menu-link">Tags</a>
+                <a href="{{ SITEURL }}/tags.html" class="pure-menu-link"><i class="fa-solid fa-tags"></i> Tags</a>
               </li>
               <li class="pure-menu-item">
-                <a href="{{ SITEURL }}/categories.html" class="pure-menu-link">Catégories</a>
+                <a href="{{ SITEURL }}/categories.html" class="pure-menu-link"><i class="fa-solid fa-layer-group"></i> Catégories</a>
               </li>
               <li class="pure-menu-item">
-                <a href="{{ SITEURL }}/archives.html" class="pure-menu-link">Archives</a>
+                <a href="{{ SITEURL }}/archives.html" class="pure-menu-link"><i class="fa-solid fa-boxes-packing"></i> Archives</a>
               </li>
             </ul> 
           </li>
@@ -106,6 +106,12 @@
         <main id="main">
         {% block content %}
         {% endblock %}
+
+        {% if page is defined %}
+          <div class="pure-u-1">
+            {% if page.content is defined %}{{ page.content }}{% endif %}
+          </div>
+        {% endif %}
         </main>
 
       </div>

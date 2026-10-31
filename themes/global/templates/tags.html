@@ -5,7 +5,7 @@
 
 {% block content %}
 
-    <article class="pure-g">
+    <!-- <article class="pure-g">
     {%- for tag, articles in tags | sort %}
         <div class="pure-u-1-2 pure-u-md-1-5">
             <a href="{{ SITEURL }}/{{ tag.url }}">
@@ -16,6 +16,14 @@
             </a>
         </div>
     {% endfor %}
-    </article>
+    </article> -->
+
+    <ul class="tags">
+    {%- for tag, articles in tags|sort %}
+        <li style="font-size: {{ articles|count|count_to_font_size }};">
+        <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+        </li>
+    {%- endfor %}
+</u l>
 
 {% endblock %}

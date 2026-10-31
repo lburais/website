@@ -9,6 +9,8 @@ AUTHOR = 'famille@burais.fr'
 PATH = "content"
 TIMEZONE = "Europe/Paris"
 DEFAULT_LANG = "fr"
+# Articles without a Date (e.g. a trip with no dated footprint) fall back to the file mtime.
+DEFAULT_DATE = "fs"
 
 # ==========================================
 # CONFIGURATION DU DOSSIER DE THÈME MAÎTRE
@@ -26,8 +28,9 @@ THEME_STATIC_DIR = "theme"
 # On demande à Pelican de copier fidèlement l'intégralité du contenu du dossier static du thème.
 # Cela garantit que 'theme/burais/images/bg-home.jpg' et 'theme/burais/css/main.css' 
 # seront accessibles hors-ligne et localement par vos templates HTML.
-# "pages" is included so footprint photos and videos are copied next to their generated pages.
-STATIC_PATHS = ["images", "pages"]
+# "pages" and "articles" are included so media are copied next to their generated pages
+# (FindPenguins trip/footprint articles carry their photos and videos).
+STATIC_PATHS = ["images", "pages", "articles"]
 
 # ==========================================
 # CONFIGURATION DES PAGES ET DES URLS
@@ -35,7 +38,7 @@ STATIC_PATHS = ["images", "pages"]
 # Configuration pour s'assurer que la page d'accueil (index.html) soit générée proprement 
 # à partir de votre fichier Markdown 'home.md' sans interférence avec les articles de blog.
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["flat_pages"]
+PLUGINS = ["flat_pages", "wikilinks", "fontawesome"]
 # Output mirrors content/pages (see plugins/flat_pages.py); explicit Save_as still wins.
 PAGE_URL = "{slug}.html"
 PAGE_SAVE_AS = "{slug}.html"
@@ -58,3 +61,9 @@ DEFAULT_PAGINATION = 10
 # Kept False: rmtree of output/ races with autoreload (-r) while the scraper writes files.
 # Use `make clean` to wipe stale output.
 DELETE_OUTPUT_DIRECTORY = True
+
+import math
+
+JINJA_FILTERS = {
+    'count_to_font_size': lambda c: '{p:.1f}%'.format(p=100 + 25 * math.log(c, 2)),
+}

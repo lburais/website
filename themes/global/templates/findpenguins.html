@@ -1,113 +1,73 @@
-<!DOCTYPE html>
-<html lang="{{ DEFAULT_LANG }}">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ page.title }}</title>
-    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/findpenguins.css" type="text/css" />
-</head>
-<body>
-    {% set french_months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
-    {% set ns = namespace(trips=[]) %}
-    {% for t in pages if t.category == 'Trips' %}
-        {% set prefix = t.slug ~ '-etape-' %}
-        {% set ds = namespace(dates=[]) %}
-        {% for f in pages if f.slug.startswith(prefix) and f.date %}
-            {% set ds.dates = ds.dates + [f.date] %}
-        {% endfor %}
-        {% set start = (ds.dates | sort | first) if ds.dates else '' %}
-        {% set first_step = namespace(url='') %}
-        {% for f in pages if f.slug == prefix ~ '1' %}
-            {% set first_step.url = f.url %}
-        {% endfor %}
-        {% set relative_dir = t.relative_source_path.rsplit('/', 1)[0]|replace('pages/', '', 1) %}
-        {% set cover = '' %}
-        {% if t.tripimage %}
-            {% set cover = t.tripimage if t.tripimage.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ t.tripimage %}
-        {% endif %}
-        {% set trip_map = '' %}
-        {% if t.tripmap %}
-            {% set trip_map = t.tripmap if t.tripmap.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ t.tripmap %}
-        {% endif %}
-        {% set companions = t.companions.split(';') if t.companions else [] %}
-        {% set ns.trips = ns.trips + [{
-            'sort_date': start.strftime('%Y-%m-%d') if start else '',
-            'start': start,
-            'title': t.title,
-            'url': t.url,
-            'relative_dir': relative_dir,
-            'cover': cover,
-            'trip_map': trip_map,
-            'companions': companions,
-            'description': t.description,
-            'countries': t.countries,
-            'country_flags': t.countryflags,
-            'period': t.period,
-            'days': t.days,
-            'distance': t.distance,
-            'slug': t.slug,
-            'owner': t.owner,
-            'first_step_url': first_step.url
-        }] %}
-    {% endfor %}
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} - {{ page.title }}{% endblock %}
 
-    <header class="site-banner">
-        <h1>Nos carnets de Voyage</h1>
-        <a class="home-button" href="{{ SITEURL }}/" aria-label="Accueil" title="Famille Burais">
-            <span aria-hidden="true" style="color: #ffffff; font-size: 24px;">⌂&#xFE0E;</span>
-        </a>
-    </header>
+{% set french_months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
 
-    <main class="trip-grid" aria-label="FindPenguins trips">
-        {% for t in ns.trips | sort(attribute='sort_date', reverse=True) %}
-            <a class="trip-card" href="{{ SITEURL }}/{{ t.first_step_url or t.url }}"{% if t.cover %} style="--trip-cover: url('{{ t.cover }}')"{% endif %}>
-                {% if t.trip_map %}<span class="trip-map-overlay" style="--trip-map: url('{{ t.trip_map }}')" aria-hidden="true"></span>{% endif %}
-                {% if t.companions %}
+{% block content %}
+
+    <div class="trip-grid" aria-label="FindPenguins trips">
+        {% for trip in articles|selectattr('category.name', 'equalto', 'findpenguins')|sort(attribute='date', reverse=True) %}
+            {% set relative_dir = trip.relative_source_path.rsplit('/', 1)[0]|replace('pages/', '', 1) %}
+            {% set first_step = namespace(url='') %}
+            {% for p in articles if p.slug.startswith(trip.slug ~ '-etape-') %}
+                {% if p.slug == trip.slug ~ '-etape-1' %}{% set first_step.url = p.url %}{% endif %}
+            {% endfor %}
+            {% set start = trip.date if trip.start else '' %}
+            {% if trip.tripimage %}
+                {% set tripimage = trip.tripimage if trip.tripimage.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ trip.tripimage %}
+            {% endif %}
+            {% if trip.tripmap %}
+                {% set tripmap = trip.tripmap if trip.tripmap.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ trip.tripmap %}
+            {% endif %}
+            <a class="trip-card" href="{{ SITEURL }}/{{ first_step.url or trip.url }}"{% if tripimage %} style="--trip-cover: url('{{ tripimage }}')"{% endif %}>
+                {% if tripmap %}
+                    <span class="trip-map-overlay" style="--trip-map: url('{{ tripmap }}')" aria-hidden="true"></span>
+                {% endif %}
+                {% if trip.companions %}
                     <span class="trip-companions" aria-label="Trip companions">
-                        {% for companion in t.companions %}
+                        {% set companions = trip.companions.split(';') if trip.companions else [] %}
+                        {% for companion in companions %}
                             {% set companion_parts = companion.split('|', 1) %}
                             {% if companion_parts|length == 2 and companion_parts[1] %}
-                                {% set companion_src = companion_parts[1] if companion_parts[1].startswith(('http://', 'https://')) else SITEURL ~ '/' ~ t.relative_dir ~ '/' ~ companion_parts[1] %}
+                                {% set companion_src = companion_parts[1] if companion_parts[1].startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ companion_parts[1] %}
                                 <img src="{{ companion_src }}"
                                     alt="{{ companion_parts[0] }}" title="{{ companion_parts[0] }}"
-                                    {% if companion_parts[0] == t.owner %}class="owner"{% endif %} loading="lazy" />
+                                    {% if companion_parts[0] == trip.owner %}class="owner"{% endif %} loading="lazy" />
                             {% endif %}
                         {% endfor %}
                     </span>
                 {% endif %}
                 <div class="trip-info">
-                    <h2>{{ t.title }}</h2>
+                    <h2>{{ trip.title }}</h2>
                     <div class="trip-summary">
-                        {% if t.start %}
+                        {% if start %}
                             <div class="trip-stat">
-                                <strong>{{ t.start.strftime('%Y') }}</strong>
-                                <span>{{ french_months[t.start.month - 1] }}</span>
+                                <strong>{{ start.strftime('%Y') }}</strong>
+                                <span>{{ french_months[start.month - 1] }}</span>
                             </div>
-                        {% elif t.period %}
+                        {% elif trip.period %}
                             <div class="trip-stat">
-                                <strong>{{ t.period }}</strong>
+                                <strong>{{ trip.period }}</strong>
                                 <span>période</span>
                             </div>
                         {% endif %}
-                        {% if t.days %}
+                        {% if trip.days %}
                             <div class="trip-stat">
-                                <strong>{{ t.days }}</strong>
+                                <strong>{{ trip.days }}</strong>
                                 <span>jours</span>
                             </div>
                         {% endif %}
-                        {% if t.distance %}
+                        {% if trip.distance %}
                             <div class="trip-stat">
-                                <strong>{{ t.distance }}</strong>
+                                <strong>{{ trip.distance }}</strong>
                                 <span>kilomètres</span>
                             </div>
                         {% endif %}
                     </div>
-                    {% if t.description %}<p class="trip-description">{{ t.description }}</p>{% endif %}
+                    {% if trip.description %}<p class="trip-description">{{ trip.description }}</p>{% endif %}
                 </div>
             </a>
-            {% else %}
-                <p class="trip-empty">Aucun voyage FindPenguins disponible.</p>
         {% endfor %}
-    </main>
-</body>
-</html>
+    </div>
+
+{% endblock %}
