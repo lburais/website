@@ -183,9 +183,17 @@ h1.projets {
  * -- BANNER STYLES --
  */
 
+/* Banner stays pinned right under the fixed menu while the page scrolls. */
+.banner-fixed {
+    position: sticky;
+    /* same offset as .content-wrapper padding-top (height of the fixed menu) */
+    top: 3.4em;
+    z-index: 3;
+    padding: 6px 0px;
+    background: var(--title-bgcolor);
+}
+
 .banner {
-    margin-top: 6px;
-    margin-bottom: 6px;
     display: flex;
     flex-direction: column;
     min-height: 48px;
@@ -239,33 +247,7 @@ h1.projets {
     color: #000000;
 }
 
-/* .banner {
-    display: flex;
-    min-height: 64px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 12px 24px;
-    box-shadow: 0 2px 6px rgb(0 0 0 / 16%);
-}
-.banner h1 {
-    margin: 0;
-    font-size: clamp(1.2rem, 3vw, 1.65rem);
-    font-weight: 750;
-    color: #ffffff;
-}
-.banner h2 {
-    margin: 0;
-    font-size: clamp(0.9rem, 3vw, 1.2rem);
-    font-weight: 500;
-    color: #ffffff;
-}
-.banner span {
-    color: #ffffff;
-    font-size: 24px;
-} */
-
-.home-button {
+/* .home-button {
     flex: 0 0 auto;
     padding: 9px 15px;
     border: 1px solid rgb(255 255 255 / 75%);
@@ -275,7 +257,7 @@ h1.projets {
     font-weight: 650;
     text-decoration: none;
 }
-.home-button:hover { background: rgb(255 255 255 / 14%); }
+.home-button:hover { background: rgb(255 255 255 / 14%); } */
 
 ul { 
     list-style-type: none; 
@@ -345,11 +327,64 @@ li {
     font-size: .9em; 
 }
 
-ul.tags {
-    list-style-type: none;
-    padding: 0;
+/*
+TAGS STYLES
+*/
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Espace entre les boutons */
+    align-items: center;
 }
-ul.tags li {
-    display: inline-block;
-    margin-right: 10px;
+
+/* Le bouton arrondi */
+.tag-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    background-color: lightgrey;
+    color: darkslategrey;
+    text-decoration: none;
+    border-radius: 20px; /* Forme pilule/arrondie */
+    transition: all 0.2s ease-in-out;
+    border: 1px solid darkslategrey;
+    white-space: nowrap;
+}
+
+/* Effet au survol du bouton */
+.tag-btn:hover {
+    background-color: darkslategrey;
+    color: lightgrey;
+    border-color: darkslategrey;
+}
+
+/* Texte du tag: la hauteur du bouton suit celle du texte, la pastille déborde en haut à droite */
+.tag-name {
+    margin-right: 6px;
+    line-height: 1.4;
+}
+
+/* La pastille contenant le compteur: taille fixe (celle d'un tag de count=1), en haut à droite du bouton */
+.tag-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 10px;
+    border: 1px solid red;
+}
+
+/* Adaptation de la pastille au survol du bouton */
+.tag-btn:hover .tag-count {
+    background-color: red;
+    color: white;
+    border-color: white;
 }

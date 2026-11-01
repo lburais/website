@@ -12,7 +12,7 @@
             {% for p in articles if p.slug.startswith(trip.slug ~ '-etape-') %}
                 {% if p.slug == trip.slug ~ '-etape-1' %}{% set first_step.url = p.url %}{% endif %}
             {% endfor %}
-            {% set start = trip.date if trip.start else '' %}
+            {% set start = trip.date if trip.date else '' %}
             {% if trip.tripimage %}
                 {% set tripimage = trip.tripimage if trip.tripimage.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ trip.tripimage %}
             {% endif %}

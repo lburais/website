@@ -1,7 +1,12 @@
+# https://github.com/MinchinWeb/minchin.pelican.plugins.wikilinks
+
+from docutils import nodes
+from docutils.parsers.rst import roles
 from pelican import signals
 
 from functools import partial
 from itertools import chain
+import html
 import logging
 from pathlib import Path
 import re
@@ -76,21 +81,35 @@ GENERATOR_PAGE_LISTS = [
     "staticfiles",
 ]
 
-_base_wikilink_regex = (
-    r"\[\[\s*(?P<filename>[^|\]]+)(\|\s*(?P<linkname>[^|\]\n\r]+))?\]\]"
+# The RST roles emit a placeholder element; it is resolved to a real link once
+# all generators are finalized and the final URLs are known.
+_placeholder_regex = re.compile(
+    r'<wikilink data-kind="(?P<kind>link|file)" data-target="(?P<filename>[^"]*)"'
+    r' data-text="(?P<linkname>[^"]*)"></wikilink>'
 )
-wikilink_regex = re.compile(_base_wikilink_regex)
-wikilink_file_regex = re.compile(r"!" + _base_wikilink_regex)
 
 """
-# Test cases
-[[my link]]
-[[ my work ]]
-[[ my work | is finished ]]
+# Usage (reStructuredText); the text after "|" is optional
+:wikilinks:`my link`
+:wikilinks:`my work|is finished`
 
-![[ a file.jpg ]]
-![[file.jpg]]
+:wikifile:`file.jpg`
+:wikifile:`a file.pdf|download it`
 """
+
+
+def _make_role(kind):
+    def role(name, rawtext, text, lineno, inliner, options=None, content=None):
+        target, _, label = text.partition("|")
+        target = target.strip()
+        label = label.strip() or target
+        placeholder = (
+            f'<wikilink data-kind="{kind}" data-target="{html.escape(target)}"'
+            f' data-text="{html.escape(label)}"></wikilink>'
+        )
+        return [nodes.raw("", placeholder, format="html")], []
+
+    return role
 
 
 def _populate_link_pairs(generators):
@@ -122,6 +141,7 @@ def _populate_link_pairs(generators):
             # `file.source_path` is a str
             try:
                 link_pairs[Path(file.source_path).stem] = file.url
+                link_pairs.setdefault(getattr(file, "slug", None) or Path(file.source_path).stem, file.url)
             except Exception as e:
                 logger.error(
                     f'{LOG_PREFIX} Broke building list of link pairs: '
@@ -145,10 +165,7 @@ def _get_file_and_linkname(match):
     linkname (as displayed).
     """
     group = match.groupdict()
-    filename = group["filename"].strip()
-    linkname = group["linkname"] if group["linkname"] else filename
-    linkname = linkname.strip()
-    return filename, linkname
+    return html.unescape(group["filename"]), html.unescape(group["linkname"])
 
 
 def _wikilink_replacement(link_pairs, SITEURL, match):
@@ -160,7 +177,7 @@ def _wikilink_replacement(link_pairs, SITEURL, match):
         '<a href="{href}" class="wikilinks {wikilinks_class}">{linkname}</a>'.format(
             href=SITEURL + "/" + path if path else "#",
             wikilinks_class="wikilink-found" if path else "wikilink-missing",
-            linkname=linkname,
+            linkname=html.escape(linkname),
         )
     )
 
@@ -193,10 +210,19 @@ def _wikilink_file_replacement(link_pairs, SITEURL, match):
     link_structure = link_structure_raw.format(
         href=SITEURL + "/" + path if path else "#",
         wikilinks_class="wikilink-found" if path else "wikilink-missing",
-        linkname=linkname,
+        linkname=html.escape(linkname),
     )
 
     return link_structure
+
+
+def _replace_placeholder(link_pairs, SITEURL, match):
+    replacement = (
+        _wikilink_file_replacement
+        if match.group("kind") == "file"
+        else _wikilink_replacement
+    )
+    return replacement(link_pairs, SITEURL, match)
 
 
 def replace_wikilinks(generators):
@@ -220,15 +246,13 @@ def replace_wikilinks(generators):
             for my_article in my_article_list:
                 SITEURL = my_article.settings["SITEURL"]
 
-                _file_replacement = partial(
-                    _wikilink_file_replacement, link_pairs, SITEURL
+                _link_replacement = partial(
+                    _replace_placeholder, link_pairs, SITEURL
                 )
-                _link_replacement = partial(_wikilink_replacement, link_pairs, SITEURL)
 
                 text = my_article._content
                 if text:
-                    text = wikilink_file_regex.sub(repl=_file_replacement, string=text)
-                    text = wikilink_regex.sub(repl=_link_replacement, string=text)
+                    text = _placeholder_regex.sub(repl=_link_replacement, string=text)
                     my_article._content = text
 
     logger.info("%s complete!", LOG_PREFIX)
@@ -236,4 +260,6 @@ def replace_wikilinks(generators):
 def register():
     """Register the plugin pieces with Pelican."""
 
+    roles.register_local_role("wikilinks", _make_role("link"))
+    roles.register_local_role("wikifile", _make_role("file"))
     signals.all_generators_finalized.connect(replace_wikilinks)

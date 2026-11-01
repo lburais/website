@@ -6,5 +6,5 @@
 :Description: Les projets que nous avons en cours
 :Image: projets.png
 
-* [[website]] to website (wikilink)
-* :fa:`fa-github` to github icon (fontawesome)
+* :wikilinks:`projet-bike | vélo` to projet bike (wikilink)
+* :fa:`fa-brands fa-github` to github icon (fontawesome)

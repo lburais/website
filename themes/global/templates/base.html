@@ -22,8 +22,8 @@
   
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/fontawesome.min.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/solid.min.css">
-  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/brands.min.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/regular.min.css">  -->
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/brands.min.css">
+  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/regular.min.css">  -->
 
   <!-- COMMON -->
 
@@ -80,23 +80,25 @@
   <div class="content">
     <div id="layout" class="pure-g">
       {% if banner_title is defined %}
-        <div class="pure-u-1">
+        <div class="pure-u-1 banner-fixed">
           <div class="banner" style="--title-bgcolor: lightgrey; --title-color: black;">
               <h1>{{ banner_title }}</h1>
           </div>
         </div>
       {% elif page is defined %}
-        <div class="pure-u-1">
+        <div class="pure-u-1 banner-fixed">
           <div class="banner">
               <h1>{{ page.title }}</h1>
               {% if page.description is defined %}<h2>{{ page.description }}</h2>{% endif %}
           </div>
         </div>
       {% elif article is defined %}
-        <div class="pure-u-1">
+        <div class="pure-u-1 banner-fixed">
           <div class="banner">
               <h1>{{ article.title }}</h1>
               {% if article.description is defined %}<h2>{{ article.description }}</h2>{% endif %}
+              {% if article.category is defined %}<div class="category">Category: <a class="pure-button" href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a></div>{% endif %}
+              {% if article.tags is defined %}<div class="tags">Tags: {% for tag in article.tags %}<a class="pure-button" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% endfor %}</div>{% endif %}
           </div>
         </div>
       {% endif %}
@@ -107,11 +109,11 @@
         {% block content %}
         {% endblock %}
 
-        {% if page is defined %}
+        <!-- {% if page is defined %}
           <div class="pure-u-1">
             {% if page.content is defined %}{{ page.content }}{% endif %}
           </div>
-        {% endif %}
+        {% endif %} -->
         </main>
 
       </div>
