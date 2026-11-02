@@ -17,8 +17,6 @@
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pure/3.1.0/css/grids-responsive-min.css">
 
   <!-- FONTAWESOME -->
-
-  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/all.min.css"> -->
   
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/fontawesome.min.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/solid.min.css">
@@ -30,110 +28,123 @@
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/findpenguins.css">
 
-  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/ext-pure.css">
-  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/pygments/{{ PYGMENTS_STYLE | default('github') }}.css"> -->
-
 </head>
 
-<body style="--home-menu-bgcolor: black;">
-<header>
-  <div class="header">
-    <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-        <a class="pure-menu-heading" href="{{ SITEURL }}/">Famille Burais</a>
+<body>
 
-        <ul class="pure-menu-list">
-          <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <a id="menuLink1" class="pure-menu-link" href="#"><i class="fa-solid fa-bars"></i></a>
-            <ul class="pure-menu-children">
-              <li class="pure-menu-item">
-                <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"> Famille Burais</i></a>
-              </li>
-
-              {% if pages %}
-                {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
-                    <li class="pure-menu-item">
-                      <a href="{{ SITEURL }}/{{ p.slug }}.html" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
-                      <span>{{ p.title }}</span>                        
-                      </a>
-                    </li> 
-                {% endfor %}
-                <hr>
-              {% endif %}
-              <li class="pure-menu-item">
-                <a href="{{ SITEURL }}/tags.html" class="pure-menu-link"><i class="fa-solid fa-tags"></i> Tags</a>
-              </li>
-              <li class="pure-menu-item">
-                <a href="{{ SITEURL }}/categories.html" class="pure-menu-link"><i class="fa-solid fa-layer-group"></i> Catégories</a>
-              </li>
-              <li class="pure-menu-item">
-                <a href="{{ SITEURL }}/archives.html" class="pure-menu-link"><i class="fa-solid fa-boxes-packing"></i> Archives</a>
-              </li>
-            </ul> 
-          </li>
-        </ul>
-    </div>
-  </div>
-</header>
-
-<!-- #layout -->
-<div class="content-wrapper">
-  <div class="content">
-    <div id="layout" class="pure-g">
+  <!-- header -->
+  <header class="header home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+    <div class="pure-menu-heading">
       {% if banner_title is defined %}
-        <div class="pure-u-1 banner-fixed">
-          <div class="banner" style="--title-bgcolor: lightgrey; --title-color: black;">
-              <h1>{{ banner_title }}</h1>
-          </div>
-        </div>
+        <h1>{{ banner_title }}</h1>
       {% elif page is defined %}
-        <div class="pure-u-1 banner-fixed">
-          <div class="banner">
-              <h1>{{ page.title }}</h1>
-              {% if page.description is defined %}<h2>{{ page.description }}</h2>{% endif %}
-          </div>
-        </div>
+        <h1>{{ page.title }}</h1>
+        {% if page.description is defined %}<h2>{{ page.description }}</h2>{% endif %}
       {% elif article is defined %}
-        <div class="pure-u-1 banner-fixed">
-          <div class="banner">
-              <h1>{{ article.title }}</h1>
-              {% if article.description is defined %}<h2>{{ article.description }}</h2>{% endif %}
-              {% if article.category is defined %}<div class="category">Category: <a class="pure-button" href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a></div>{% endif %}
-              {% if article.tags is defined %}<div class="tags">Tags: {% for tag in article.tags %}<a class="pure-button" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% endfor %}</div>{% endif %}
-          </div>
-        </div>
-      {% endif %}
+        <h1>{{ article.title }}</h1>
+        {% if article.description is defined %}<h2>{{ article.description }}</h2>{% endif %}
 
+        {% if article.modified is defined or article.category is defined or article.tags is defined %}
+          <div class="infos">
+            {% if article.modified is defined %}
+              <div class="info">
+                <i class="fa-regular fa-calendar" style="margin-right: 6px;"></i><time datetime="{{ article.modified.isoformat() }}">{{ article.locale_modified }}</time>
+              </div>
+            {% endif %}
+            
+            {% if article.category is defined %}
+              <div class="info">
+                <i class="fa-regular fa-layer-group" style="margin-right: 6px;"></i><a class="pure-button" href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+              </div>
+            {% endif %}
+            
+            {% if article.tags is defined %}
+              <div class="info">
+                <i class="fa-regular fa-tags" style="margin-right: 6px;"></i>
+                {% for tag in article.tags %}
+                  <a class="pure-button" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% else %}
+        <a href="{{ SITEURL }}/"><h1>Famille Burais</h1></a>
+      {% endif %}
+    </div>
+    <ul class="pure-menu-list">
+      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+        <a id="menuLink1" class="pure-menu-link" href="#"><i class="fa-solid fa-bars"></i></a>
+        <ul class="pure-menu-children">
+          <li class="pure-menu-item">
+            <a class="pure-menu-link" href="{{ SITEURL }}/"><i class="fa-solid fa-house"> Famille Burais</i></a>
+          </li>
+
+          {% if pages %}
+            {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
+                <li class="pure-menu-item">
+                  <a href="{{ SITEURL }}/{{ p.slug }}.html" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
+                  <span>{{ p.title }}</span>                        
+                  </a>
+                </li> 
+            {% endfor %}
+            <hr>
+          {% endif %}
+          <li class="pure-menu-item">
+            <a href="{{ SITEURL }}/tags.html" class="pure-menu-link"><i class="fa-solid fa-tags"></i> Tags</a>
+          </li>
+          <li class="pure-menu-item">
+            <a href="{{ SITEURL }}/categories.html" class="pure-menu-link"><i class="fa-solid fa-layer-group"></i> Catégories</a>
+          </li>
+          <li class="pure-menu-item">
+            <a href="{{ SITEURL }}/archives.html" class="pure-menu-link"><i class="fa-solid fa-boxes-packing"></i> Archives</a>
+          </li>
+        </ul> 
+      </li>
+    </ul>
+  </header>
+
+  <!-- content -->
+  <div class="content-wrapper">
+    <div class="content pure-g">
       <div class="pure-u-1">
 
-        <main id="main">
         {% block content %}
         {% endblock %}
-
-        <!-- {% if page is defined %}
-          <div class="pure-u-1">
-            {% if page.content is defined %}{{ page.content }}{% endif %}
-          </div>
-        {% endif %} -->
-        </main>
 
       </div>
     </div>
   </div>
-</div>
 
-<!-- <footer id="footer">
-</footer> -->
-<footer id="footer" class="footer l-box is-center">
-  {% set year = '' %}
-  {% if articles %}
-  {%     set year = articles[0].date.strftime('%Y') %}
-  {% elif pages %}
-  {%     set year = pages[0].date.strftime('%Y') %}
-  {% endif %}
-    &copy; {{ year }} {{ AUTHOR }}
-    &nbsp; | &nbsp;
-    Powered by <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>
-</footer>
+  <script>
+    (function () {
+      var menu = document.querySelector('.home-menu');
+      var wrapper = document.querySelector('.content-wrapper');
+      if (!menu || !wrapper) return;
+      function place() {
+        wrapper.style.paddingTop = menu.offsetHeight + 'px';
+      }
+      place();
+      window.addEventListener('resize', place);
+      window.addEventListener('load', place);
+      if (window.ResizeObserver) new ResizeObserver(place).observe(menu);
+    })();
+  </script>
+
+  <!-- footer -->
+  <footer class="footer">
+    <div class="pure_g">
+      {% set year = '' %}
+      {% if articles %}
+      {%     set year = articles[0].date.strftime('%Y') %}
+      {% elif pages %}
+      {%     set year = pages[0].date.strftime('%Y') %}
+      {% endif %}
+      &copy; {{ year }} {{ AUTHOR }}
+      &nbsp; | &nbsp;
+      Powered by <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>
+    </div>
+  </footer>
 
 </body>
 </html>

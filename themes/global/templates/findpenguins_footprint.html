@@ -191,8 +191,9 @@
 
             <section class="fp-media" aria-label="Photos et vidéos">
                 {% for photo in photos %}
+                    {% set photo_thumb = photo | replace('.webp', '_thumb.webp') %}
                     <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" data-slide-index="{{ loop.index0 }}" aria-label="Afficher la photo {{ loop.index }}">
-                        <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ article.title }} — photo {{ loop.index }}" loading="lazy" />
+                        <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo_thumb }}" alt="{{ article.title }} — photo {{ loop.index }}" loading="lazy" />
                     </a>
                 {% endfor %}
                 {% for video in videos %}
@@ -208,8 +209,9 @@
                     <div class="carousel-stage">
                         {% for photo in photos %}
                             <div class="carousel-slide{% if loop.first %} active{% endif %}">
+                                {% set photo_thumb = photo | replace('.webp', '_thumb.webp') %}
                                 <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener" aria-label="Ouvrir la photo {{ loop.index }} dans un nouvel onglet">
-                                    <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ article.title }} — photo {{ loop.index }}">
+                                    <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo_thumb }}" alt="{{ article.title }} — photo {{ loop.index }}">
                                 </a>
                             </div>
                         {% endfor %}

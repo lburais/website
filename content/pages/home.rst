@@ -3,5 +3,6 @@
 :Slug: index
 :Template: burais
 :Save_as: index.html
+:Image: home.png
 
 ~ hodophiles & cosmopolites ~

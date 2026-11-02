@@ -1,8 +1,8 @@
 :Title: Travaux
 :Slug: projet-travaux
-:Template: default
 :Description: Parc de Montaleigne
 :Image: images/projets/travaux.jpg
+:Category: Projets
 
 * Dégat des eaux salle de bain
 	* Bac à douche

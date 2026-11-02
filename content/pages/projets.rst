@@ -4,7 +4,4 @@
 :Template: projets
 :Save_as: projets.html
 :Description: Les projets que nous avons en cours
-:Image: projets.png
 
-* :wikilinks:`projet-bike | vélo` to projet bike (wikilink)
-* :fa:`fa-brands fa-github` to github icon (fontawesome)

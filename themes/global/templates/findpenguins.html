@@ -6,7 +6,7 @@
 {% block content %}
 
     <div class="trip-grid" aria-label="FindPenguins trips">
-        {% for trip in articles|selectattr('category.name', 'equalto', 'findpenguins')|sort(attribute='date', reverse=True) %}
+        {% for trip in articles|selectattr('category.name', 'equalto', 'findpenguins')|sort(attribute='enddate', reverse=True) %}
             {% set relative_dir = trip.relative_source_path.rsplit('/', 1)[0]|replace('pages/', '', 1) %}
             {% set first_step = namespace(url='') %}
             {% for p in articles if p.slug.startswith(trip.slug ~ '-etape-') %}

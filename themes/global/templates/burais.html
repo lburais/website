@@ -9,7 +9,6 @@
 <body class="burais">
 
     <div class="burais-container">
-        <!-- Titre & Slogan de la Famille Burais -->
         <h1 class="site-title">{{ page.title }}</h1>
         <div class="site-subtitle">
             {{ page.content }}
@@ -17,16 +16,13 @@
         <div class="site-subtitle">
         </div>
         
-        <!-- Injection automatique de la liste Markdown -->
         <ul class="items">
         {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
             {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
             <li class="item">
                 <a  class="bubble" 
                     href="{{ link }}"
-                    {% if p.image %} 
-                        style="background-image:url('{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/{{ p.image }}')"
-                    {% endif %}
+                    style="background-image:url('{{ STATIC }}/images/{{ p.slug }}.webp')"
                     {% if p.redirect_url %} 
                         target="_blank" 
                     {% endif %}
@@ -37,29 +33,6 @@
         {% endfor %}
         </ul>
 
-        <!-- Navigation circulaire
-        <div class="circles-nav">
-            <a href="{{ SITEURL }}/about.html" class="circle-btn circle-about">
-                <span class="circle-label">About</span>
-            </a>
-
-            <a href="{{ SITEURL }}/notes.html" class="circle-btn circle-notes">
-                <span class="circle-label">Notes</span>
-            </a>
-
-            <a href="{{ SITEURL }}/projets.html" class="circle-btn circle-projets">
-                <span class="circle-label">Projets</span>
-            </a> 
-
-            <a href="{{ SITEURL }}/aventures.html" class="circle-btn circle-aventures">
-                <span class="circle-label">Aventures</span>
-            </a>
-
-            <a href="https://www.esperens.org" target="_blank" rel="noopener" class="circle-btn circle-esperens">
-                <span class="circle-label">Esperens</span>
-            </a>
-        </div>
-        -->
     </div>
 
 </body>

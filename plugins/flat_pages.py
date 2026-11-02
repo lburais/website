@@ -22,6 +22,10 @@ def relocate(obj):
         rel = os.path.splitext(rel)[0] + ".html"
         obj.override_save_as = rel
         obj.override_url = rel
+        # Trips without dated footprints have no EndDate: fall back to the article date so
+        # templates can always sort trips by `enddate`.
+        if str(obj.metadata.get("template")) == "trip" and not hasattr(obj, "enddate"):
+            obj.enddate = obj.date.strftime("%Y-%m-%d")
         return
 
     if not isinstance(obj, (Page, Static)):
