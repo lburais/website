@@ -1,3 +1,4 @@
-pelican
+pelican[markdown]
 invoke
 python-dotenv
+weasyprint

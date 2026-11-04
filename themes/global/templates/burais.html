@@ -17,20 +17,31 @@
         </div>
         
         <ul class="items">
-        {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
-            {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
-            <li class="item">
-                <a  class="bubble" 
-                    href="{{ link }}"
-                    style="background-image:url('{{ STATIC }}/images/{{ p.slug }}.webp')"
-                    {% if p.redirect_url %} 
-                        target="_blank" 
+            {% set src_pages = "pages/" if page.slug == "index" else "pages/" ~ page.slug ~ "/" %}
+            {% set src_images = "/images/" if page.slug == "index" else "/images/" ~ page.slug ~ "/" %}
+            {% set cat_pages = "home" if page.slug == "index" else "projet" %}
+
+            {% for p in pages if p.category == cat_pages and p.status == "published" %}
+
+                {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
+                <li class="item">
+                    <a  class="bubble" 
+                        href="{{ link }}" 
+                        {% if file_exists("." ~ src_images ~ p.slug ~ ".webp") %}
+                            style="background-image:url('{{ STATIC }}{{ src_images }}{{ p.slug }}.webp')"
+                        {% endif %}
+                        {% if p.redirect_url %} 
+                            target="_blank" 
+                        {% endif %}
+                    >
+                    <span>{{ p.title }}</span>
+                    </a>
+                    {% if cat_pages != "home" and p.summary is defined %}
+                        <p>{{ p.summary }}</p>
                     {% endif %}
-                >
-                <span>{{ p.title }}</span>
-                </a>
-            </li>
-        {% endfor %}
+
+                </li>
+            {% endfor %}
         </ul>
 
     </div>

@@ -1,5 +1,10 @@
 :Title: burais.fr
 :Slug: projet-burais-fr
-:Description: Site web de la famille Burais.
 :Url: https://www.burais.fr
-:Category: Projets
+:Category: Projet
+:Date: 2026-10-11
+:Modified: 2026-11-04
+:Author: Laurent Burais
+:Summary: Site web de la famille Burais.
+:Lang: fr
+:Status: published

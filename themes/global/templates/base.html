@@ -39,10 +39,10 @@
         <h1>{{ banner_title }}</h1>
       {% elif page is defined %}
         <h1>{{ page.title }}</h1>
-        {% if page.description is defined %}<h2>{{ page.description }}</h2>{% endif %}
+        {% if page.summary is defined %}<h2>{{ page.summary }}</h2>{% endif %}
       {% elif article is defined %}
         <h1>{{ article.title }}</h1>
-        {% if article.description is defined %}<h2>{{ article.description }}</h2>{% endif %}
+        {% if article.summary is defined %}<h2>{{ article.summary }}</h2>{% endif %}
 
         {% if article.modified is defined or article.category is defined or article.tags is defined %}
           <div class="infos">

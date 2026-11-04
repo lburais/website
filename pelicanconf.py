@@ -38,7 +38,7 @@ STATIC_PATHS = ["images", "pages", "articles"]
 # Configuration pour s'assurer que la page d'accueil (index.html) soit générée proprement 
 # à partir de votre fichier Markdown 'home.md' sans interférence avec les articles de blog.
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["flat_pages", "wikilinks", "fontawesome"]
+PLUGINS = ["flat_pages", "wikilinks", "fontawesome", "weasypdf"]
 # Output mirrors content/pages (see plugins/flat_pages.py); explicit Save_as still wins.
 PAGE_URL = "{slug}.html"
 PAGE_SAVE_AS = "{slug}.html"
@@ -66,4 +66,20 @@ import math
 
 JINJA_FILTERS = {
     'count_to_font_size': lambda c: '{p:.1f}%'.format(p=100 + 25 * math.log(c, 2)),
+}
+
+import os
+
+# Vos autres configurations (SITENAME, PATH, etc.)
+
+# Fonction pour tester si le fichier existe sur le disque
+def file_exists(relative_path):
+    # 'PATH' correspond généralement à votre dossier 'content/'
+    # Adaptez le chemin selon l'endroit réel où se trouvent vos images lors du build
+    full_path = os.path.join(os.path.dirname(__file__), 'content', relative_path)
+    return os.path.exists(full_path)
+
+# Enregistrement de la fonction dans les variables globales de Jinja
+JINJA_GLOBALS = {
+    'file_exists': file_exists
 }

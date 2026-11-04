@@ -1,8 +1,12 @@
 :Title: Travaux
 :Slug: projet-travaux
-:Description: Parc de Montaleigne
-:Image: images/projets/travaux.jpg
-:Category: Projets
+:Category: Projet
+:Date: 2026-10-11
+:Modified: 2026-11-04
+:Author: Laurent Burais
+:Summary: Parc de Montaleigne.
+:Lang: fr
+:Status: draft
 
 * Dégat des eaux salle de bain
 	* Bac à douche

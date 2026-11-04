@@ -1,4 +1,9 @@
 :Title: Famille Burais
 :Slug: projet-genealogie
-:Description: Arbre généalogique de la famille Burais.
-:Category: Projets
+:Category: Projet
+:Date: 2026-10-11
+:Modified: 2026-11-04
+:Author: Laurent Burais
+:Summary: Arbre généalogique de la famille Burais.
+:Lang: fr
+:Status: published
