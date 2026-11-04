@@ -1,6 +1,7 @@
 import os
 import logging
 from pathlib import Path
+import re
 from pelican import signals
 from weasyprint import HTML, CSS
 
@@ -15,8 +16,7 @@ logger = logging.getLogger(__name__)
 
 def generate_articles_pdf(article_generator):
     """
-    Filtre les articles 'trip' et leur concatène les articles 'footprint'
-    situés dans leurs sous-dossiers respectifs.
+    Génère un PDF par article 'findpenguins', avec ses articles 'footprint'.
     """
     output_path = article_generator.settings.get('OUTPUT_PATH', 'output')
     pdf_filename = article_generator.settings.get('WEASYPDF_FILENAME', 'voyages.pdf')
@@ -34,37 +34,53 @@ def generate_articles_pdf(article_generator):
         logger.info("[WeasyPDF] Aucun article 'findpenguins' trouvé. Génération ignorée.")
         return
 
-    # 2. Structure pour stocker l'ordre final des articles à imprimer
-    final_article_list = []
+    output_dir = Path(output_path)
+    configured_filename = Path(pdf_filename)
+    used_filenames = set()
 
     for trip in trip_articles:
-        # Ajouter le "trip" principal
-        final_article_list.append(trip)
-        
         # Trouver le dossier contenant cet article trip
         trip_file_path = Path(trip.source_path)
         trip_dir = trip_file_path.parent
 
         # Chercher les articles "footprint" dans les sous-dossiers de trip_dir
-        footprints_du_trip = []
+        trip_articles_to_print = [trip]
         for a in all_articles:
             if str(a.category).lower() == 'footprint':
                 a_file_path = Path(a.source_path)
                 
                 # Vérifie si le fichier footprint est dans un sous-dossier strict du trip
                 if a_file_path.is_relative_to(trip_dir) and a_file_path.parent != trip_dir:
-                    footprints_du_trip.append(a)
+                    trip_articles_to_print.append(a)
         
         # Optionnel : Trier les footprints par date ou par nom de fichier
-        footprints_du_trip.sort(key=lambda x: x.date)
-        
-        # Fusionner dans la liste finale après le trip parent
-        final_article_list.extend(footprints_du_trip)
+        trip_articles_to_print[1:] = sorted(
+            trip_articles_to_print[1:], key=lambda x: x.date
+        )
 
-    logger.info(f"[WeasyPDF] {len(final_article_list)} articles retenus pour le PDF.")
+        slug = re.sub(r'[^A-Za-z0-9._-]+', '-', str(trip.slug)).strip('.-_')
+        slug = slug or 'trip'
+        output_name = configured_filename.with_name(
+            f'{configured_filename.stem}-{slug}{configured_filename.suffix}'
+        )
+        if output_name in used_filenames:
+            duplicate_index = 2
+            while output_name in used_filenames:
+                output_name = configured_filename.with_name(
+                    f'{configured_filename.stem}-{slug}-{duplicate_index}'
+                    f'{configured_filename.suffix}'
+                )
+                duplicate_index += 1
+        used_filenames.add(output_name)
+        final_pdf_path = output_dir / output_name
 
-    # 3. Construction du HTML
-    html_content = """
+        logger.info(
+            f"[WeasyPDF] {len(trip_articles_to_print)} articles retenus "
+            f"pour le voyage « {trip.title} »."
+        )
+
+        # Construction du HTML pour ce voyage
+        html_content = """
     <!DOCTYPE html>
     <html>
     <head>
@@ -98,18 +114,18 @@ def generate_articles_pdf(article_generator):
     <body>
     """
 
-    # 4. Génération de la Table des Matières (TOC) avec indentation visuelle
-    html_content += """
+        # Génération de la Table des Matières (TOC)
+        html_content += """
     <div class="page-toc">
         <h1 class="toc-title">Sommaire du Voyage</h1>
         <ul class="toc-list">
     """
-    for index, article in enumerate(final_article_list):
-        is_footprint = str(article.category).lower() == 'footprint'
-        indent_class = "indent" if is_footprint else ""
-        prefix = "🐾 " if is_footprint else "📍 "
+        for index, article in enumerate(trip_articles_to_print):
+            is_footprint = str(article.category).lower() == 'footprint'
+            indent_class = "indent" if is_footprint else ""
+            prefix = "🐾 " if is_footprint else "📍 "
         
-        html_content += f"""
+            html_content += f"""
             <li class="toc-item {indent_class}">
                 <a href="#article-{index}">
                     <span class="toc-name">{prefix}{article.title}</span>
@@ -117,13 +133,13 @@ def generate_articles_pdf(article_generator):
                 </a>
             </li>
         """
-    html_content += "</ul></div>"
+        html_content += "</ul></div>"
 
-    # 5. Injection du contenu HTML
-    for index, article in enumerate(final_article_list):
-        cat_lower = str(article.category).lower()
+        # Injection du contenu HTML
+        for index, article in enumerate(trip_articles_to_print):
+            cat_lower = str(article.category).lower()
         
-        html_content += f"""
+            html_content += f"""
         <div class="article {cat_lower}" id="article-{index}">
             <h1>{article.title}</h1>
             <div class="metadata">Date : {article.locale_date} | Type : {article.category}</div>
@@ -133,22 +149,21 @@ def generate_articles_pdf(article_generator):
         </div>
         """
 
-    html_content += "</body></html>"
+        html_content += "</body></html>"
 
-    # 6. Rendu PDF
-    try:
-        final_pdf_path = os.path.join(output_path, pdf_filename)
-        os.makedirs(output_path, exist_ok=True)
-        wp_html = HTML(string=html_content, base_url=output_path)
-        
-        stylesheets = []
-        if pdf_stylesheet and os.path.exists(pdf_stylesheet):
-            stylesheets.append(CSS(pdf_stylesheet))
+        # Rendu PDF
+        try:
+            output_dir.mkdir(parents=True, exist_ok=True)
+            wp_html = HTML(string=html_content, base_url=output_path)
 
-        wp_html.write_pdf(final_pdf_path, stylesheets=stylesheets)
-        logger.info(f"[WeasyPDF] PDF généré : {final_pdf_path}")
-    except Exception as e:
-        logger.error(f"[WeasyPDF] Erreur : {e}")
+            stylesheets = []
+            if pdf_stylesheet and os.path.exists(pdf_stylesheet):
+                stylesheets.append(CSS(pdf_stylesheet))
+
+            wp_html.write_pdf(str(final_pdf_path), stylesheets=stylesheets)
+            logger.info(f"[WeasyPDF] PDF généré : {final_pdf_path}")
+        except Exception as e:
+            logger.error(f"[WeasyPDF] Erreur pour « {trip.title} » : {e}")
 
 def register():
     signals.article_generator_finalized.connect(generate_articles_pdf)

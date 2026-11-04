@@ -49,6 +49,10 @@ invoke preview
 - `themes/global/static/` contains theme stylesheets and images.
 - `plugins/` contains the local Pelican plugins.
 
+The `weasypdf` plugin generates one PDF per `findpenguins` trip, including its
+`footprint` articles. With the default filename, PDFs are written to
+`output/voyages-<trip-slug>.pdf`.
+
 The production site URL is configured in `publishconf.py`. Set
 `DEPLOY_TARGET=github` when building for GitHub Pages; otherwise the production
 configuration uses the primary domain.
