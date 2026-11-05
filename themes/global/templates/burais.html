@@ -21,14 +21,14 @@
             {% set src_images = "/images/" if page.slug == "index" else "/images/" ~ page.slug ~ "/" %}
             {% set cat_pages = "home" if page.slug == "index" else "projet" %}
 
-            {% for p in pages if p.category == cat_pages and p.status == "published" %}
+            {% for p in pages|sort(attribute='date', reverse=False) if p.category == cat_pages and p.status == "published" %}
 
                 {% set link = p.url if p.url is defined and p.url else SITEURL ~ '/' ~ p.slug ~ '.html' %}
                 <li class="item">
                     <a  class="bubble" 
                         href="{{ link }}" 
                         {% if file_exists("." ~ src_images ~ p.slug ~ ".webp") %}
-                            style="background-image:url('{{ STATIC }}{{ src_images }}{{ p.slug }}.webp')"
+                            style="background-image:url('{{ STATIC }}{{ src_images }}{{ p.slug }}.webp');"
                         {% endif %}
                         {% if p.redirect_url %} 
                             target="_blank" 

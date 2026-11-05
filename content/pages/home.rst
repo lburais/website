@@ -1,6 +1,6 @@
 :Title: Famille Burais
-:Date: 2026-10-11
-:Modified: 2026-11-04
+:Date: 2026-10-01
+:Modified: 2026-10-01
 :Slug: index
 :Template: burais
 :Save_as: index.html
@@ -8,5 +8,7 @@
 :Summary: Le site web de la famille Burais
 :Lang: fr
 :Status: published
+:Category: Projet
+:Url: index.html
 
 ~ hodophiles & cosmopolites ~

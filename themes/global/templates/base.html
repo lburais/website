@@ -106,7 +106,7 @@
 
   <!-- content -->
   <div class="content-wrapper">
-    <div class="content pure-g">
+    <div class="pure-g">
       <div class="pure-u-1">
 
         {% block content %}
@@ -115,21 +115,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    (function () {
-      var menu = document.querySelector('.home-menu');
-      var wrapper = document.querySelector('.content-wrapper');
-      if (!menu || !wrapper) return;
-      function place() {
-        wrapper.style.paddingTop = menu.offsetHeight + 'px';
-      }
-      place();
-      window.addEventListener('resize', place);
-      window.addEventListener('load', place);
-      if (window.ResizeObserver) new ResizeObserver(place).observe(menu);
-    })();
-  </script>
 
   <!-- footer -->
   <footer class="footer">
@@ -145,6 +130,33 @@
       Powered by <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var body = document.querySelector('body');
+      var menu = document.querySelector('header');
+      var wrapper = document.querySelector('.content-wrapper');
+      var footer = document.querySelector('footer');
+
+      if (!body || !menu || !wrapper || !footer) return;
+
+      function place() {
+        var menuHeight = menu.offsetHeight;
+        var footerHeight = footer.offsetHeight;
+        var windowHeight = window.innerHeight;
+
+        wrapper.style.top = menuHeight + 'px';
+        wrapper.style.height = (windowHeight - menuHeight - footerHeight) + "px";
+      }
+      place();
+      window.addEventListener('resize', place);
+      window.addEventListener('load', place);
+      if (window.ResizeObserver) {
+        new ResizeObserver(place).observe(menu);
+        new ResizeObserver(place).observe(footer);
+      }
+    })();
+  </script>
 
 </body>
 </html>
