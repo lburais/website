@@ -1,46 +1,8 @@
 :root {
-    /* color-scheme: light; */
-    /* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; */
-    /* color: #fff; */
     background: #f1f1f1;
     --fp-blue: #1a8ac9;
-    --fp-text: #1c1c1c;
-    --fp-muted: #6b6b6b;
     --fp-track: #e6e6e6;
 }
-
-
-/* * { box-sizing: border-box; } */
-/* * { box-sizing: border-box; margin: 0; padding: 0; } */
-/* body { margin: 0; min-height: 100vh; }
-.site-banner {
-    display: flex;
-    min-height: 64px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 12px 24px;
-    background: #168ac7;
-    box-shadow: 0 2px 6px rgb(0 0 0 / 16%);
-}
-.site-banner h1 {
-    margin: 0;
-    font-size: clamp(1.2rem, 3vw, 1.65rem);
-    font-weight: 750;
-}
-.home-button {
-    flex: 0 0 auto;
-    padding: 9px 15px;
-    border: 1px solid rgb(255 255 255 / 75%);
-    border-radius: 8px;
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: 650;
-    text-decoration: none;
-}
-.home-button:hover { background: rgb(255 255 255 / 14%); }
-
-} */
 
 /*
 TRIP STYLES 
@@ -126,13 +88,6 @@ TRIP STYLES
     margin-left: 0; 
 }
 
-.trip-owner {
-    margin: 8px 0 0;
-    font-size: 0.75rem;
-    font-weight: 650;
-    text-shadow: 0 1px 3px rgb(0 0 0 / 60%);
-}
-
 .trip-info {
     z-index: 1;
     min-width: 0; 
@@ -178,20 +133,11 @@ TRIP STYLES
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
 }
-.trip-empty {
-    grid-column: 1 / -1;
-    padding: 24px;
-    color: #555;
-    text-align: center;
-}
-
 /*
 MEDIA ADJUSMENTS
 */
 
 @media (max-width: 640px) {
-    /* .site-banner { min-height: 56px; padding: 10px 14px; }
-    .home-button { padding: 8px 11px; font-size: 0.82rem; } */
     .trip-grid {
         grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
         gap: 8px;
@@ -208,19 +154,11 @@ MEDIA ADJUSMENTS
     .trip-summary { gap: 8px; }
     .trip-stat strong { font-size: 0.82rem; }
     .trip-stat span { font-size: 0.68rem; }
-    .trip-owner { font-size: 0.7rem; }
 }
 
 /*
 FOOTPRINT STYLES
 */
-
-body.footprint {
-    background: #f1f1f1;
-    color: var(--fp-text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    padding: 16px;
-}
 
 .fp-adventures-link {
     position: absolute;
@@ -379,11 +317,8 @@ body.footprint {
     color: #000;
 }
 
-.fp-flag { margin-right: 6px; font-size: 0.95rem; }
-
 .fp-hero-map .fp-heading {
     position: absolute;
-    /* top: 119px; */
     top: 79px;
     left: 0;
     max-width: calc(100% - 220px);
@@ -397,31 +332,6 @@ body.footprint {
 
 .fp-text p + p { margin-top: 0.8em; }
 .fp-text a { color: var(--fp-blue); }
-
-.fp-references {
-    list-style: none;
-    margin-top: 14px;
-}
-
-.fp-references li {
-    margin-bottom: 10px;
-    overflow-wrap: anywhere;
-    font-size: 0.85rem;
-    line-height: 1.4;
-}
-
-.fp-references a {
-    color: var(--fp-muted);
-    text-decoration: none;
-}
-
-.fp-references a:hover { text-decoration: underline; }
-
-.fp-lock {
-    margin-right: 6px;
-    font-size: 0.7rem;
-    filter: grayscale(1);
-}
 
 .fp-facts {
     display: flex;
@@ -450,7 +360,6 @@ body.footprint {
     max-width: 100%;
     padding: 8px 12px;
     overflow-x: auto;
-    /* background: #f7f7f7; */
 }
 
 .fp-media a {
@@ -496,14 +405,6 @@ body.footprint {
     font-size: 1.6rem;
     text-shadow: 0 1px 4px #000;
     pointer-events: none;
-}
-
-.fp-back {
-    display: block;
-    margin: 24px 0;
-    color: var(--fp-blue);
-    text-align: center;
-    text-decoration: none;
 }
 
 @media (max-width: 600px) {
@@ -616,11 +517,167 @@ body.footprint {
 .prev-btn { left: 15px; }
 .next-btn { right: 15px; }
 
-/* Adaptabilité Mobile */
+/*
+TRIP STYLES
+*/
+
+.trip-book {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+    color: #181818;
+}
+
+.trip-book-page {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    aspect-ratio: 1;
+    margin-bottom: 1rem;
+    overflow: auto;
+    background: #fff;
+    box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
+}
+
+.trip-print-blank { display: none; }
+
+.trip-book-cover {
+    display: flex;
+    flex-direction: column;
+    border-left: 10px solid #078bc8;
+    background: #147cac;
+}
+
+.trip-cover-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trip-overview-heading h2 {
+    margin: 0;
+    color: inherit;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
+.trip-companion-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.trip-companion { display: flex; align-items: center; gap: .5rem; }
+.trip-companion-image { width: 1em; height: 1em; border-radius: 50%; object-fit: cover; }
+
+.trip-overview-hero { position: relative; min-height: 60%; flex: 1 0 60%; background: #147cac; }
+.trip-overview-hero > .trip-cover-image { position: absolute; inset: 0; }
+.trip-overview-heading {
+    position: relative;
+    padding: 8% 1rem;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 5px #000;
+}
+.trip-overview-heading p { font-weight: bold; }
+.trip-overview-details { padding: 1rem 1.5rem 2rem; text-align: center; }
+.trip-overview-details p { font-size: 1.2rem; }
+.trip-country-flags { font-size: 1rem; }
+.trip-overview-stats { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin: 1rem 0; }
+.trip-overview-stats div { display: flex; flex-direction: column-reverse; }
+.trip-overview-stats dt { color: #555; font-size: 1rem; }
+.trip-overview-stats dd { margin: 0; color: #008acb; font-size: 1.25rem; font-weight: bold; }
+.trip-overview-content { text-align: left; }
+.trip-book-toc { 
+    padding-top: 20px; 
+}
+.trip-book-toc a { 
+    color: inherit; 
+    text-decoration: none; 
+}
+.trip-book-toc a:hover, .trip-book-toc a:focus-visible { 
+    color: #007fbf; 
+    text-decoration: underline; 
+}
+.trip-toc-overview { 
+    display: block;
+    width: 100%;
+    text-align: center; 
+    font-weight: bold; 
+}
+.trip-toc-list { 
+    width: 95%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1rem, 5vw, 3rem);
+    margin: 0.5rem auto 0; 
+}
+.trip-toc-column {
+    flex: 1 1 12rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0; 
+    list-style: none; 
+}
+.trip-toc-list li { 
+    break-inside: avoid; 
+    margin: .2rem 0; 
+    overflow-wrap: anywhere; 
+}
+.trip-toc-list a { 
+    display: inline-flex; 
+    align-items: baseline; 
+    gap: .4em; 
+}
+.trip-toc-number {
+    display: inline-block;
+    flex: none;
+    box-sizing: border-box;
+    min-width: 1em;
+    height: 1em;
+    padding: 0 .2em;
+    border: 2px solid #073b70;
+    border-radius: 50%;
+    background: #f8fbff;
+    color: #073b70;
+    font-size: .75em;
+    font-weight: bold;
+    line-height: calc(1em - 4px);
+    text-align: center;
+}
+.trip-book-route {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height: 65%;
+    object-fit: contain; 
+}
+
+/* 
+MEDIA SPECIFICS 
+*/
+
+@page { size: 297mm 297mm; margin: 0; }
+
 @media (max-width: 768px) {
     .vanilla-carousel { height: 300px; }
     .carousel-btn { padding: 8px 12px; font-size: 1rem; }
 }
 @media (max-width: 480px) {
     .vanilla-carousel { height: 200px; }
+}
+
+@media print {
+    body > .header, body > .footer { display: none !important; }
+    .content-wrapper { position: static !important; top: auto !important; height: auto !important; padding: 0 !important; overflow: visible !important; }
+    .trip-book { max-width: none; margin: 0; padding: 0; }
+    .trip-book-page, .trip-print-blank {
+        display: block;
+        width: 297mm;
+        height: 297mm;
+        min-height: 0;
+        margin: 0;
+        box-shadow: none;
+        break-after: page;
+    }
+    .trip-book-page:last-child { break-after: auto; }
+    .trip-book-cover, .trip-book-route { display: flex; }
+    .trip-book-toc { height: auto; min-height: 297mm; padding: 32mm 35mm; }
+    .trip-book-page { overflow: visible; }
 }

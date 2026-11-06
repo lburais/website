@@ -1,45 +1,158 @@
-{% extends "base.html" %}
-{% block html_lang %}{{ article.lang }}{% endblock %}
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ article.title }}</title>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/findpenguins.css" type="text/css" />
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/fontawesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/solid.min.css" type="text/css" />
+</head>
+<body>
+    {% set media_dir = article.relative_source_path.rsplit('/', 1)[0] %}
+    {% set months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
+    {% set transport_icons = {
+        'bus': 'bus',
+        'flight': 'plane',
+        'car': 'car',
+        '4x4': 'car-side',
+        'train': 'train',
+        'hiking': 'person-hiking',
+        'walking': 'person-walking',
+        'sailing': 'sailboat',
+        'motorboat': 'ship',
+        'ferry': 'ferry',
+        'cruise ship': 'ship-large',
+        'camper': 'van-shuttle'
+    } %}
+    {% set steps = namespace(items=[]) %}
+    {% for item in articles if item.slug.startswith(article.slug ~ '-etape-') and item.category.name|lower == 'footprint' %}
+        {% set number = item.slug[(article.slug ~ '-etape-')|length:] %}
+        {% if number.isdigit() %}
+            {% set steps.items = steps.items + [(number|int, item)] %}
+        {% endif %}
+    {% endfor %}
+    {% set footprints = steps.items|sort(attribute=0) %}
+    {% set cover = article.tripimage if article.tripimage else '' %}
+    {% if cover and not cover.startswith(('http://', 'https://')) %}
+        {% set cover = SITEURL ~ '/' ~ media_dir ~ '/' ~ cover %}
+    {% endif %}
+    {% set map = article.tripsatellitemap if article.tripsatellitemap else (article.tripmap if article.tripmap else '') %}
+    {% if map and not map.startswith(('http://', 'https://')) %}
+        {% set map = SITEURL ~ '/' ~ media_dir ~ '/' ~ map %}
+    {% endif %}
+    {% set companions = namespace(items=[]) %}
+    {% for companion in (article.companions or '').split(';') %}
+        {% set parts = companion.split('|', 1) %}
+        {% set name = parts[0].strip() %}
+        {% if name %}
+            {% set picture = parts[1].strip() if parts|length == 2 else '' %}
+            {% if picture and not picture.startswith(('http://', 'https://')) %}
+                {% set picture = SITEURL ~ '/' ~ media_dir ~ '/' ~ picture %}
+            {% endif %}
+            {% set companions.items = companions.items + [(name, picture)] %}
+        {% endif %}
+    {% endfor %}
+    {% if not companions.items and article.owner %}
+        {% set companions.items = [(article.owner, '')] %}
+    {% endif %}
 
-{% block title %}{{ SITENAME|striptags }} - {{ article.title|striptags }}{% endblock %}
+    {% macro companion_list() %}
+        <ul class="trip-companion-list">
+            {% for name, picture in companions.items %}
+                <li class="trip-companion">
+                    {% if picture %}<img class="trip-companion-image" src="{{ picture }}" alt="">{% endif %}
+                    <span>{{ name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endmacro %}
 
-{% block body %}
-    {{ super() }}
-{% endblock %}
+    <article class="trip-book">
+        <a class="fp-adventures-link" href="{{ SITEURL }}/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
 
-{% block content %}
-    <article class="trip-page">
-        <a class="trip-aventures-link" href="{{ SITEURL }}/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">✈</a>
-        <header>
-            <h2>{{ article.title }}</h2>
-        </header>
-        {{ article.content }}
+        <section class="trip-book-page trip-book-cover" aria-label="Couverture">
+            <div class="trip-overview-hero">
+                {% if cover %}<img class="trip-cover-image" src="{{ cover }}" alt="">{% endif %}
+                <div class="trip-overview-heading">
+                    {% if article.date %}
+                        <p>
+                            {{ article.date.day }} {{ months[article.date.month - 1] }} {{ article.date.year }}
+                            {% if article.enddate and article.enddate != article.date.strftime('%Y-%m-%d') %}
+                                {% set end = article.enddate.split('-') %}
+                                {% if end|length == 3 and end[1]|int >= 1 and end[1]|int <= 12 %}
+                                    – {{ end[2]|int }} {{ months[(end[1]|int) - 1] }} {{ end[0] }}
+                                {% endif %}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    <h2>{{ article.title }}</h2>
+                </div>
+            </div>
+            <div class="trip-overview-details" style="background: white;"">
+                {% if article.description %}<p>{{ article.description }}</p>{% endif %}
+                {% if article.countries %}<p class="trip-country-flags">{{ article.countries }}</p>{% endif %}
+
+                {% if companions.items %}
+                    <div class="trip-book-companions" aria-label="Compagnons de voyage">
+                        {{ companion_list() }}
+                    </div>
+                {% endif %}
+
+                <dl class="trip-overview-stats">
+                {% if article.days %}<div><dt><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></dt><dd>{{ article.days }}</dd></div>{% endif %}
+                {% if article.countries %}<div><dt><i class="fa-solid fa-flag" aria-hidden="true"></i></dt><dd>{{ article.countries.split(',')|length }}</dd></div>{% endif %}
+                <div><dt><i class="fa-solid fa-paw" aria-hidden="true"></i></dt><dd>{{ footprints|length }}</dd></div>
+                {% if article.transport %}
+                    {% for transport in article.transport.split(';') %}
+                        {% set detail = transport.strip() %}
+                        {% if detail %}
+                            {% set parts = detail.split() %}
+                            {% set has_distance = parts|length >= 3 and parts[-1]|lower == 'km' %}
+                            {% set kind = parts[:-2]|join(' ') if has_distance else detail %}
+                            <div>
+                                <dt><i class="fa-solid fa-{{ transport_icons.get(kind|lower, 'route') }}" aria-hidden="true"></i></dt>
+                                <dd>{{ parts[-2] ~ ' ' ~ parts[-1] if has_distance else detail }}</dd>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% elif article.distance %}
+                    <div><dt>kilomètres</dt><dd>{{ article.distance }}</dd></div>
+                {% endif %}
+                </dl>
+                {% if article.content %}<div class="trip-overview-content">{{ article.content }}</div>{% endif %}
+            </div>
+
+        </section>
+
+        <div class="trip-print-blank" aria-hidden="true"></div>
+
+        <section class="trip-book-page trip-book-toc" aria-labelledby="trip-toc-title">
+            {% if map %}
+                <img class="trip-book-route" src="{{ map }}" alt="Carte de l'itinéraire de {{ article.title }}">
+            {% endif %}
+
+            <a class="trip-toc-overview" href="#trip-overview">{{ article.title }}</a>
+            {% if footprints %}
+                <div class="trip-toc-list">
+                    {% for column in footprints|batch(20) %}
+                        <ol class="trip-toc-column" start="{{ loop.index0 * 20 + 1 }}">
+                            {% for number, footprint in column %}
+                                <li>
+                                    <a href="{{ SITEURL }}/{{ footprint.url }}">
+                                        <span class="trip-toc-number">{{ number }}</span> <span>{{ footprint.title }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Aucune étape disponible.</p>
+            {% endif %}
+        </section>
     </article>
-{% endblock %}
-
-{% block head %}
-    {{ super() }}
-    <style>
-        .trip-aventures-link {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 20;
-            display: grid;
-            width: 44px;
-            height: 44px;
-            place-items: center;
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
-            color: #166ba0;
-            font-size: 1.5rem;
-            line-height: 1;
-            text-decoration: none;
-        }
-        .trip-page {
-            position: relative;
-            background: #fff;
-        }
-    </style>
-{% endblock %}
+</body>
+</html>

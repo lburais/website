@@ -20,6 +20,7 @@
                 {% set tripmap = trip.tripmap if trip.tripmap.startswith(('http://', 'https://')) else SITEURL ~ '/' ~ relative_dir ~ '/' ~ trip.tripmap %}
             {% endif %}
             <a class="trip-card" href="{{ SITEURL }}/{{ first_step.url or trip.url }}"{% if tripimage %} style="--trip-cover: url('{{ tripimage }}')"{% endif %}>
+            <!-- <a class="trip-card" href="{{ SITEURL }}/{{ trip.url }}"{% if tripimage %} style="--trip-cover: url('{{ tripimage }}')"{% endif %}> -->
                 {% if tripmap %}
                     <span class="trip-map-overlay" style="--trip-map: url('{{ tripmap }}')" aria-hidden="true"></span>
                 {% endif %}

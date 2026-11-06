@@ -49,6 +49,14 @@ invoke preview
 - `themes/global/static/` contains theme stylesheets and images.
 - `plugins/` contains the local Pelican plugins.
 
+Trip cards open a printable trip book with a cover, contents and route; companions
+appear on the cover. The contents links to each footprint article in trip order.
+Route transport statistics show an icon for each transport type above its distance.
+The trip book uses square pages and a table of contents with up to 20 steps per
+column; columns wrap on narrow screens and long page contents can be scrolled.
+The itinerary uses the trip's `TripSatelliteMap` when available, falling back
+to `TripMap` for older trips or when satellite imagery could not be generated.
+
 The `weasypdf` plugin generates one PDF per `findpenguins` trip, including its
 `footprint` articles. With the default filename, PDFs are written to
 `output/voyages-<trip-slug>.pdf`.

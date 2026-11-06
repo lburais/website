@@ -168,7 +168,7 @@ body, html {
     position: fixed;
     bottom: 0;
     width: 100%;
-    min-height: 1em;
+    min-height: 1.5em;
     padding: 0.5em;
     text-align: center;
     color: var(--title-color);

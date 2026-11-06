@@ -84,7 +84,7 @@
                         {% endif %}
                         {% if article.country %} , {{ article.country }}{% endif %}{% if article.city %}, {{ article.city }}{% endif %}
                     </p>
-                    {% if ns.trip %}<p class="fp-subtitle fp-trip">{{ ns.trip.title }}</p>{% endif %}
+                    {% if ns.trip %}<p class="fp-subtitle fp-trip"><a href="{{ SITEURL }}/{{ ns.trip.url }}">{{ ns.trip.title }}</a></p>{% endif %}
                     {% if article.weather or article.temperature or article.ele or article.overnights %}
                         <dl class="fp-facts">
                             {% if article.weather or article.temperature %}
@@ -226,6 +226,14 @@
                 </div>
             </div>
 
+            <section class="fp-media fp-media-{{ [photos|length, 3]|min }}">
+                {% for photo in photos %}
+                    <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ article.title }}" loading="lazy" />
+                {% endfor %}
+                {% for video in videos %}
+                    <video controls preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}"></video>
+                {% endfor %}
+            </section>
         {% endif %}
 
         {% if gpx_files or pdf_files %}
