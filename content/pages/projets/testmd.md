@@ -6,6 +6,6 @@ Slug: projet-testmd
 Authors: Laurent Burais
 Summary: Markdown test
 Lang: fr
-Status: published
+Status: draft
 
 This is the content of my test markdown page.

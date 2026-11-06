@@ -8,7 +8,7 @@
 :Author: Laurent Burais
 :Summary: Développements autour du matériel M5Stack pour gérer Franklin.
 :Lang: fr
-:Status: published
+:Status: draft
 
 
 Les articles relatifs au projet SmartFranklin

@@ -4,7 +4,7 @@
 # Informations générales sur le site
 SITENAME = "Famille Burais"
 SITEURL = ""  # Laisser vide pour le développement local
-AUTHOR = 'famille@burais.fr'
+AUTHOR = 'Famille Burais'
 
 PATH = "content"
 TIMEZONE = "Europe/Paris"
@@ -30,7 +30,12 @@ THEME_STATIC_DIR = "theme"
 # seront accessibles hors-ligne et localement par vos templates HTML.
 # "pages" and "articles" are included so media are copied next to their generated pages
 # (FindPenguins trip/footprint articles carry their photos and videos).
-STATIC_PATHS = ["images", "pages", "articles"]
+STATIC_PATHS = ["images", "pages", "articles", 'extra']
+
+EXTRA_PATH_METADATA = {
+    'extra/favicon.png': {'path': 'favicon.png'},
+    'extra/apple-touch-icon.png': {'path': 'apple-touch-icon.png'}
+}
 
 # ==========================================
 # CONFIGURATION DES PAGES ET DES URLS

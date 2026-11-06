@@ -6,4 +6,4 @@
 :Author: Laurent Burais
 :Summary: Arbre généalogique de la famille Burais.
 :Lang: fr
-:Status: published
+:Status: draft

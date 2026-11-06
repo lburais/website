@@ -9,3 +9,7 @@
 :Summary: Notre association esperens ~ Un espoir Ensemble Ici et Là-Bas
 :Lang: fr
 :Status: published
+
+* Solarisation de la pompe
+* Cloture
+* Elevage de chevres laitières

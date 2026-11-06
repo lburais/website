@@ -2,14 +2,14 @@
 <html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}">
 <head>
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+  <link rel="icon" type="image/x-icon" href="{{ SITEURL }}/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ SITEURL }}/apple-touch-icon.png">
+
   {% block meta %}
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=1">
-  <meta name="description" content="Base html for the theme.">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=1">
+    <meta name="description" content="Base html for the theme.">
   {% endblock %}
-  {% if FAVICON %}
-  <link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON }}">
-  {% endif %}
 
   <!-- PURE -->
 
@@ -98,6 +98,9 @@
           </li>
           <li class="pure-menu-item">
             <a href="{{ SITEURL }}/archives.html" class="pure-menu-link"><i class="fa-solid fa-boxes-packing"></i> Archives</a>
+          </li>
+          <li class="pure-menu-item">
+            <a href="{{ SITEURL }}/authors.html" class="pure-menu-link"><i class="fa-solid fa-pen"></i> Auteurs</a>
           </li>
         </ul> 
       </li>

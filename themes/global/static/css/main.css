@@ -176,6 +176,9 @@ body, html {
     box-sizing: border-box;
     z-index: 4;
 }
+.footer a {
+    color: var(--title-color);
+}
 
 /*
  * -- BURAIS STYLES --
