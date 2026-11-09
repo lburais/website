@@ -33,8 +33,7 @@ THEME_STATIC_DIR = "theme"
 STATIC_PATHS = ["images", "pages", "articles", 'extra']
 
 EXTRA_PATH_METADATA = {
-    'extra/favicon.png': {'path': 'favicon.png'},
-    'extra/apple-touch-icon.png': {'path': 'apple-touch-icon.png'}
+    'extra/favicon.png': {'path': 'favicon.png'}
 }
 
 # ==========================================

@@ -93,7 +93,16 @@
             </div>
             <div class="trip-overview-details" style="background: white;"">
                 {% if article.description %}<p>{{ article.description }}</p>{% endif %}
-                {% if article.countries %}<p class="trip-country-flags">{{ article.countries }}</p>{% endif %}
+                {% if article.countryflags %}
+                    <p class="trip-country-flags">
+                        {% for country in article.countryflags.split(';') %}
+                            {% set parts = country.split('|', 1) %}
+                            {% if parts|length == 2 %}
+                                <span>{% if parts[1] %}<img class="country-flag" src="{{ SITEURL }}/{{ parts[1] }}" alt="">{% endif %} {{ parts[0] }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                {% endif %}
 
                 {% if companions.items %}
                     <div class="trip-book-companions" aria-label="Compagnons de voyage">

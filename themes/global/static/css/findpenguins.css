@@ -4,6 +4,14 @@
     --fp-track: #e6e6e6;
 }
 
+.country-flag {
+    display: inline-block;
+    width: 1.5em;
+    height: 1em;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
 /*
 TRIP STYLES 
 */

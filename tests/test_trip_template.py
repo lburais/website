@@ -46,6 +46,15 @@ class TripTemplateTests(unittest.TestCase):
             AUTHOR="Test author",
         )
 
+    def test_country_images_and_names_use_shared_root(self):
+        trip = article(countries="Peru, Chile", countryflags="Peru|flags/pe-test.webp;Chile|")
+        soup = BeautifulSoup(self.render(trip, [trip]), "html.parser")
+        countries = soup.select_one(".trip-country-flags")
+        self.assertEqual(countries.img["src"], f"{ROOT.as_uri()}/flags/pe-test.webp")
+        self.assertIn("Peru", countries.get_text())
+        self.assertIn("Chile", countries.get_text())
+        self.assertEqual(len(countries.select("img")), 1)
+
     def test_missing_optional_metadata_and_no_footprints(self):
         trip = article()
         html = self.render(trip, [trip])

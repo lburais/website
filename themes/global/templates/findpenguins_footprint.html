@@ -82,6 +82,7 @@
                                 {% endif %}
                             </span>
                         {% endif %}
+                        {% if article.flag and article.flag.startswith('flags/') %}<img class="country-flag" src="{{ SITEURL }}/{{ article.flag }}" alt="">{% endif %}
                         {% if article.country %} , {{ article.country }}{% endif %}{% if article.city %}, {{ article.city }}{% endif %}
                     </p>
                     {% if ns.trip %}<p class="fp-subtitle fp-trip"><a href="{{ SITEURL }}/{{ ns.trip.url }}">{{ ns.trip.title }}</a></p>{% endif %}

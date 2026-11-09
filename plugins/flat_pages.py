@@ -31,6 +31,8 @@ def relocate(obj):
     if not isinstance(obj, (Page, Static)):
         return
     rel = _strip(obj.relative_source_path)
+    if isinstance(obj, Static) and rel.startswith("articles/findpenguins/flags/"):
+        rel = rel[len("articles/findpenguins/"):]
     if isinstance(obj, Page):
         if "save_as" in obj.metadata:
             return

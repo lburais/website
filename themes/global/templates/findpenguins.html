@@ -39,7 +39,15 @@
                     </span>
                 {% endif %}
                 <div class="trip-info">
-                    <h2>{{ trip.title }}</h2>
+                    <h2>
+                        {% for country in (trip.countryflags or '').split(';') %}
+                            {% set parts = country.split('|', 1) %}
+                            {% if parts|length == 2 and parts[1] %}
+                                <img class="country-flag" src="{{ SITEURL }}/{{ parts[1] }}" alt="{{ parts[0] }}">
+                            {% endif %}
+                        {% endfor %}
+                        {{ trip.title }}
+                    </h2>
                     <div class="trip-summary">
                         {% if start %}
                             <div class="trip-stat">

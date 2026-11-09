@@ -56,6 +56,11 @@ The trip book uses square pages and a table of contents with up to 20 steps per
 column; columns wrap on narrow screens and long page contents can be scrolled.
 The itinerary uses the trip's `TripSatelliteMap` when available, falling back
 to `TripMap` for older trips or when satellite imagery could not be generated.
+Country and footprint flag images are shared under `output/flags/`, copied from
+`content/articles/findpenguins/flags/`. New scraped trips provide `CountryFlags`
+as semicolon-separated `name|flags/path.webp` pairs and footprint `Flag` paths;
+the PDF generator uses the same source images. Rescrape older trips to replace
+their flag emoji with images.
 
 The `weasypdf` plugin generates one PDF per `findpenguins` trip, including its
 `footprint` articles. With the default filename, PDFs are written to

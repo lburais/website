@@ -1,5 +1,6 @@
 import os
 import logging
+from html import escape
 from pathlib import Path
 import re
 from pelican import signals
@@ -13,6 +14,25 @@ logging.getLogger('fontTools').setLevel(logging.WARNING)
 # ---------------------------------------------------------
 
 logger = logging.getLogger(__name__)
+
+
+def _trip_flag_images(trip, content_root):
+    flags_dir = (Path(content_root) / "articles/findpenguins/flags").resolve()
+    images = []
+    for country in (getattr(trip, "countryflags", "") or "").split(";"):
+        parts = country.split("|", 1)
+        if len(parts) != 2 or not parts[1].startswith("flags/"):
+            continue
+        image = (flags_dir / parts[1][len("flags/"):]).resolve()
+        if image.parent != flags_dir or not image.is_file():
+            logger.warning("[WeasyPDF] Flag image not found: %s", image)
+            continue
+        images.append(
+            f'<img class="country-flag" src="{escape(image.as_uri(), quote=True)}" '
+            f'alt="{escape(parts[0], quote=True)}">'
+        )
+    return " ".join(images)
+
 
 def generate_articles_pdf(article_generator):
     """
@@ -39,6 +59,7 @@ def generate_articles_pdf(article_generator):
     used_filenames = set()
 
     for trip in trip_articles:
+        flag_images = _trip_flag_images(trip, article_generator.settings.get("PATH", "content"))
         # Trouver le dossier contenant cet article trip
         trip_file_path = Path(trip.source_path)
         trip_dir = trip_file_path.parent
@@ -109,6 +130,7 @@ def generate_articles_pdf(article_generator):
             .article.footprint h1 { font-size: 20pt; color: #2e7d32; } /* Style distinct pour les sous-articles */
             .metadata { color: #666; font-size: 10pt; margin-bottom: 20px; }
             .content img { max-width: 100%; height: auto; page-break-inside: avoid; }
+            .country-flag { width: 1.5em; height: 1em; object-fit: contain; vertical-align: middle; }
         </style>
     </head>
     <body>
@@ -124,11 +146,12 @@ def generate_articles_pdf(article_generator):
             is_footprint = str(article.category).lower() == 'footprint'
             indent_class = "indent" if is_footprint else ""
             prefix = "🐾 " if is_footprint else "📍 "
+            flags = "" if is_footprint else flag_images
         
             html_content += f"""
             <li class="toc-item {indent_class}">
                 <a href="#article-{index}">
-                    <span class="toc-name">{prefix}{article.title}</span>
+                    <span class="toc-name">{prefix}{flags} {article.title}</span>
                     <span class="toc-dots"></span>
                 </a>
             </li>
@@ -138,10 +161,11 @@ def generate_articles_pdf(article_generator):
         # Injection du contenu HTML
         for index, article in enumerate(trip_articles_to_print):
             cat_lower = str(article.category).lower()
+            flags = flag_images if article is trip else ""
         
             html_content += f"""
         <div class="article {cat_lower}" id="article-{index}">
-            <h1>{article.title}</h1>
+            <h1>{flags} {article.title}</h1>
             <div class="metadata">Date : {article.locale_date} | Type : {article.category}</div>
             <div class="content">
                 {article.content}
