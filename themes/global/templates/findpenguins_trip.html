@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="{{ DEFAULT_LANG }}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ article.title }}</title>
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/findpenguins.css" type="text/css" />
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/fontawesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/solid.min.css" type="text/css" />
+
+</head>
+<body>
+    {% set media_dir = article.relative_source_path.rsplit('/', 1)[0] %}
+    {% set months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'] %}
+    {% set transport_icons = {
+        'bus': 'bus',
+        'flight': 'plane',
+        'car': 'car',
+        '4x4': 'car-side',
+        'train': 'train',
+        'hiking': 'person-hiking',
+        'walking': 'person-walking',
+        'sailing': 'sailboat',
+        'motorboat': 'ship',
+        'ferry': 'ferry',
+        'cruise ship': 'ship-large',
+        'camper': 'van-shuttle'
+    } %}
+    {% set steps = namespace(items=[]) %}
+    {% for item in articles if item.slug.startswith(article.slug ~ '-etape-') and item.category.name|lower == 'footprint' %}
+        {% set number = item.slug[(article.slug ~ '-etape-')|length:] %}
+        {% if number.isdigit() %}
+            {% set steps.items = steps.items + [(number|int, item)] %}
+        {% endif %}
+    {% endfor %}
+    {% set footprints = steps.items|sort(attribute=0) %}
+    {% set cover = article.tripimage if article.tripimage else '' %}
+    {% if cover and not cover.startswith(('http://', 'https://')) %}
+        {% set cover = SITEURL ~ '/' ~ media_dir ~ '/' ~ cover %}
+    {% endif %}
+    {% set map = article.tripsatellitemap if article.tripsatellitemap else (article.tripmap if article.tripmap else '') %}
+    {% if map and not map.startswith(('http://', 'https://')) %}
+        {% set map = SITEURL ~ '/' ~ media_dir ~ '/' ~ map %}
+    {% endif %}
+    {% set companions = namespace(items=[]) %}
+    {% for companion in (article.companions or '').split(';') %}
+        {% set parts = companion.split('|', 1) %}
+        {% set name = parts[0].strip() %}
+        {% if name %}
+            {% set picture = parts[1].strip() if parts|length == 2 else '' %}
+            {% if picture and not picture.startswith(('http://', 'https://')) %}
+                {% set picture = SITEURL ~ '/' ~ media_dir ~ '/' ~ picture %}
+            {% endif %}
+            {% set companions.items = companions.items + [(name, picture)] %}
+        {% endif %}
+    {% endfor %}
+    {% if not companions.items and article.owner %}
+        {% set companions.items = [(article.owner, '')] %}
+    {% endif %}
+
+    {% macro companion_list() %}
+        <ul class="trip-companion-list">
+            {% for name, picture in companions.items %}
+                <li class="trip-companion">
+                    {% if picture %}<img class="trip-companion-image" src="{{ picture }}" alt="">{% endif %}
+                    <span>{{ name }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endmacro %}
+
+    <article class="trip-book">
+        <a class="fp-adventures-link" href="{{ SITEURL }}/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
+            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
+        </a>
+
+        <section class="trip-book-page trip-book-cover" id="trip-overview" aria-label="Couverture">
+            <div class="trip-overview-hero">
+                {% if cover %}<img class="trip-cover-image" src="{{ cover }}" alt="">{% endif %}
+                <div class="trip-overview-heading">
+                    {% if article.date %}
+                        <p>
+                            {{ article.date.day }} {{ months[article.date.month - 1] }} {{ article.date.year }}
+                            {% if article.enddate and article.enddate != article.date.strftime('%Y-%m-%d') %}
+                                {% set end = article.enddate.split('-') %}
+                                {% if end|length == 3 and end[1]|int >= 1 and end[1]|int <= 12 %}
+                                    – {{ end[2]|int }} {{ months[(end[1]|int) - 1] }} {{ end[0] }}
+                                {% endif %}
+                            {% endif %}
+                        </p>
+                    {% endif %}
+                    <h2>{{ article.title }}</h2>
+                </div>
+            </div>
+            <div class="trip-overview-details" style="background: white;">
+                {% if article.description %}<p>{{ article.description }}</p>{% endif %}
+                {% if article.countryflags %}
+                    <p class="trip-country-flags">
+                        {% for country in article.countryflags.split(';') %}
+                            {% set parts = country.split('|', 1) %}
+                            {% if parts|length == 2 %}
+                                <span>{% if parts[1] %}<img class="country-flag" src="{{ SITEURL }}/{{ parts[1] }}" alt="">{% endif %} {{ parts[0] }}</span>
+                            {% endif %}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+                {% if companions.items %}
+                    <div class="trip-book-companions" aria-label="Compagnons de voyage">
+                        {{ companion_list() }}
+                    </div>
+                {% endif %}
+
+                <dl class="trip-overview-stats">
+                {% if article.days %}<div><dt><i class="fa-solid fa-calendar-days" aria-hidden="true"></i></dt><dd>{{ article.days }}</dd></div>{% endif %}
+                {% if article.countries %}<div><dt><i class="fa-solid fa-flag" aria-hidden="true"></i></dt><dd>{{ article.countries.split(',')|length }}</dd></div>{% endif %}
+                <div><dt><i class="fa-solid fa-paw" aria-hidden="true"></i></dt><dd>{{ footprints|length }}</dd></div>
+                {% if article.transport %}
+                    {% for transport in article.transport.split(';') %}
+                        {% set detail = transport.strip() %}
+                        {% if detail %}
+                            {% set parts = detail.split() %}
+                            {% set has_distance = parts|length >= 3 and parts[-1]|lower == 'km' %}
+                            {% set kind = parts[:-2]|join(' ') if has_distance else detail %}
+                            <div>
+                                <dt><i class="fa-solid fa-{{ transport_icons.get(kind|lower, 'route') }}" aria-hidden="true"></i></dt>
+                                <dd>{{ parts[-2] ~ ' ' ~ parts[-1] if has_distance else detail }}</dd>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% elif article.distance %}
+                    <div><dt>kilomètres</dt><dd>{{ article.distance }}</dd></div>
+                {% endif %}
+                </dl>
+                {% if article.content %}<div class="trip-overview-content">{{ article.content }}</div>{% endif %}
+            </div>
+
+        </section>
+
+        <div class="trip-print-blank" aria-hidden="true"></div>
+
+        <section class="trip-book-page trip-book-toc" aria-label="Sommaire">
+            {% if map %}
+                <img class="trip-book-route" src="{{ map }}" alt="Carte de l'itinéraire de {{ article.title }}">
+            {% endif %}
+
+            <a class="trip-toc-overview" href="#trip-overview">{{ article.title }}</a>
+            {% if footprints %}
+                <div class="trip-toc-list">
+                    {% for column in footprints|batch(20) %}
+                        <ol class="trip-toc-column" start="{{ loop.index0 * 20 + 1 }}">
+                            {% for number, footprint in column %}
+                                <li>
+                                    <a href="#{{ footprint.slug }}">
+                                        <span class="trip-toc-number">{{ number }}</span> <span>{{ footprint.title }}</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Aucune étape disponible.</p>
+            {% endif %}
+        </section>
+        
+        {% for number, footprint in footprints %}
+            {% with article=footprint, step=number, previous=footprints[loop.index0 - 1][1] if not loop.first else none, next=footprints[loop.index][1] if not loop.last else none, trip=article %}
+
+                {% set media_dir = article.relative_source_path.rsplit('/', 1)[0]|replace('pages/', '', 1) %}
+                {% set day = article.day|int if article.day else step %}
+                {% set nights = article.overnights|int if article.overnights else 0 %}
+                {% set end_day = day + nights if nights > 0 else day %}
+                {% set last_date = article.date.fromordinal(article.date.toordinal() + nights) if article.date and nights > 0 else none %}
+                {% set photos = article.photo.split(', ') if article.photo else [] %}
+                {% set videos = article.video.split(', ') if article.video else [] %}
+                {% set gpx_files = article.gpx.split(', ') if article.gpx else [] %}
+                {% set pdf_files = article.pdf.split(', ') if article.pdf else [] %}
+                {% set days = trip.days|int if trip.days else (article.days|int if article.days else 0) %}
+                {% set lat = article.lat|float if article.lat else none %}
+                {% set lon = article.lon|float if article.lon else none %}
+
+                <section class="trip-book-page trip-book-footprint footprint" id="{{ article.slug }}" aria-label="{{ article.title }}">
+                    <header class="fp-header">
+                        <div class="fp-hero{% if lat is not none and lon is not none %} fp-hero-map{% endif %}">
+                            <div class="fp-nav">
+                                {% if previous %}<a class="fp-arrow" href="#{{ previous.slug }}" title="{{ previous.title }}">&#9664;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9664;</span>{% endif %}
+                                {% if day %}
+                                    {% set ratio = [0, [(day - 1) / (days - 1) * 100, 100]|min]|max if days > 1 else 100 %}
+                                    <div class="fp-progress" aria-label="Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}">
+                                        <div class="fp-progress-fill" style="width: {{ ratio|round(1) }}%"></div>
+                                        <span class="fp-day" style="left: {{ ratio|round(1) }}%">Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}</span>
+                                    </div>
+                                {% else %}
+                                    <div class="fp-progress-empty"></div>
+                                {% endif %}
+                                {% if next %}<a class="fp-arrow" href="#{{ next.slug }}" title="{{ next.title }}">&#9654;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9654;</span>{% endif %}
+                            </div>
+                            {% if lat is not none and lon is not none %}
+                                <div class="fp-map">
+                                    <div class="fp-map-frame" role="img" aria-label="Carte de {{ article.city|default(article.country, true) }}">
+                                        <img src="{{ SITEURL }}/{{ media_dir }}/map_country.webp" alt="Carte de {{ article.city|default(article.country, true) }}" loading="lazy">
+                                    </div>
+                                    <a class="fp-coords" href="https://www.openstreetmap.org/?mlat={{ lat }}&amp;mlon={{ lon }}#map=12/{{ lat }}/{{ lon }}" target="_blank" rel="noopener">
+                                        {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <div class="fp-heading">
+                                <h2 class="fp-title">{{ article.title }}</h2>
+                                <p class="fp-subtitle">
+                                    {% if article.date %}
+                                        <span>
+                                            {% if last_date %}
+                                                {% if article.date.year == last_date.year and article.date.month == last_date.month %}
+                                                    {{ article.date.day }}–{{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                                                {% elif article.date.year == last_date.year %}
+                                                    {{ article.date.day }} {{ months[article.date.month - 1] }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                                                {% else %}
+                                                    {{ article.date.day }} {{ months[article.date.month - 1] }} {{ article.date.year }} – {{ last_date.day }} {{ months[last_date.month - 1] }} {{ last_date.year }}
+                                                {% endif %}
+                                            {% else %}
+                                                {{ article.date.day }} {{ months[article.date.month - 1] }} {{ article.date.year }}
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+                                    {% if article.flag and article.flag.startswith('flags/') %}<img class="country-flag" src="{{ SITEURL }}/{{ article.flag }}" alt="">{% endif %}
+                                    {% if article.country %}, {{ article.country }}{% endif %}{% if article.city %}, {{ article.city }}{% endif %}
+                                </p>
+                                <p class="fp-subtitle fp-trip"><a href="#trip-overview">{{ trip.title }}</a></p>
+                                {% if article.weather or article.temperature or article.ele %}
+                                    <dl class="fp-facts">
+                                        {% if article.weather or article.temperature %}
+                                            <div><dt>Météo</dt><dd>{{ article.weather }}{% if article.temperature %} {{ article.temperature }} °C{% endif %}</dd></div>
+                                        {% endif %}
+                                        {% if article.ele %}<div><dt>Altitude</dt><dd>{{ article.ele }} m</dd></div>{% endif %}
+                                    </dl>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="fp-text">{{ article.content }}</div>
+                    </header>
+
+                    {% if photos or videos %}
+                        <div class="fp-gallery">
+                            <div class="fp-media fp-thumbnails" aria-label="Photos et vidéos">
+                                {% for photo in photos %}
+                                    {% set photo_thumb = photo|replace('.webp', '_thumb.webp') %}
+                                    <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" data-slide-index="{{ loop.index0 }}" aria-label="Afficher la photo {{ loop.index }}">
+                                        <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo_thumb }}" alt="{{ article.title }} — photo {{ loop.index }}" loading="lazy">
+                                    </a>
+                                {% endfor %}
+                                {% for video in videos %}
+                                    <a class="fp-video-thumb" href="{{ SITEURL }}/{{ media_dir }}/{{ video }}" data-slide-index="{{ photos|length + loop.index0 }}" aria-label="Afficher la vidéo {{ loop.index }}">
+                                        <video muted playsinline preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}" aria-hidden="true"></video>
+                                        <span aria-hidden="true">▶</span>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                            <div class="vanilla-carousel-container">
+                                <div class="vanilla-carousel" data-interval="4000">
+                                    <div class="carousel-stage">
+                                        {% for photo in photos %}
+                                            <div class="carousel-slide{% if loop.first %} active{% endif %}">
+                                                {% set photo_thumb = photo|replace('.webp', '_thumb.webp') %}
+                                                <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener" aria-label="Ouvrir la photo {{ loop.index }} dans un nouvel onglet">
+                                                    <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo_thumb }}" alt="{{ article.title }} — photo {{ loop.index }}">
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                        {% for video in videos %}
+                                            <div class="carousel-slide{% if loop.first and not photos %} active{% endif %}">
+                                                <video controls playsinline preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}"></video>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <button class="carousel-btn prev-btn" type="button" data-direction="-1" aria-label="Média précédent">&#10094;</button>
+                                    <button class="carousel-btn next-btn" type="button" data-direction="1" aria-label="Média suivant">&#10095;</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fp-print-media">
+                            {% for photo in photos %}<img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ article.title }}" loading="lazy">{% endfor %}
+                            {% for video in videos %}<a href="{{ SITEURL }}/{{ media_dir }}/{{ video }}">{{ video }}</a>{% endfor %}
+                        </div>
+                    {% endif %}
+                    {% if gpx_files or pdf_files %}
+                        <ul class="fp-files">
+                            {% for f in gpx_files %}<li>🗺️ <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" download>{{ f }}</a></li>{% endfor %}
+                            {% for f in pdf_files %}<li>📄 <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" target="_blank" rel="noopener">{{ f }}</a></li>{% endfor %}
+                        </ul>
+                    {% endif %}
+                </section>
+                {% if photos or videos %}
+                    <section class="trip-book-page trip-book-footprint footprint">
+                        <div class="masonry-grid" id="masonry">
+
+                            {# 1. Boucle pour les Photos #}
+                            {% for photo in photos %}
+                            <div class="masonry-item">
+                                <div class="content">
+                                    <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener" aria-label="Ouvrir la photo {{ loop.index }} dans un nouvel onglet">
+                                        <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ article.title }}" loading="lazy">
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                            {# 2. Boucle pour les Vidéos (Rendu sous forme de carte cliquable) #}
+                            {% for video in videos %}
+                            <div class="masonry-item">
+                                <div class="content video-card">
+                                    <!-- Rendu visuel d'une carte vidéo cliquable -->
+                                    <a href="{{ SITEURL }}/{{ media_dir }}/{{ video }}" class="video-link">
+                                        <div class="video-icon">▶</div>
+                                        <span class="video-name">{{ video }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
+
+            {% endwith %}
+        {% endfor %}
+    </article>
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/findpenguins-trip.js" defer></script>
+</body>
+</html>

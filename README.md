@@ -49,8 +49,12 @@ invoke preview
 - `themes/global/static/` contains theme stylesheets and images.
 - `plugins/` contains the local Pelican plugins.
 
-Trip cards open a printable trip book with a cover, contents and route; companions
-appear on the cover. The contents links to each footprint article in trip order.
+Trip cards open a printable trip book with a cover, contents, route and a section
+for each footprint; companions appear on the cover. The contents links to each
+section in trip order. Footprints do not have standalone pages; article links
+point directly to their sections in the trip book.
+New trip articles use the `findpenguins_trip` template; the older `trip` template
+remains supported.
 Route transport statistics show an icon for each transport type above its distance.
 The trip book uses square pages and a table of contents with up to 20 steps per
 column; columns wrap on narrow screens and long page contents can be scrolled.
