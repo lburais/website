@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}">
+<head>
+  <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+  <link rel="icon" type="image/x-icon" href="{{ SITEURL }}/images/favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ SITEURL }}/images/apple-touch-icon.png">
+
+  {% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=1">
+    <meta name="description" content="Base html for the theme.">
+  {% endblock %}
+
+  <!-- PURE -->
+
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pure/3.1.0/css/pure-min.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pure/3.1.0/css/grids-responsive-min.css">
+
+  <!-- FONTAWESOME -->
+  
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/fontawesome.min.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/solid.min.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/brands.min.css">
+  <!-- <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/fontawesome/7.1.0/css/regular.min.css">  -->
+
+  <!-- COMMON -->
+
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/main.css">
+  <link rel="stylesheet" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/css/findpenguins.css">
+
+  {% block extra_head %}{% endblock %}
+</head>

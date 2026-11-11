@@ -10,7 +10,6 @@
 
 Extraire les données de pages web ou d'applications pour les intégrer à notre site web:
 
-* Findpenguins https://github.com/lburais/FindPenguinsParser
+* Findpenguins et Apple Reminders https://github.com/lburais/scrapers
 * Strava
 * Apple Notes
-* Apple Reminders

@@ -30,11 +30,7 @@ THEME_STATIC_DIR = "theme"
 # seront accessibles hors-ligne et localement par vos templates HTML.
 # "pages" and "articles" are included so media are copied next to their generated pages
 # (FindPenguins trip/footprint articles carry their photos and videos).
-STATIC_PATHS = ["images", "pages", "articles", 'extra']
-
-EXTRA_PATH_METADATA = {
-    'extra/favicon.png': {'path': 'favicon.png'}
-}
+STATIC_PATHS = ["images", "pages", "articles", 'documents']
 
 # ==========================================
 # CONFIGURATION DES PAGES ET DES URLS
