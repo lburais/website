@@ -70,6 +70,10 @@ The `weasypdf` plugin generates one PDF per `findpenguins` trip, including its
 `footprint` articles. With the default filename, PDFs are written to
 `output/voyages-<trip-slug>.pdf`.
 
+The `pdfreader` plugin generates one article under `output/articles/documents/`
+for each PDF in `content/documents/`; the source PDF is copied alongside its
+HTML article, and PDFs elsewhere in the content tree are skipped.
+
 The production site URL is configured in `publishconf.py`. Set
 `DEPLOY_TARGET=github` when building for GitHub Pages; otherwise the production
 configuration uses the primary domain.

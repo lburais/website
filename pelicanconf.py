@@ -38,7 +38,11 @@ STATIC_PATHS = ["images", "pages", "articles", 'documents']
 # Configuration pour s'assurer que la page d'accueil (index.html) soit générée proprement 
 # à partir de votre fichier Markdown 'home.md' sans interférence avec les articles de blog.
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["flat_pages", "wikilinks", "fontawesome", "weasypdf"]
+PLUGINS = ["flat_pages", "wikilinks", "fontawesome", "weasypdf", "pdfreader"]
+
+# Ensure 'documents' is treated as a source for articles (not excluded)
+ARTICLE_PATHS = ['articles', 'documents']  # Adjust 'articles' to match your existing setup
+
 # Output mirrors content/pages (see plugins/flat_pages.py); explicit Save_as still wins.
 PAGE_URL = "{slug}.html"
 PAGE_SAVE_AS = "{slug}.html"
@@ -83,3 +87,6 @@ def file_exists(relative_path):
 JINJA_GLOBALS = {
     'file_exists': file_exists
 }
+
+# Optional: Set a default category for imported PDFs
+PDF_DEFAULT_CATEGORY = 'Documents'
