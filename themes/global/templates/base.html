@@ -53,8 +53,12 @@
           {% if pages %}
             {% for p in pages if p.relative_source_path.startswith('pages/') and p.relative_source_path.count('/') == 1 and p.slug != "index" %}
                 <li class="pure-menu-item">
-                  <a href="{{ SITEURL }}/{{ p.slug }}.html" class="pure-menu-link" {% if p.redirect_url %}target="_blank"{% endif %}>
-                  <span>{{ p.title }}</span>                        
+                  {% if p.redirect_url %}
+                    <a href="{{ p.redirect_url }}" class="pure-menu-link" target="_blank">
+                  {% else %}
+                    <a href="{{ SITEURL }}/{{ p.slug }}.html" class="pure-menu-link">
+                  {% endif %}
+                      <span>{{ p.title }}</span>                        
                   </a>
                 </li> 
             {% endfor %}

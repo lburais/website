@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}">
 <head>
+
+  {% if page is defined and page.redirect_url is defined %}
+
+    <meta http-equiv="refresh" content="0; url={{ page.redirect_url }}">
+    <link rel="canonical" href="{{ page.redirect_url }}">
+    <title>Redirecting...</title>
+
+  {% endif %}
+
   <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
   <link rel="icon" type="image/x-icon" href="{{ SITEURL }}/images/favicon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="{{ SITEURL }}/images/apple-touch-icon.png">

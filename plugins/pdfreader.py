@@ -52,7 +52,7 @@ class PdfReader(BaseReader):
                     image_dir.mkdir(parents=True, exist_ok=True)
                     (image_dir / filename).write_bytes(block['image'])
                     blocks.append(
-                        f'![PDF image]({{static}}/images/{slug}/{filename})'
+                        f'![PDF image]({{static}}/documents/{slug}/{filename})'
                     )
             if blocks:
                 pages.append('\n\n'.join(blocks))
@@ -84,7 +84,7 @@ class PdfReader(BaseReader):
             author = (pdf_meta.get('author') or '').strip()
             keywords = (pdf_meta.get('keywords') or '').strip()
             subject = (pdf_meta.get('subject') or '').strip()
-            image_dir = content_dir / 'images' / slug
+            image_dir = documents_dir / slug
             md_text = self._pdf_to_markdown(doc, image_dir, slug)
 
         md_text += (
