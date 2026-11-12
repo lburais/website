@@ -7,4 +7,4 @@
 :Author: Laurent Burais
 :Summary: Site web de la famille Burais.
 :Lang: fr
-:Status: draft
+:Status: published

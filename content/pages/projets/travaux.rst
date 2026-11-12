@@ -6,7 +6,7 @@
 :Author: Laurent Burais
 :Summary: Parc de Montaleigne.
 :Lang: fr
-:Status: draft
+:Status: published
 
 * Dégat des eaux salle de bain
 	* Bac à douche

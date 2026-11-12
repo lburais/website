@@ -38,7 +38,8 @@ STATIC_PATHS = ["images", "pages", "articles", 'documents']
 # Configuration pour s'assurer que la page d'accueil (index.html) soit générée proprement 
 # à partir de votre fichier Markdown 'home.md' sans interférence avec les articles de blog.
 PLUGIN_PATHS = ["plugins"]
-PLUGINS = ["flat_pages", "wikilinks", "fontawesome", "weasypdf", "pdfreader"]
+# PLUGINS = ["flat_pages", "wikilinks", "fontawesome", "linkbyslug", "weasypdf", "pdfreader"]
+PLUGINS = ["flat_pages", "wikilinks", "fontawesome", "linkbyslug"]
 
 # Ensure 'documents' is treated as a source for articles (not excluded)
 ARTICLE_PATHS = ['articles', 'documents']  # Adjust 'articles' to match your existing setup

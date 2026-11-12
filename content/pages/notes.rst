@@ -7,6 +7,6 @@
 :Author: Laurent Burais
 :Summary: TBC
 :Lang: fr
-:Status: draft
+:Status: hidden
 
 Cette page présente un extract des apple notes.

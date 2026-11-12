@@ -4,3 +4,4 @@ python-dotenv
 weasyprint
 pymupdf
 markdown
+ghp-import

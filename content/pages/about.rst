@@ -7,6 +7,6 @@
 :Author: Laurent Burais
 :Summary: La famille Burais ...
 :Lang: fr
-:Status: draft
+:Status: hidden
 
 Cette page présente la famille Burais.

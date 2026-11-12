@@ -7,6 +7,6 @@
 :Author: Laurent Burais
 :Summary: Les projets que la famille Burais a en cours
 :Lang: fr
-:Status: published
+:Status: hidden
 
 Projets de la famille Burais
