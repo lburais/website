@@ -1,5 +1,5 @@
-:Title: Scrappers
-:Slug: projet-scrappers
+:Title: Scrapers
+:Slug: projet-scrapers
 :Category: Projet
 :Date: 2026-10-11
 :Modified: 2026-11-04

@@ -1,6 +1,0 @@
-:Title: Todo ...
-:Date: 2026-10-28
-:Slug: projet-genealogie-todo
-:Template: article
-:Tags: genealogie, todo
-:Description: A faire ...
