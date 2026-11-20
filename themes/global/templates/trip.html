@@ -283,7 +283,7 @@
                     {% endif %}
                 </section>
                 {% if photos or videos %}
-                    <section class="trip-book-page trip-book-footprint footprint">
+                    <section class="trip-book-page trip-book-footprint footprint" aria-hidden="true">
                         <div class="masonry-grid" id="masonry">
 
                             {# 1. Boucle pour les Photos #}
@@ -316,6 +316,6 @@
             {% endwith %}
         {% endfor %}
     </article>
-    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/findpenguins-trip.js" defer></script>
+    <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/trip.js" defer></script>
 </body>
 </html>
