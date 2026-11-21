@@ -10,11 +10,15 @@
         '4x4': 'car-side',
         'train': 'train',
         'hiking': 'person-hiking',
+        'hike': 'person-hiking',
         'walking': 'person-walking',
         'sailing': 'sailboat',
         'motorboat': 'ship',
         'ferry': 'ferry',
+        'cruise': 'ship-large',
         'cruise ship': 'ship-large',
+        'rv': 'van-shuttle',
+        'campervan': 'van-shuttle',
         'camper': 'van-shuttle'
     } %}
     {% set steps = namespace(items=[]) %}
@@ -25,6 +29,7 @@
         {% endif %}
     {% endfor %}
     {% set footprints = steps.items|sort(attribute=0) %}
+    {% set parent_page = pages|selectattr('slug', 'equalto', article.category.name)|first|default(none) %}
     {% set cover = article.tripimage if article.tripimage else '' %}
     {% if cover and not cover.startswith(('http://', 'https://')) %}
         {% set cover = SITEURL ~ '/' ~ media_dir ~ '/' ~ cover %}
@@ -61,13 +66,17 @@
     {% endmacro %}
 
     <article class="trip-book">
-        <a class="fp-adventures-link" href="{{ SITEURL }}/aventures.html" aria-label="Retour aux carnets de voyage" title="Carnets de voyage">
-            <span aria-hidden="true" style="color: #000000; font-size: 12px;">🌐&#xFE0E;</span>
-        </a>
+        <!-------------------------------------------------------------------------------------------------------------------------------------
+        COVER PAGE
+        -------------------------------------------------------------------------------------------------------------------------------------->
 
         <section class="trip-book-page trip-book-cover" id="trip-overview" aria-label="Couverture">
             <div class="trip-overview-hero">
-                {% if cover %}<img class="trip-cover-image" src="{{ cover }}" alt="">{% endif %}
+                {% if cover %}
+                    {% if parent_page %}<a class="trip-cover-link" href="{{ SITEURL }}/{{ parent_page.url }}" aria-label="Retour à {{ parent_page.title }}">{% endif %}
+                        <img class="trip-cover-image" src="{{ cover }}" alt="">
+                    {% if parent_page %}</a>{% endif %}
+                {% endif %}
                 <div class="trip-overview-heading">
                     {% if article.date %}
                         <p>
@@ -130,6 +139,10 @@
 
         <div class="trip-print-blank" aria-hidden="true"></div>
 
+        <!-------------------------------------------------------------------------------------------------------------------------------------
+        TOC PAGE
+        -------------------------------------------------------------------------------------------------------------------------------------->
+
         <section class="trip-book-page trip-book-toc" aria-label="Sommaire">
             {% if map %}
                 <img class="trip-book-route" src="{{ map }}" alt="Carte de l'itinéraire de {{ article.title }}">
@@ -170,6 +183,10 @@
                 {% set days = trip.days|int if trip.days else (article.days|int if article.days else 0) %}
                 {% set lat = article.lat|float if article.lat else none %}
                 {% set lon = article.lon|float if article.lon else none %}
+
+                <!-----------------------------------------------------------------------------------------------------------------------------
+                FOOTPRINT PAGE
+                ------------------------------------------------------------------------------------------------------------------------------>
 
                 <section class="trip-book-page trip-book-footprint footprint" id="{{ article.slug }}" aria-label="{{ article.title }}">
                     <header class="fp-header">
@@ -215,10 +232,13 @@
                                             {% endif %}
                                         </span>
                                     {% endif %}
-                                    {% if article.flag and article.flag.startswith('flags/') %}<img class="country-flag" src="{{ SITEURL }}/{{ article.flag }}" alt="">{% endif %}
-                                    {% if article.country %}, {{ article.country }}{% endif %}{% if article.city %}, {{ article.city }}{% endif %}
+                                    {% if article.city %}- {{ article.city }}{% endif %}
+                                    {% if article.country %} {% if article.flag and article.flag.startswith('flags/') %}<img class="country-flag" src="{{ SITEURL }}/{{ article.flag }}" alt="">{% endif %} {{ article.country }}{% endif %}
                                 </p>
-                                <p class="fp-subtitle fp-trip"><a href="#trip-overview">{{ trip.title }}</a></p>
+                                <p class="fp-subtitle fp-trip">
+                                    <a href="#trip-overview">{{ trip.title }}</a>
+                                    {% if article.link %}<a href="{{ article.link }}" target="_blank" style="color: #000000;">🌐&#xFE0E;</a>{% endif %}
+                                </p>
                                 {% if article.weather or article.temperature or article.ele %}
                                     <dl class="fp-facts">
                                         {% if article.weather or article.temperature %}
@@ -231,6 +251,10 @@
                         </div>
                         <div class="fp-text">{{ article.content }}</div>
                     </header>
+
+                    <!-------------------------------------------------------------------------------------------------------------------------
+                    GALLERY
+                    -------------------------------------------------------------------------------------------------------------------------->
 
                     {% if photos or videos %}
                         <div class="fp-gallery">
@@ -254,7 +278,7 @@
                                         {% for photo in photos %}
                                             <div class="carousel-slide{% if loop.first %} active{% endif %}">
                                                 {% set photo_thumb = photo|replace('.webp', '_thumb.webp') %}
-                                                <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener" aria-label="Ouvrir la photo {{ loop.index }} dans un nouvel onglet">
+                                                <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" target="_blank" rel="noopener" aria-label="Afficher la photo {{ loop.index }} en plein écran">
                                                     <img src="{{ SITEURL }}/{{ media_dir }}/{{ photo_thumb }}" alt="{{ article.title }} — photo {{ loop.index }}">
                                                 </a>
                                             </div>
@@ -282,8 +306,9 @@
                         </ul>
                     {% endif %}
                 </section>
+
                 {% if photos or videos %}
-                    <section class="trip-book-page trip-book-footprint footprint" aria-hidden="true">
+                    <section class="trip-book-page trip-book-page footprint trip-print-blank">
                         <div class="masonry-grid" id="masonry">
 
                             {# 1. Boucle pour les Photos #}
@@ -316,6 +341,13 @@
             {% endwith %}
         {% endfor %}
     </article>
+    <dialog class="trip-photo-viewer" aria-label="Visionneuse de photos">
+        <button class="trip-photo-close" type="button" aria-label="Fermer la visionneuse" autofocus>&times;</button>
+        <button class="trip-photo-prev" type="button" aria-label="Photo précédente">&#10094;</button>
+        <img class="trip-photo-full" alt="">
+        <button class="trip-photo-next" type="button" aria-label="Photo suivante">&#10095;</button>
+        <span class="trip-photo-count" aria-live="polite"></span>
+    </dialog>
     <script src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/js/trip.js" defer></script>
 </body>
 </html>

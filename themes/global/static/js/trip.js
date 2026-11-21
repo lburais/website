@@ -1,9 +1,47 @@
+const photoViewer = document.querySelector('.trip-photo-viewer');
+let viewerState = null;
+
+function showViewerPhoto(index) {
+    viewerState.index = (index + viewerState.photos.length) % viewerState.photos.length;
+    const photo = viewerState.photos[viewerState.index];
+    const image = photoViewer.querySelector('.trip-photo-full');
+    image.src = photo.href;
+    image.alt = photo.querySelector('img').alt;
+    photoViewer.querySelector('.trip-photo-count').textContent =
+        `${viewerState.index + 1} / ${viewerState.photos.length}`;
+    viewerState.showSlide(viewerState.slides.indexOf(photo.closest('.carousel-slide')));
+}
+
+if (photoViewer && typeof photoViewer.showModal === 'function') {
+    photoViewer.querySelector('.trip-photo-close').addEventListener('click', () => photoViewer.close());
+    photoViewer.querySelector('.trip-photo-prev').addEventListener('click', () => showViewerPhoto(viewerState.index - 1));
+    photoViewer.querySelector('.trip-photo-next').addEventListener('click', () => showViewerPhoto(viewerState.index + 1));
+    photoViewer.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            event.preventDefault();
+            photoViewer.close();
+        } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+            event.preventDefault();
+            showViewerPhoto(viewerState.index + (event.key === 'ArrowLeft' ? -1 : 1));
+        }
+    });
+    photoViewer.addEventListener('click', (event) => {
+        if (event.target === photoViewer) photoViewer.close();
+    });
+    photoViewer.addEventListener('close', () => {
+        viewerState.photos[viewerState.index].focus();
+        if (viewerState.resumeAutoPlay) viewerState.startAutoPlay();
+        viewerState = null;
+    });
+}
+
 document.querySelectorAll('.fp-gallery').forEach((gallery) => {
     const carousel = gallery.querySelector('.vanilla-carousel');
     const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
     const thumbnails = Array.from(gallery.querySelectorAll('[data-slide-index]'));
+    const photos = Array.from(carousel.querySelectorAll('.carousel-slide > a'));
     let activeIndex = 0;
-    let timer;
+    let timer = null;
 
     function showSlide(index) {
         activeIndex = (index + slides.length) % slides.length;
@@ -21,20 +59,37 @@ document.querySelectorAll('.fp-gallery').forEach((gallery) => {
     }
 
     function startAutoPlay() {
-        clearInterval(timer);
+        stopAutoPlay();
         timer = setInterval(() => showSlide(activeIndex + 1), Number(carousel.dataset.interval) || 5000);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(timer);
+        timer = null;
     }
 
     thumbnails.forEach((thumbnail) => thumbnail.addEventListener('click', (event) => {
         event.preventDefault();
-        clearInterval(timer);
+        stopAutoPlay();
         showSlide(Number(thumbnail.dataset.slideIndex));
     }));
-    gallery.querySelector('.fp-thumbnails').addEventListener('pointerenter', () => clearInterval(timer));
+    gallery.querySelector('.fp-thumbnails').addEventListener('pointerenter', stopAutoPlay);
     gallery.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => {
         showSlide(activeIndex + Number(button.dataset.direction));
         startAutoPlay();
     }));
+    if (photoViewer && typeof photoViewer.showModal === 'function') {
+        photos.forEach((photo, index) => photo.addEventListener('click', (event) => {
+            if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+            event.preventDefault();
+            viewerState = { photos, slides, index, showSlide, startAutoPlay, resumeAutoPlay: timer !== null };
+            stopAutoPlay();
+            photoViewer.querySelector('.trip-photo-prev').hidden = photos.length < 2;
+            photoViewer.querySelector('.trip-photo-next').hidden = photos.length < 2;
+            showViewerPhoto(index);
+            photoViewer.showModal();
+        }));
+    }
     showSlide(0);
     startAutoPlay();
 });

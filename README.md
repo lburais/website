@@ -51,8 +51,11 @@ invoke preview
 
 Trip cards open a printable trip book with a cover, contents, route and a section
 for each footprint; companions appear on the cover. The contents links to each
-section in trip order. Footprints do not have standalone pages; article links
-point directly to their sections in the trip book.
+section in trip order. Clicking the cover image returns to the corresponding
+service's trip list. Footprint links point directly to their sections in the trip
+book; footprint HTML pages redirect there as well.
+Clicking a carousel photo opens a full-resolution viewer for that footprint's
+photos, with previous/next controls and keyboard navigation.
 New trip articles use the `findpenguins_trip` template; the older `trip` template
 remains supported.
 Route transport statistics show an icon for each transport type above its distance.

@@ -168,7 +168,7 @@ MEDIA ADJUSMENTS
 FOOTPRINT STYLES
 */
 
-.fp-adventures-link {
+/* .fp-adventures-link {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -184,7 +184,7 @@ FOOTPRINT STYLES
     font-size: 1.5rem;
     line-height: 1;
     text-decoration: none;
-}
+} */
 
 .fp-adventures-link:hover,
 .fp-adventures-link:focus-visible {
@@ -525,6 +525,42 @@ FOOTPRINT STYLES
 .prev-btn { left: 15px; }
 .next-btn { right: 15px; }
 
+.trip-photo-viewer {
+    box-sizing: border-box;
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(96vw, 1280px);
+    height: min(90vh, 960px);
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+    padding: 3rem 3.5rem;
+    border: 0;
+    border-radius: 6px;
+    background: #111;
+    color: #fff;
+}
+.trip-photo-viewer::backdrop { background: rgba(0, 0, 0, 0.85); }
+.trip-photo-full { display: block; width: 100%; height: 100%; object-fit: contain; }
+.trip-photo-viewer button {
+    position: absolute;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.4rem;
+    width: 2.75rem;
+    height: 2.75rem;
+}
+.trip-photo-viewer button:hover { background: #444; }
+.trip-photo-viewer button:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+.trip-photo-close { top: 0.5rem; right: 0.5rem; }
+.trip-photo-prev, .trip-photo-next { top: 50%; transform: translateY(-50%); }
+.trip-photo-prev { left: 0.5rem; }
+.trip-photo-next { right: 0.5rem; }
+.trip-photo-count { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); }
+
 /*
 TRIP STYLES
 */
@@ -540,7 +576,6 @@ TRIP STYLES
     position: relative;
     box-sizing: border-box;
     width: 100%;
-    aspect-ratio: 1;
     margin-bottom: 1rem;
     overflow: auto;
     background: #fff;
@@ -556,6 +591,8 @@ TRIP STYLES
     flex-direction: column;
     border-left: 10px solid #078bc8;
     background: #147cac;
+    aspect-ratio: 1;
+    height: auto;
 }
 
 .trip-cover-image {
@@ -576,9 +613,11 @@ TRIP STYLES
 .trip-companion-image { width: 1em; height: 1em; border-radius: 50%; object-fit: cover; }
 
 .trip-overview-hero { position: relative; min-height: 60%; flex: 1 0 60%; background: #147cac; }
-.trip-overview-hero > .trip-cover-image { position: absolute; inset: 0; }
+.trip-overview-hero > .trip-cover-image, .trip-cover-link { position: absolute; inset: 0; }
+.trip-cover-link:focus-visible { outline: 3px solid white; outline-offset: -3px; }
 .trip-overview-heading {
     position: relative;
+    pointer-events: none;
     padding: 8% 1rem;
     color: #fff;
     text-align: center;
@@ -734,6 +773,7 @@ MEDIA SPECIFICS
 }
 
 @media print {
+    .trip-photo-viewer { display: none !important; }
     body > .header, body > .footer { display: none !important; }
     .content-wrapper { position: static !important; top: auto !important; height: auto !important; padding: 0 !important; overflow: visible !important; }
     .trip-book { max-width: none; margin: 0; padding: 0; }
@@ -745,6 +785,7 @@ MEDIA SPECIFICS
         margin: 0;
         box-shadow: none;
         break-after: page;
+        aspect-ratio: 1;
     }
     .trip-book-page:last-child { break-after: auto; }
     .trip-book-cover, .trip-book-route { display: flex; }
