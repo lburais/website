@@ -1,3 +1,16 @@
+document.querySelectorAll('.trip-route-map').forEach((map) => {
+    map.querySelectorAll('.trip-map-bubble').forEach((button) => {
+        button.addEventListener('click', () => {
+            const target = `${map.dataset.tripSlug}-etape-${button.dataset.footprintIndex}`;
+            if (document.getElementById(target)) {
+                window.location.hash = target;
+            } else {
+                console.warn(`Footprint section not found: ${target}`);
+            }
+        });
+    });
+});
+
 const photoViewer = document.querySelector('.trip-photo-viewer');
 let viewerState = null;
 

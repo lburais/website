@@ -145,10 +145,13 @@
 
         <section class="trip-book-page trip-book-toc" aria-label="Sommaire">
             {% if map %}
-                <img class="trip-book-route" src="{{ map }}" alt="Carte de l'itinéraire de {{ article.title }}">
+                <div class="trip-route-map" data-trip-slug="{{ article.slug }}">
+                    <img class="trip-book-route" src="{{ map }}" alt="Carte de l'itinéraire de {{ article.title }}">
+                    {{ article.trip_map_overlay|default('')|safe }}
+                </div>
             {% endif %}
 
-            <a class="trip-toc-overview" href="#trip-overview">{{ article.title }}</a>
+            <!-- <a class="trip-toc-overview" href="#trip-overview">{{ article.title }}</a>
             {% if footprints %}
                 <div class="trip-toc-list">
                     {% for column in footprints|batch(20) %}
@@ -165,7 +168,7 @@
                 </div>
             {% else %}
                 <p>Aucune étape disponible.</p>
-            {% endif %}
+            {% endif %} -->
         </section>
         
         {% for number, footprint in footprints %}

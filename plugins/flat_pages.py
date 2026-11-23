@@ -1,6 +1,7 @@
 """Mirror article and page source paths in the output."""
 import logging
 import os
+from urllib.parse import unquote
 
 from pelican import signals
 from pelican.contents import Article, Page, Static
@@ -66,6 +67,24 @@ def link_footprints(generator):
         article.template = "footprint_redirect"
 
 
+def load_trip_map_overlays(generator):
+    for article in generator.articles:
+        if str(article.metadata.get("template")) not in ("trip", "findpenguins_trip"):
+            continue
+        map_name = str(getattr(article, "tripsatellitemap", "") or getattr(article, "tripmap", ""))
+        map_name = unquote(map_name)
+        if not map_name or os.path.basename(map_name) != map_name:
+            continue
+        source_dir = os.path.dirname(os.path.join(generator.settings["PATH"], article.relative_source_path))
+        overlay_path = os.path.join(source_dir, os.path.splitext(map_name)[0] + ".inc")
+        if os.path.isfile(overlay_path):
+            try:
+                with open(overlay_path, encoding="utf-8") as overlay:
+                    article.trip_map_overlay = overlay.read()
+            except OSError as exc:
+                logger.warning("Unable to read trip map overlay %s: %s", overlay_path, exc)
+
+
 class _TitleFilter(logging.Filter):
     # Generated pages carry their title in metadata and have no RST body heading.
     def filter(self, record):
@@ -76,3 +95,4 @@ def register():
     logging.getLogger("pelican.readers").addFilter(_TitleFilter())
     signals.content_object_init.connect(relocate)
     signals.article_generator_finalized.connect(link_footprints)
+    signals.article_generator_finalized.connect(load_trip_map_overlays)
