@@ -48,7 +48,7 @@ if (photoViewer && typeof photoViewer.showModal === 'function') {
     });
 }
 
-document.querySelectorAll('.fp-gallery').forEach((gallery) => {
+document.querySelectorAll('.aventure-gallery').forEach((gallery) => {
     const carousel = gallery.querySelector('.vanilla-carousel');
     const slides = Array.from(carousel.querySelectorAll('.carousel-slide'));
     const thumbnails = Array.from(gallery.querySelectorAll('[data-slide-index]'));
@@ -86,7 +86,7 @@ document.querySelectorAll('.fp-gallery').forEach((gallery) => {
         stopAutoPlay();
         showSlide(Number(thumbnail.dataset.slideIndex));
     }));
-    gallery.querySelector('.fp-thumbnails').addEventListener('pointerenter', stopAutoPlay);
+    gallery.querySelector('.aventure-thumbnails').addEventListener('pointerenter', stopAutoPlay);
     gallery.querySelectorAll('[data-direction]').forEach((button) => button.addEventListener('click', () => {
         showSlide(activeIndex + Number(button.dataset.direction));
         startAutoPlay();
@@ -107,7 +107,7 @@ document.querySelectorAll('.fp-gallery').forEach((gallery) => {
     startAutoPlay();
 });
 
-document.querySelectorAll('.fp-text a[href^="http://"], .fp-text a[href^="https://"]').forEach((link) => {
+document.querySelectorAll('.aventure-text a[href^="http://"], .aventure-text a[href^="https://"]').forEach((link) => {
     link.target = '_blank';
     link.rel = 'noopener';
 });

@@ -1,7 +1,7 @@
 :root {
     background: #f1f1f1;
-    --fp-blue: #1a8ac9;
-    --fp-track: #e6e6e6;
+    --aventure-blue: #1a8ac9;
+    --aventure-track: #e6e6e6;
 }
 
 .country-flag {
@@ -168,30 +168,6 @@ MEDIA ADJUSMENTS
 FOOTPRINT STYLES
 */
 
-/* .fp-adventures-link {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    z-index: 20;
-    display: grid;
-    width: 16px;
-    height: 16px;
-    place-items: center;
-    border-radius: 50%;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    color: var(--fp-blue);
-    font-size: 1.5rem;
-    line-height: 1;
-    text-decoration: none;
-} */
-
-.fp-adventures-link:hover,
-.fp-adventures-link:focus-visible {
-    background: var(--fp-blue);
-    color: #fff;
-}
-
 .footprint {
     position: relative;
     max-width: 900px;
@@ -201,23 +177,27 @@ FOOTPRINT STYLES
     overflow: hidden;
 }
 
-.fp-header { padding: 28px clamp(16px, 7%, 64px) 6px; }
+.aventure-header { padding: 28px clamp(16px, 7%, 64px) 6px; }
 
-.fp-hero {
+.aventure-hero {
     display: flex;
     flex-direction: column;
     gap: 24px;
     margin-bottom: 18px;
 }
 
-.fp-hero-map {
-    position: relative;
-    display: block;
-    height: 230px;
+.aventure-hero-map {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) min(180px, 30%);
+    grid-template-areas:
+        "nav nav"
+        "heading map";
+    gap: 12px 16px;
+    align-items: stretch;
     margin-bottom: 10px;
 }
 
-.fp-nav {
+.aventure-nav {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -225,49 +205,48 @@ FOOTPRINT STYLES
     margin-top: 6px;
 }
 
-.fp-hero-map .fp-nav {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    width: calc(100% - 230px);
+.aventure-hero-map .aventure-nav {
+    grid-area: nav;
+    position: static;
+    width: 100%;
     margin: 0;
 }
 
-.fp-arrow {
-    color: var(--fp-blue);
+.aventure-arrow {
+    color: var(--aventure-blue);
     font-size: 0.9rem;
     text-decoration: none;
 }
 
-.fp-arrow-off { visibility: hidden; }
+.aventure-arrow-off { visibility: hidden; }
 
-.fp-progress,
-.fp-progress-empty {
+.aventure-progress,
+.aventure-progress-empty {
     position: relative;
     flex: 1 1 auto;
     height: 3px;
-    background: var(--fp-track);
+    background: var(--aventure-track);
 }
 
-.fp-progress-fill {
+.aventure-progress-fill {
     height: 100%;
-    background: var(--fp-blue);
+    background: var(--aventure-blue);
 }
 
-.fp-day {
+.aventure-day {
     position: absolute;
     top: 8px;
     transform: translateX(-50%);
     padding: 2px 8px;
     border-radius: 3px;
-    background: var(--fp-blue);
+    background: var(--aventure-blue);
     color: #fff;
     font-size: 0.7rem;
     font-weight: 600;
     white-space: nowrap;
 }
 
-.fp-day::before {
+.aventure-day::before {
     content: "";
     position: absolute;
     top: -4px;
@@ -275,73 +254,83 @@ FOOTPRINT STYLES
     transform: translateX(-50%);
     border: 4px solid transparent;
     border-top: 0;
-    border-bottom-color: var(--fp-blue);
+    border-bottom-color: var(--aventure-blue);
 }
 
-.fp-map {
+.aventure-map {
     width: min(100%, 180px);
     text-align: center;
 }
 
-.fp-hero-map .fp-map {
-    position: absolute;
-    top: 8px;
-    right: 0;
+.aventure-hero-map .aventure-map {
+    grid-area: map;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    width: 100%;
 }
 
-.fp-map-frame {
+.aventure-hero-map .aventure-map-frame {
+    flex: 1 1 0;
+    height: 0;
+    min-height: 0;
+}
+
+.aventure-map-frame {
     height: 195px;
     overflow: hidden;
     border-radius: 6px;
     background: transparent;
 }
 
-.fp-map-frame img {
+.aventure-map-frame img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.fp-coords {
+.aventure-coords {
     display: block;
     margin-top: 4px;
-    color: var(--fp-blue);
+    color: var(--aventure-blue);
     font-size: 0.7rem;
     text-decoration: none;
+    overflow-wrap: anywhere;
 }
 
-.fp-title {
+.aventure-title {
     font-size: clamp(1.4rem, 4vw, 1.7rem);
     font-weight: 800;
     line-height: 1.2;
     color: #000;
 }
 
-.fp-subtitle {
+.aventure-subtitle {
     margin: 5px 0 0;
     font-size: 0.75rem;
     font-weight: 700;
     color: #000;
 }
 
-.fp-hero-map .fp-heading {
-    position: absolute;
-    top: 79px;
-    left: 0;
-    max-width: calc(100% - 220px);
+.aventure-hero-map .aventure-heading {
+    grid-area: heading;
+    position: static;
+    max-width: none;
+    overflow-wrap: anywhere;
 }
 
-.fp-text {
+.aventure-text {
     color: #333;
     font-size: 0.9rem;
     line-height: 1.55;
 }
 
-.fp-text p + p { margin-top: 0.8em; }
-.fp-text a { color: var(--fp-blue); }
+.aventure-text p + p { margin-top: 0.8em; }
+.aventure-text a { color: var(--aventure-blue); }
 
-.fp-facts {
+.aventure-facts {
     display: flex;
     flex-wrap: wrap;
     gap: 12px 32px;
@@ -349,18 +338,18 @@ FOOTPRINT STYLES
     color: #000;
 }
 
-.fp-facts dt {
-    color: var(--fp-blue);
+.aventure-facts dt {
+    color: var(--aventure-blue);
     font-size: 0.65rem;
     font-weight: 700;
 }
 
-.fp-facts dd {
+.aventure-facts dd {
     margin-top: 2px;
     font-size: 0.95rem;
 }
 
-.fp-media {
+.aventure-media {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -370,7 +359,7 @@ FOOTPRINT STYLES
     overflow-x: auto;
 }
 
-.fp-media a {
+.aventure-media a {
     position: relative;
     display: block;
     flex: 0 0 auto;
@@ -380,8 +369,8 @@ FOOTPRINT STYLES
     border-radius: 4px;
 }
 
-.fp-media img,
-.fp-media video {
+.aventure-media img,
+.aventure-media video {
     display: block;
     width: auto;
     height: 50px;
@@ -389,22 +378,22 @@ FOOTPRINT STYLES
     object-fit: cover;
 }
 
-.fp-media a:focus-visible {
-    outline: 3px solid var(--fp-blue);
+.aventure-media a:focus-visible {
+    outline: 3px solid var(--aventure-blue);
     outline-offset: 2px;
 }
 
-.fp-media a.active {
-    outline: 2px solid var(--fp-blue);
+.aventure-media a.active {
+    outline: 2px solid var(--aventure-blue);
     outline-offset: 1px;
 }
 
-.fp-video-thumb video {
+.aventure-video-thumb video {
     width: 50px;
     background: #000;
 }
 
-.fp-video-thumb span {
+.aventure-video-thumb span {
     position: absolute;
     inset: 0;
     display: grid;
@@ -418,31 +407,18 @@ FOOTPRINT STYLES
 @media (max-width: 600px) {
     body { padding: 0; }
     .footprint { box-shadow: none; }
-    .fp-header { padding: 24px 16px; }
-    .fp-hero-map {
-        display: flex;
-        height: auto;
-        margin-bottom: 18px;
-    }
-    .fp-hero-map .fp-nav,
-    .fp-hero-map .fp-map,
-    .fp-hero-map .fp-heading {
-        position: static;
-        width: 100%;
-        max-width: none;
-    }
-    .fp-map { width: 100%; }
-    .fp-map-frame { height: 190px; }
-    .fp-media { margin-top: 8px; }
+    .aventure-header { padding: 24px 16px; }
+    .aventure-hero-map { margin-bottom: 18px; }
+    .aventure-media { margin-top: 8px; }
 }
 
-.fp-files { list-style: none; margin-top: 14px; font-size: 0.85rem; }
-.fp-files li { margin-bottom: 6px; overflow-wrap: anywhere; }
-.fp-files a { color: var(--fp-blue); text-decoration: none; }
+.aventure-files { list-style: none; margin-top: 14px; font-size: 0.85rem; }
+.aventure-files li { margin-bottom: 6px; overflow-wrap: anywhere; }
+.aventure-files a { color: var(--aventure-blue); text-decoration: none; }
 
-.fp-trip { margin-top: 6px; }
-.fp-trip a { color: inherit; text-decoration: none; }
-.fp-trip a:hover { text-decoration: underline; }
+.aventure-trip { margin-top: 6px; }
+.aventure-trip a { color: inherit; text-decoration: none; }
+.aventure-trip a:hover { text-decoration: underline; }
 
 .vanilla-carousel-container {
     max-width: 800px;
@@ -582,7 +558,7 @@ TRIP STYLES
     box-shadow: 0 2px 10px rgb(0 0 0 / 12%);
 }
 
-.fp-print-media { display: none; }
+.aventure-print-media { display: none; }
 
 .trip-print-blank { display: none; }
 
@@ -642,52 +618,6 @@ TRIP STYLES
 .trip-book-toc a:hover, .trip-book-toc a:focus-visible { 
     color: #007fbf; 
     text-decoration: underline; 
-}
-.trip-toc-overview { 
-    display: block;
-    width: 100%;
-    text-align: center; 
-    font-weight: bold; 
-}
-.trip-toc-list { 
-    width: 95%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: clamp(1rem, 5vw, 3rem);
-    margin: 0.5rem auto 0; 
-}
-.trip-toc-column {
-    flex: 1 1 12rem;
-    min-width: 0;
-    margin: 0;
-    padding: 0; 
-    list-style: none; 
-}
-.trip-toc-list li { 
-    break-inside: avoid; 
-    margin: .2rem 0; 
-    overflow-wrap: anywhere; 
-}
-.trip-toc-list a { 
-    display: inline-flex; 
-    align-items: baseline; 
-    gap: .4em; 
-}
-.trip-toc-number {
-    display: inline-block;
-    flex: none;
-    box-sizing: border-box;
-    min-width: 1em;
-    height: 1em;
-    padding: 0 .2em;
-    border: 2px solid #073b70;
-    border-radius: 50%;
-    background: #f8fbff;
-    color: #073b70;
-    font-size: .75em;
-    font-weight: bold;
-    line-height: calc(1em - 4px);
-    text-align: center;
 }
 .trip-route-map {
     position: relative;
@@ -806,7 +736,7 @@ MEDIA SPECIFICS
     .trip-book-toc { height: auto; min-height: 297mm; padding: 32mm 35mm; }
     .trip-book-page { overflow: visible; }
     .trip-book-footprint { height: auto; min-height: 297mm; }
-    .trip-book-footprint .fp-nav, .trip-book-footprint .fp-gallery { display: none; }
-    .fp-print-media { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
-    .fp-print-media img { width: 30%; height: auto; object-fit: contain; break-inside: avoid; }
+    .trip-book-footprint .aventure-nav, .trip-book-footprint .aventure-gallery { display: none; }
+    .aventure-print-media { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 12px; }
+    .aventure-print-media img { width: 30%; height: auto; object-fit: contain; break-inside: avoid; }
 }

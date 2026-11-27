@@ -150,25 +150,6 @@
                     {{ article.trip_map_overlay|default('')|safe }}
                 </div>
             {% endif %}
-
-            <!-- <a class="trip-toc-overview" href="#trip-overview">{{ article.title }}</a>
-            {% if footprints %}
-                <div class="trip-toc-list">
-                    {% for column in footprints|batch(20) %}
-                        <ol class="trip-toc-column" start="{{ loop.index0 * 20 + 1 }}">
-                            {% for number, footprint in column %}
-                                <li>
-                                    <a href="#{{ footprint.slug }}">
-                                        <span class="trip-toc-number">{{ number }}</span> <span>{{ footprint.title }}</span>
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ol>
-                    {% endfor %}
-                </div>
-            {% else %}
-                <p>Aucune étape disponible.</p>
-            {% endif %} -->
         </section>
         
         {% for number, footprint in footprints %}
@@ -192,34 +173,34 @@
                 ------------------------------------------------------------------------------------------------------------------------------>
 
                 <section class="trip-book-page trip-book-footprint footprint" id="{{ article.slug }}" aria-label="{{ article.title }}">
-                    <header class="fp-header">
-                        <div class="fp-hero{% if lat is not none and lon is not none %} fp-hero-map{% endif %}">
-                            <div class="fp-nav">
-                                {% if previous %}<a class="fp-arrow" href="#{{ previous.slug }}" title="{{ previous.title }}">&#9664;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9664;</span>{% endif %}
+                    <header class="aventure-header">
+                        <div class="aventure-hero{% if lat is not none and lon is not none %} aventure-hero-map{% endif %}">
+                            <div class="aventure-nav">
+                                {% if previous %}<a class="aventure-arrow" href="#{{ previous.slug }}" title="{{ previous.title }}">&#9664;</a>{% else %}<span class="aventure-arrow aventure-arrow-off">&#9664;</span>{% endif %}
                                 {% if day %}
                                     {% set ratio = [0, [(day - 1) / (days - 1) * 100, 100]|min]|max if days > 1 else 100 %}
-                                    <div class="fp-progress" aria-label="Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}">
-                                        <div class="fp-progress-fill" style="width: {{ ratio|round(1) }}%"></div>
-                                        <span class="fp-day" style="left: {{ ratio|round(1) }}%">Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}</span>
+                                    <div class="aventure-progress" aria-label="Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}">
+                                        <div class="aventure-progress-fill" style="width: {{ ratio|round(1) }}%"></div>
+                                        <span class="aventure-day" style="left: {{ ratio|round(1) }}%">Jour {{ day }}{% if nights > 0 %}-{{ end_day }}{% endif %}</span>
                                     </div>
                                 {% else %}
-                                    <div class="fp-progress-empty"></div>
+                                    <div class="aventure-progress-empty"></div>
                                 {% endif %}
-                                {% if next %}<a class="fp-arrow" href="#{{ next.slug }}" title="{{ next.title }}">&#9654;</a>{% else %}<span class="fp-arrow fp-arrow-off">&#9654;</span>{% endif %}
+                                {% if next %}<a class="aventure-arrow" href="#{{ next.slug }}" title="{{ next.title }}">&#9654;</a>{% else %}<span class="aventure-arrow aventure-arrow-off">&#9654;</span>{% endif %}
                             </div>
                             {% if lat is not none and lon is not none %}
-                                <div class="fp-map">
-                                    <div class="fp-map-frame" role="img" aria-label="Carte de {{ article.city|default(article.country, true) }}">
+                                <div class="aventure-map">
+                                    <div class="aventure-map-frame" role="img" aria-label="Carte de {{ article.city|default(article.country, true) }}">
                                         <img src="{{ SITEURL }}/{{ media_dir }}/map_country.webp" alt="Carte de {{ article.city|default(article.country, true) }}" loading="lazy">
                                     </div>
-                                    <a class="fp-coords" href="https://www.openstreetmap.org/?mlat={{ lat }}&amp;mlon={{ lon }}#map=12/{{ lat }}/{{ lon }}" target="_blank" rel="noopener">
+                                    <a class="aventure-coords" href="https://www.openstreetmap.org/?mlat={{ lat }}&amp;mlon={{ lon }}#map=12/{{ lat }}/{{ lon }}" target="_blank" rel="noopener">
                                         {{ '%.4f'|format(lat|abs) }}° {{ 'N' if lat >= 0 else 'S' }}, {{ '%.4f'|format(lon|abs) }}° {{ 'E' if lon >= 0 else 'W' }}
                                     </a>
                                 </div>
                             {% endif %}
-                            <div class="fp-heading">
-                                <h2 class="fp-title">{{ article.title }}</h2>
-                                <p class="fp-subtitle">
+                            <div class="aventure-heading">
+                                <h2 class="aventure-title">{{ article.title }}</h2>
+                                <p class="aventure-subtitle">
                                     {% if article.date %}
                                         <span>
                                             {% if last_date %}
@@ -238,12 +219,12 @@
                                     {% if article.city %}- {{ article.city }}{% endif %}
                                     {% if article.country %} {% if article.flag and article.flag.startswith('flags/') %}<img class="country-flag" src="{{ SITEURL }}/{{ article.flag }}" alt="">{% endif %} {{ article.country }}{% endif %}
                                 </p>
-                                <p class="fp-subtitle fp-trip">
+                                <p class="aventure-subtitle aventure-trip">
                                     <a href="#trip-overview">{{ trip.title }}</a>
                                     {% if article.link %}<a href="{{ article.link }}" target="_blank" style="color: #000000;">🌐&#xFE0E;</a>{% endif %}
                                 </p>
                                 {% if article.weather or article.temperature or article.ele %}
-                                    <dl class="fp-facts">
+                                    <dl class="aventure-facts">
                                         {% if article.weather or article.temperature %}
                                             <div><dt>Météo</dt><dd>{{ article.weather }}{% if article.temperature %} {{ article.temperature }} °C{% endif %}</dd></div>
                                         {% endif %}
@@ -252,7 +233,7 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="fp-text">{{ article.content }}</div>
+                        <div class="aventure-text">{{ article.content }}</div>
                     </header>
 
                     <!-------------------------------------------------------------------------------------------------------------------------
@@ -260,8 +241,8 @@
                     -------------------------------------------------------------------------------------------------------------------------->
 
                     {% if photos or videos %}
-                        <div class="fp-gallery">
-                            <div class="fp-media fp-thumbnails" aria-label="Photos et vidéos">
+                        <div class="aventure-gallery">
+                            <div class="aventure-media aventure-thumbnails" aria-label="Photos et vidéos">
                                 {% for photo in photos %}
                                     {% set photo_thumb = photo|replace('.webp', '_thumb.webp') %}
                                     <a href="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" data-slide-index="{{ loop.index0 }}" aria-label="Afficher la photo {{ loop.index }}">
@@ -269,7 +250,7 @@
                                     </a>
                                 {% endfor %}
                                 {% for video in videos %}
-                                    <a class="fp-video-thumb" href="{{ SITEURL }}/{{ media_dir }}/{{ video }}" data-slide-index="{{ photos|length + loop.index0 }}" aria-label="Afficher la vidéo {{ loop.index }}">
+                                    <a class="aventure-video-thumb" href="{{ SITEURL }}/{{ media_dir }}/{{ video }}" data-slide-index="{{ photos|length + loop.index0 }}" aria-label="Afficher la vidéo {{ loop.index }}">
                                         <video muted playsinline preload="metadata" src="{{ SITEURL }}/{{ media_dir }}/{{ video }}" aria-hidden="true"></video>
                                         <span aria-hidden="true">▶</span>
                                     </a>
@@ -297,13 +278,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="fp-print-media">
+                        <div class="aventure-print-media">
                             {% for photo in photos %}<img src="{{ SITEURL }}/{{ media_dir }}/{{ photo }}" alt="{{ article.title }}" loading="lazy">{% endfor %}
                             {% for video in videos %}<a href="{{ SITEURL }}/{{ media_dir }}/{{ video }}">{{ video }}</a>{% endfor %}
                         </div>
                     {% endif %}
                     {% if gpx_files or pdf_files %}
-                        <ul class="fp-files">
+                        <ul class="aventure-files">
                             {% for f in gpx_files %}<li>🗺️ <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" download>{{ f }}</a></li>{% endfor %}
                             {% for f in pdf_files %}<li>📄 <a href="{{ SITEURL }}/{{ media_dir }}/{{ f }}" target="_blank" rel="noopener">{{ f }}</a></li>{% endfor %}
                         </ul>
